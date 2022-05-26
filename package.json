@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {},
+  "scripts": {
+    "format": "yarn workspace client lint --fix && yarn workspace server lint --fix",
+    "lint": "yarn workspace client lint && yarn workspace server lint",
+    "test": "yarn workspace client test --watchAll=false && yarn workspace server test"
+  }
+}
