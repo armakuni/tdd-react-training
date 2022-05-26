@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
+  "type": "module",
   "dependencies": {
     "@types/cors": "^2.8.12",
     "@types/express-pino-logger": "^4.0.3",
