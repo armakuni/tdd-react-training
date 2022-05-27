@@ -39,11 +39,6 @@ describe('useApiRequest', () => {
     httpMock.reset();
   });
 
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
   it('initial state is loading', () => {
     httpMock.onGet('http://example.com/sizes')
       .reply(() => new Promise((resolve) => { /* never resolve */

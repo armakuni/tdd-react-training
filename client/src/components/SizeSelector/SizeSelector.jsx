@@ -3,7 +3,7 @@ import Options from '../Options';
 import SizeLoader from '../SizeLoader';
 
 export default function SizeSelector({ onUpdate }) {
-  return (
+  return (  
     <SizeLoader>
       {(sizes) => (
         <Options

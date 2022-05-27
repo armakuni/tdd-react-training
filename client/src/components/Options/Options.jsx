@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react';
+import { useId, useState } from 'react';
 
 function Option({ value, selected, onChange }) {
   const id = useId();
