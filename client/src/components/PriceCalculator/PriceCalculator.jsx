@@ -6,13 +6,22 @@ function PriceCalculator(props) {
     // prices.set('large', 15)
     // prices.set('medium', 10)
     
-    const sizes = props.pizzas
+    const pizzas = props.pizzas
     const prices = props.prices
-    const totals = sizes.map(size => prices.find(x => x.size === size.size)).map(x => x.price);
+    const totals = pizzas.map(calculatePizzaCost());
 
     return <div>
         Total: £{totals.reduce((x,y) => x + y, 0)}
     </div>
+
+    function calculatePizzaCost() {
+        return pizza => prices.sizes.find(x => x.size === pizza.size).price 
+        + pizza.toppings?.map(findToppingPrice()).reduce((x,y) => x + y, 0);
+
+        function findToppingPrice() {
+            return topping => prices.toppings.find(x => x.topping === topping).price;
+        }
+    }
 }
 
 export default PriceCalculator;
