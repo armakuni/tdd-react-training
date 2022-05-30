@@ -1,14 +1,15 @@
 import { render, screen } from "@testing-library/react"
-import PriceCalculator from './PriceCalculator'
+import PriceCalculator, { calculatePizzaCost } from './PriceCalculator'
 
-
-describe('PriceCalculator', () => {
-    const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2}, 
-    {size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
-    {size: 'small', price: 5, toppingPriceMultiplier: 1}], 
+const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2}, 
+{size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
+{size: 'small', price: 5, toppingPriceMultiplier: 1}], 
 toppings: [{topping: "mushroom", price: 0.5}, 
 {topping: "anchovy", price: 1}, 
 {topping: "pepperoni", price: 1.5}]}
+
+describe('PriceCalculator', () => {
+
 const pizzas = [{size: 'large', toppings: ['mushroom']}]
 
     it('renders total price for single pizza', async () => {
@@ -58,3 +59,18 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
         expect(totalElement).toBeInTheDocument();
     })
 })
+
+describe('calculatePizzaCost', () => {
+
+    const size = 'large';
+  const topping = [{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}];
+  
+    it('calculates price for single pizza', () => {
+        const pizza = {size: size, toppings: topping.map(x => x.name)}
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(19)
+    })
+
+    it('calculates price for no pizza', () => {
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(19)
+    })
+}) 

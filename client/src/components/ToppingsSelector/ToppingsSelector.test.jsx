@@ -5,7 +5,9 @@ import {
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
-import SizeSelector from './SizeSelector';
+import ToppingsSelector from './ToppingsSelector.jsx';
+
+const toppings = [{id: 1, name: 'pepperoni'}, {id: 2, name: 'anchovy'}, {id: 3, name: 'mushroom'}];
 
 function WithConfig({ config, children }) {
   return (
@@ -15,22 +17,23 @@ function WithConfig({ config, children }) {
   );
 }
 
-function renderSizeSelector(
+function renderToppingSelector(
   onUpdate,
 ) {
   const config = { apiUrl: 'http://example.com' };
   return render(
     <WithConfig config={config}>
-      <SizeSelector onUpdate={onUpdate || jest.fn()} />
+      <ToppingsSelector toppingOptions={toppings} onUpdate={onUpdate || jest.fn()} />
     </WithConfig>,
   );
 }
 
-describe('SizeSelector', () => {
+
+describe('ToppingsSelector', () => {
   const httpMock = new MockAdapter(axios);
 
   beforeEach(() => {
-    httpMock.onGet('http://example.com/sizes').reply(200, ['big', 'small']);
+    httpMock.onGet('http://example.com/toppings').reply(200, toppings);
   });
 
   afterEach(() => {
@@ -43,38 +46,38 @@ describe('SizeSelector', () => {
   });
 
   it('displays the title', async () => {
-    renderSizeSelector();
-    const titleElement = await screen.findByText('Select the size of your pizza');
+    renderToppingSelector();
+    const titleElement = await screen.findByText('Toppings');
     expect(titleElement).toBeInTheDocument();
   });
 
-  it('displays the sizes', async () => {
-    renderSizeSelector();
-    const bigElement = await screen.findByText('big');
-    const smallElement = await screen.findByText('small');
+  it('displays the toppings', async () => {
+    renderToppingSelector();
+    const pepperoniElement = await screen.findByText('pepperoni');
+    const anchovyElement = await screen.findByText('anchovy');
 
-    expect(bigElement).toBeInTheDocument();
-    expect(smallElement).toBeInTheDocument();
+    expect(pepperoniElement).toBeInTheDocument();
+    expect(anchovyElement).toBeInTheDocument();
   });
 
   test('populated snapshot', async () => {
-    const wrapper = renderSizeSelector();
-    await screen.findByText('big');
+    const wrapper = renderToppingSelector();
+    await screen.findByText('pepperoni');
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('only makes the request once', async () => {
-    renderSizeSelector();
-    await screen.findByText('big');
-    // todo trigger a redraw
-    expect(httpMock.history.get.length).toBe(1);
-  });
+  // it('only makes the request once', async () => {
+  //   renderToppingSelector();
+  //   await screen.findByText('pepperoni');
+  //   // todo trigger a redraw
+  //   expect(httpMock.history.get.length).toBe(1);
+  // });
 
-  it('sends back selections on change', async () => {
-    const onUpdate = jest.fn();
-    renderSizeSelector(onUpdate);
-    const bigSelector = await screen.findByLabelText('big');
-    act(() => { fireEvent.click(bigSelector); });
-    expect(onUpdate).toBeCalledWith('big');
-  });
+  // it('sends back selections on change', async () => {
+  //   const onUpdate = jest.fn();
+  //   renderToppingSelector(onUpdate);
+  //   const pepperoniSelector = await screen.findByLabelText('pepperoni');
+  //   act(() => { fireEvent.click(pepperoniSelector); });
+  //   expect(onUpdate).toBeCalledWith('pepperoni');
+  // });
 });

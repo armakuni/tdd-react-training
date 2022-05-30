@@ -12,7 +12,7 @@ afterEach(() => {
 
 test('renders learn react link', async () => {
   httpMock.onGet('http://localhost:5001/sizes')
-      .reply(200, ['big', 'small']);
+      .reply(200, ['large', 'small']);
 
   render(<App />);
   const sizeElement = await waitFor(() => screen.getByText(/Select the size of your pizza/i));
