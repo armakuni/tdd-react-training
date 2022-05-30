@@ -12,8 +12,8 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "test:watch": "yarn test --watch",
     "lint": "eslint  --ext .js,.jsx ."
   },
   "devDependencies": {
