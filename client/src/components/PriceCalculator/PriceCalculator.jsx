@@ -1,10 +1,5 @@
 
 function PriceCalculator(props) {
-
-    // const prices = [{size: 'large', cost: 15}, {size: 'medium', cost: 10}];
-    // const prices = new Map()
-    // prices.set('large', 15)
-    // prices.set('medium', 10)
     
     const pizzas = props.pizzas
     const prices = props.prices
