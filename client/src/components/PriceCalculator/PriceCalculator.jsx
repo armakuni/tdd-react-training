@@ -11,12 +11,16 @@ function PriceCalculator(props) {
     const totals = pizzas.map(calculatePizzaCost());
 
     return <div>
-        Total: £{totals.reduce((x,y) => x + y, 0)}
+        Total: £{(totals.reduce((x,y) => x + y, 0)).toFixed(2)}
     </div>
 
     function calculatePizzaCost() {
-        return pizza => prices.sizes.find(x => x.size === pizza.size).price 
-        + pizza.toppings?.map(findToppingPrice()).reduce((x,y) => x + y, 0);
+        return pizza => findPizzaSize(pizza).price 
+        + pizza.toppings.map(findToppingPrice()).map(x => x * findPizzaSize(pizza).toppingPriceMultiplier).reduce((x,y) => x + y, 0);
+
+        function findPizzaSize(pizza) {
+            return prices.sizes.find(x => x.size === pizza.size);
+        }
 
         function findToppingPrice() {
             return topping => prices.toppings.find(x => x.topping === topping).price;
