@@ -20,7 +20,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist/*', '.eslintrc.js', 'jest.config.js'],
+  ignorePatterns: ['.eslintrc.cjs'],
   rules: {
     'import/extensions': [
       'error',

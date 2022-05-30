@@ -1,5 +1,5 @@
 import request from 'supertest';
-import server from './server.js';
+import server from './server';
 
 describe('server', () => {
   const app = server();
@@ -14,7 +14,6 @@ describe('server', () => {
 
     it('returns cors headers', async () => {
       const response = await request(app).get(route);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(response.headers['access-control-allow-origin']).toBe('*');
     });
   });
@@ -27,7 +26,6 @@ describe('server', () => {
 
     it('returns a "application/json" content-type', async () => {
       const response = await request(app).get('/ping');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
     });
 
@@ -45,7 +43,6 @@ describe('server', () => {
 
     it('returns a "application/json" content-type', async () => {
       const response = await request(app).get('/sizes');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
     });
 
@@ -63,7 +60,6 @@ describe('server', () => {
 
     it('returns a "application/json" content-type', async () => {
       const response = await request(app).get('/sauces');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
     });
 

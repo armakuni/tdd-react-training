@@ -1,4 +1,4 @@
-import server from './server.js';
+import server from './server';
 
 const port = process.env.SERVER_PORT || 5001;
 
