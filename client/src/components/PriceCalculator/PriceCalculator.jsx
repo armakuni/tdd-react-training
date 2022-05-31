@@ -12,7 +12,11 @@ function PriceCalculator(props) {
 
 export function calculatePizzaCost(prices) {
     return pizza => findPizzaSize(pizza).price 
-    + applyDiscount(pizza.toppings.map(findToppingPrice()).map(x => x * findPizzaSize(pizza).toppingPriceMultiplier)).reduce((x,y) => x + y, 0);
+    + applyMultiBuyDiscount(calculateToppingPrices(pizza)).reduce((x,y) => x + y, 0);
+
+    function calculateToppingPrices(pizza) {
+        return pizza.toppings.map(findToppingPrice()).map(x => x * findPizzaSize(pizza).toppingPriceMultiplier);
+    }
 
     function findPizzaSize(pizza) {
         return pizza.size == '' ? {size: '', price: 0, toppingPriceMultiplier: 0} : prices.sizes.find(x => x.size === pizza.size);
@@ -22,7 +26,7 @@ export function calculatePizzaCost(prices) {
         return topping => prices.toppings.find(x => x.id === topping).price;
     }
 
-    function applyDiscount(toppings) {
+    function applyMultiBuyDiscount(toppings) {
         const toppingCount = toppings.length;
 
         if(toppingCount > 2) {

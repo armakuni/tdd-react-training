@@ -84,7 +84,7 @@ describe('calculatePizzaCost', () => {
     })
 
     it('calculates price for no pizza but with toppings', () => {
-        const pizza = {size: '', toppings: [3]}
+        const pizza = {size: '', toppings: [1,2,3]}
         expect(calculatePizzaCost(prices)(pizza)).toEqual(0)
     })
 
