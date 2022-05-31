@@ -11,10 +11,10 @@ function App() {
     apiUrl: process.env.SERVER_PORT || 'http://localhost:5000',
   }), []);
 
-  const [size, setSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
   // const [topping, setTopping] = useState([{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}]);
   // const toppingOptions = [{id: 1, name: 'pepperoni'}, {id: 2, name: 'mushroom'}, {id: 3, name: 'anchovy'}]
-  const [topping, setTopping] = useState(new Set());
+  const [selectedToppings, setSelectedToppings] = useState(new Set());
   // const pizza = {size: size, toppings: topping.map(x => x.name)}
 
 
@@ -25,7 +25,7 @@ toppings: [{id: 1, name: "mushroom", price: 0.5},
 {id: 2, name: "anchovy", price: 1}, 
 {id: 3, name: "pepperoni", price: 1.5}]};
 
-const pizza = {size: size, toppings: Array.from(topping).map(x => prices.toppings.find(y => y.id === x).name)}
+const pizza = {size: selectedSize, toppings: Array.from(selectedToppings)}
 
   return (
     <div className="App">
@@ -33,12 +33,12 @@ const pizza = {size: size, toppings: Array.from(topping).map(x => prices.topping
         <div className='flex-container'>
           <div className='left-section'>
             <ConfigContext.Provider value={config}>
-              <SizeSelector onUpdate={setSize} />
-              <ToppingsSelector toppingOptions={prices.toppings} onUpdate={null} selected={topping} setSelected={setTopping} />
+              <SizeSelector onUpdate={setSelectedSize} />
+              <ToppingsSelector toppingOptions={prices.toppings} onUpdate={(selected) => setSelectedToppings(selected)} />
             </ConfigContext.Provider>
           </div>
           <div className='right-section'>
-            <Pizza size={size} price={calculatePizzaCost(prices)(pizza)}/>
+            <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza)}/>
           </div>
         </div>
       </header>

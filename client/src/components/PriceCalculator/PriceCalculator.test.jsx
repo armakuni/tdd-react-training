@@ -5,9 +5,12 @@ const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2},
 {size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
 {size: 'small', price: 5, toppingPriceMultiplier: 1},
 {size: '', price: 0}], 
-toppings: [{topping: "mushroom", price: 0.5}, 
-{topping: "anchovy", price: 1}, 
-{topping: "pepperoni", price: 1.5}]}
+toppings: [{id: 1, name: 'mushroom', price: 0.5}, 
+{id: 2, name: 'anchovy', price: 1}, 
+{id: 3, name: 'pepperoni', price: 1.5},
+{id: 4, name: 'ham', price: 1.5},
+{id: 5, name: 'olives', price: 0.5},
+{id: 6, name: 'chillis', price: 1}]}
 
 describe('PriceCalculator', () => {
 
@@ -32,16 +35,16 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
     })
 
     it('renders total price for pizza with mushroom topping', async() => {
-        const pizzas = [{size: 'large', toppings: ['mushroom']}]
+        const pizzas = [{size: 'large', toppings: [2]}]
         render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
 
-        const totalElement = await screen.findByText('Total: £16.00');
+        const totalElement = await screen.findByText('Total: £17.00');
 
         expect(totalElement).toBeInTheDocument();
     })
 
     it('renders total price for single pizza with multiple toppings', async() => {
-        const pizzas = [{size: 'large', toppings: ['mushroom', 'pepperoni']}]
+        const pizzas = [{size: 'large', toppings: [1, 3]}]
         render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
 
         const totalElement = await screen.findByText('Total: £19.00');
@@ -50,12 +53,12 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
     })
 
     it('renders total price for multiple pizzas with multiple toppings', async() => {
-        const pizzas = [{size: 'large', toppings: ['pepperoni']},
-        {size: 'medium', toppings: ['mushroom', 'pepperoni', 'anchovy']},
-        {size: 'small', toppings: ['mushroom', 'pepperoni']}]
+        const pizzas = [{size: 'large', toppings: [3]},
+        {size: 'medium', toppings: [1, 3, 2]},
+        {size: 'small', toppings: [1, 3]}]
         render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
 
-        const totalElement = await screen.findByText('Total: £39.50');
+        const totalElement = await screen.findByText('Total: £38.75');
 
         expect(totalElement).toBeInTheDocument();
     })
@@ -64,7 +67,6 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
 describe('calculatePizzaCost', () => {
 
     const size = 'large';
-  const topping = [{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}];
   
     it('calculates price for single pizza with no toppings', () => {
         const pizza = {size: size, toppings: []}
@@ -72,8 +74,8 @@ describe('calculatePizzaCost', () => {
     })
 
     it('calculates price for single pizza', () => {
-        const pizza = {size: size, toppings: topping.map(x => x.name)}
-        expect(calculatePizzaCost(prices)(pizza)).toEqual(19)
+        const pizza = {size: size, toppings: [1,2]}
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(18)
     })
 
     it('calculates price for no pizza', () => {
@@ -82,7 +84,22 @@ describe('calculatePizzaCost', () => {
     })
 
     it('calculates price for no pizza but with toppings', () => {
-        const pizza = {size: '', toppings: ['mushroom']}
+        const pizza = {size: '', toppings: [3]}
         expect(calculatePizzaCost(prices)(pizza)).toEqual(0)
+    })
+
+    it('calculates price for pizza with 3 for 2 toppings on 3 toppings', () => {
+        const pizza = {size: 'medium', toppings: [1,2,3]};
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(13.75)
+    })
+
+    it('calculates price for pizza with 3 for 2 toppings on 5 toppings', () => {
+        const pizza = {size: 'medium', toppings: [1,2,3,5,6]};
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(16)
+    })
+
+    it('calculates price for pizza with multiple 3 for 2 toppings', () => {
+        const pizza = {size: 'large', toppings: [1,2,3,4,5,6]};
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(25)
     })
 }) 
