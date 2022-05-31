@@ -8,19 +8,24 @@ import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator
 
 function App() {
   const config = useMemo(() => ({
-    apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
+    apiUrl: process.env.SERVER_PORT || 'http://localhost:5000',
   }), []);
 
   const [size, setSize] = useState('');
-  const [topping, setTopping] = useState([{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}]);
-  const pizza = {size: size, toppings: topping.map(x => x.name)}
+  // const [topping, setTopping] = useState([{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}]);
+  // const toppingOptions = [{id: 1, name: 'pepperoni'}, {id: 2, name: 'mushroom'}, {id: 3, name: 'anchovy'}]
+  const [topping, setTopping] = useState(new Set());
+  // const pizza = {size: size, toppings: topping.map(x => x.name)}
+
 
   const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2}, 
     {size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
     {size: 'small', price: 5, toppingPriceMultiplier: 1}], 
-toppings: [{topping: "mushroom", price: 0.5}, 
-{topping: "anchovy", price: 1}, 
-{topping: "pepperoni", price: 1.5}]};
+toppings: [{id: 1, name: "mushroom", price: 0.5}, 
+{id: 2, name: "anchovy", price: 1}, 
+{id: 3, name: "pepperoni", price: 1.5}]};
+
+const pizza = {size: size, toppings: Array.from(topping).map(x => prices.toppings.find(y => y.id === x).name)}
 
   return (
     <div className="App">
@@ -29,7 +34,7 @@ toppings: [{topping: "mushroom", price: 0.5},
           <div className='left-section'>
             <ConfigContext.Provider value={config}>
               <SizeSelector onUpdate={setSize} />
-              <ToppingsSelector toppingOptions={topping} onUpdate={(selected) => console.log(selected)} />
+              <ToppingsSelector toppingOptions={prices.toppings} onUpdate={null} selected={topping} setSelected={setTopping} />
             </ConfigContext.Provider>
           </div>
           <div className='right-section'>

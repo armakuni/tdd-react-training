@@ -15,6 +15,6 @@ test('renders learn react link', async () => {
       .reply(200, ['large', 'small']);
 
   render(<App />);
-  const sizeElement = await waitFor(() => screen.getByText(/Select the size of your pizza/i));
+  const sizeElement = await waitFor(() => screen.getByText(/Toppings/i));
   expect(sizeElement).toBeInTheDocument();
 });

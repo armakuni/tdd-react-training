@@ -3,7 +3,8 @@ import PriceCalculator, { calculatePizzaCost } from './PriceCalculator'
 
 const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2}, 
 {size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
-{size: 'small', price: 5, toppingPriceMultiplier: 1}], 
+{size: 'small', price: 5, toppingPriceMultiplier: 1},
+{size: '', price: 0}], 
 toppings: [{topping: "mushroom", price: 0.5}, 
 {topping: "anchovy", price: 1}, 
 {topping: "pepperoni", price: 1.5}]}
@@ -65,12 +66,23 @@ describe('calculatePizzaCost', () => {
     const size = 'large';
   const topping = [{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}];
   
+    it('calculates price for single pizza with no toppings', () => {
+        const pizza = {size: size, toppings: []}
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(15)
+    })
+
     it('calculates price for single pizza', () => {
         const pizza = {size: size, toppings: topping.map(x => x.name)}
         expect(calculatePizzaCost(prices)(pizza)).toEqual(19)
     })
 
     it('calculates price for no pizza', () => {
-        expect(calculatePizzaCost(prices)(pizza)).toEqual(19)
+        const pizza = {size: '', toppings: []}
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(0)
+    })
+
+    it('calculates price for no pizza but with toppings', () => {
+        const pizza = {size: '', toppings: ['mushroom']}
+        expect(calculatePizzaCost(prices)(pizza)).toEqual(0)
     })
 }) 

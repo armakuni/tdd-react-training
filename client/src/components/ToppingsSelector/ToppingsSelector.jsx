@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function ToppingsSelector({ toppingOptions, onUpdate }) {
-  const [selected, setSelected] = useState(new Set());
+export default function ToppingsSelector({ toppingOptions, selected, setSelected }) {
+  // const [selected, setSelected] = useState(new Set());
 
-  useEffect(() => {
-    onUpdate(selected)
-  }, [onUpdate, selected])
+  // useEffect(() => {
+  //   onUpdate(selected)
+  // }, [onUpdate, selected])
   
   const toggle = (toppingId) => {
     setSelected(current => {
