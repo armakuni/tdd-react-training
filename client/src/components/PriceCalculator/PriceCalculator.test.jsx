@@ -19,9 +19,13 @@ describe('PriceCalculator', () => {
 
 const pizzas = [{size: 'large', toppings: ['mushroom']}]
 
+function renderPriceCalculator(pizzas) {
+    render(<PriceCalculator pizzas={pizzas} prices={prices} />);
+}
+
     it('renders total price for single pizza', async () => {
         const pizzas = [{size: 'large', toppings: []}]
-        render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
+        renderPriceCalculator(pizzas);
 
         const totalElement = await screen.findByText('Total: £15.00');
 
@@ -30,7 +34,7 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
 
     it('renders total price for multiple pizzas', async() => {
         const pizzas = [{size: 'large', toppings: []}, {size: 'medium', toppings: []}]
-        render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
+        renderPriceCalculator(pizzas);
 
         const totalElement = await screen.findByText('Total: £25.00');
 
@@ -39,7 +43,7 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
 
     it('renders total price for pizza with mushroom topping', async() => {
         const pizzas = [{size: 'large', toppings: [2]}]
-        render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
+        renderPriceCalculator(pizzas);
 
         const totalElement = await screen.findByText('Total: £17.00');
 
@@ -48,7 +52,7 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
 
     it('renders total price for single pizza with multiple toppings', async() => {
         const pizzas = [{size: 'large', toppings: [1, 3]}]
-        render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
+        renderPriceCalculator(pizzas);
 
         const totalElement = await screen.findByText('Total: £19.00');
 
@@ -59,7 +63,7 @@ const pizzas = [{size: 'large', toppings: ['mushroom']}]
         const pizzas = [{size: 'large', toppings: [3]},
         {size: 'medium', toppings: [1, 3, 2]},
         {size: 'small', toppings: [1, 3]}]
-        render(<PriceCalculator pizzas={pizzas} prices={prices}/>);
+        renderPriceCalculator(pizzas);
 
         const totalElement = await screen.findByText('Total: £38.75');
 
@@ -106,3 +110,4 @@ describe('calculatePizzaCost', () => {
         expect(calculatePizzaCost(prices)(pizza)).toEqual(25)
     })
 }) 
+

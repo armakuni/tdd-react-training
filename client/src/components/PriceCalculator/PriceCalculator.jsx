@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 function PriceCalculator(props) {
     
@@ -13,66 +14,97 @@ function PriceCalculator(props) {
 export function calculatePizzaCost(prices) {
     return pizza => calc(pizza);
 
-    function calc(pizza) {
-        var pizzaPrice;
+    function calc(input) {
 
-        if (pizza.size === '') {
-            pizzaPrice = 0;
+/* Calculate pizza price
+    1. Calculate price of pizza based on size
+    2. To implement - JIRA-12345
+    3. Calculate price of toppings
+    4. Apply discount to toppings price
+    5. Sum it all together
+*/
+
+        // Price of pizza
+        var pp;
+        // Topping prices
+        var topPri = [];
+        // Discounted topping prices
+        var discTop = [];
+        // Total price of toppings after discount
+        var discTopPri = 0;
+
+        if (input.size === '') {
+            pp = 0;
         } else {
             for (let size of prices.sizes) {
-                if (size.size === pizza.size) {
-                    pizzaPrice = size.price;
+                if (size.size === input.size) {
+                    pp = size.price;
                 }
             }
         }
-       
-        var toppingPrice = [];
 
-        for (let choice of pizza.toppings) {
+        for (let choice of input.toppings) {
             var tempPrice = 0;
-            for (let topping of prices.toppings) {
-                if (choice === topping.id) {
-                    tempPrice = topping.price;
+            for (let t of prices.toppings) {
+                if (choice === t.id) {
+                    tempPrice = t.price;
                 }
             }
 
-            if (pizza.size === '') {
+            if (input.size === '') {
                 tempPrice = 0;
             } else {
-                var multiplier;
+                var multi;
                 for (let size of prices.sizes) {
-                    if (size.size === pizza.size) {
-                        multiplier = size. toppingPriceMultiplier;
+                    if (size.size === input.size) {
+                        multi = size.toppingPriceMultiplier;
                     }
                 }
-                tempPrice = multiplier * tempPrice;
+                tempPrice = multi * tempPrice;
             }
 
-            toppingPrice.push(tempPrice);
+            topPri.push(tempPrice);
 
         }
 
-        const toppingCount = toppingPrice.length;
+        const topNo = topPri.length;
 
-        var discountedToppings = [];
-        if(toppingCount > 2) {
-            const numberToDeduct = Math.floor(toppingCount / 3);
-            toppingPrice.sort();
 
-            for (let i = numberToDeduct; i < toppingPrice.length; i++) {
-                discountedToppings.push(toppingPrice[i]);
+        // Change to 3 after JIRA-1234 has been completed
+        if(topNo > 2) {
+
+
+            /*
+            Uncomment this and comment-out following line when JIRA-1234 is complete
+            const numberToDeduct = Math.floor(toppingCount / 4);*/
+
+            const numberToDeduct = Math.floor(topNo / 3);
+            topPri.sort();
+
+
+            for (let i = numberToDeduct; i < topPri.length; i++) {
+                discTop.push(topPri[i]);
             }
 
         } else {
-            discountedToppings = toppingPrice;
+            discTop = topPri;
         }
 
-        var discountedToppingPrice = 0;
-
-        for (let discountedTopping of discountedToppings) {
-            discountedToppingPrice = discountedToppingPrice + discountedTopping;
+        for (let temp of discTop) {
+            discTopPri = discTopPri + temp; // Need to change this in future
         }
-        return pizzaPrice + discountedToppingPrice;
+
+        /*
+        if (input.size === 'x-large' && topNo > 3) {
+            total = total - 2;
+        } else if (input.size === 'large' && topNo > 3) {
+            total = total - 1;
+        } else {
+            total = total - 0.5;
+        }
+        */
+
+        return pp + discTopPri;
     }
 }
 
