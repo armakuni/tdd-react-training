@@ -11,29 +11,68 @@ function PriceCalculator(props) {
 }
 
 export function calculatePizzaCost(prices) {
-    return pizza => findPizzaSize(pizza).price 
-    + applyMultiBuyDiscount(calculateToppingPrices(pizza)).reduce((x,y) => x + y, 0);
+    return pizza => calc(pizza);
 
-    function calculateToppingPrices(pizza) {
-        return pizza.toppings.map(findToppingPrice()).map(x => x * findPizzaSize(pizza).toppingPriceMultiplier);
-    }
+    function calc(pizza) {
+        var pizzaPrice;
 
-    function findPizzaSize(pizza) {
-        return pizza.size == '' ? {size: '', price: 0, toppingPriceMultiplier: 0} : prices.sizes.find(x => x.size === pizza.size);
-    }
+        if (pizza.size === '') {
+            pizzaPrice = 0;
+        } else {
+            for (let size of prices.sizes) {
+                if (size.size === pizza.size) {
+                    pizzaPrice = size.price;
+                }
+            }
+        }
+       
+        var toppingPrice = [];
 
-    function findToppingPrice() {
-        return topping => prices.toppings.find(x => x.id === topping).price;
-    }
+        for (let choice of pizza.toppings) {
+            var tempPrice = 0;
+            for (let topping of prices.toppings) {
+                if (choice === topping.id) {
+                    tempPrice = topping.price;
+                }
+            }
 
-    function applyMultiBuyDiscount(toppings) {
-        const toppingCount = toppings.length;
+            if (pizza.size === '') {
+                tempPrice = 0;
+            } else {
+                var multiplier;
+                for (let size of prices.sizes) {
+                    if (size.size === pizza.size) {
+                        multiplier = size. toppingPriceMultiplier;
+                    }
+                }
+                tempPrice = multiplier * tempPrice;
+            }
 
+            toppingPrice.push(tempPrice);
+
+        }
+
+        const toppingCount = toppingPrice.length;
+
+        var discountedToppings = [];
         if(toppingCount > 2) {
             const numberToDeduct = Math.floor(toppingCount / 3);
-            return toppings.sort().reverse().slice(0, toppingCount - numberToDeduct);
+            toppingPrice.sort();
+
+            for (let i = numberToDeduct; i < toppingPrice.length; i++) {
+                discountedToppings.push(toppingPrice[i]);
+            }
+
+        } else {
+            discountedToppings = toppingPrice;
         }
-        return toppings;
+
+        var discountedToppingPrice = 0;
+
+        for (let discountedTopping of discountedToppings) {
+            discountedToppingPrice = discountedToppingPrice + discountedTopping;
+        }
+        return pizzaPrice + discountedToppingPrice;
     }
 }
 

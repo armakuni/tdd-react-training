@@ -10,7 +10,10 @@ toppings: [{id: 1, name: 'mushroom', price: 0.5},
 {id: 3, name: 'pepperoni', price: 1.5},
 {id: 4, name: 'ham', price: 1.5},
 {id: 5, name: 'olives', price: 0.5},
-{id: 6, name: 'chillis', price: 1}]}
+{id: 6, name: 'chillis', price: 1},
+{id: 7, name: 'artichoke', price: 2},
+{id: 8, name: 'chicken', price: 2},
+{id: 9, name: 'egg', price: 1.5}]}
 
 describe('PriceCalculator', () => {
 
