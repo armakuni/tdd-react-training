@@ -2,7 +2,11 @@ import React from 'react';
 import Options from '../Options';
 import SizeLoader from '../SizeLoader';
 
-export default function SizeSelector({ onUpdate }) {
+interface SizeSelectorProps {
+  onUpdate: (value: string) => void;
+}
+
+export default function SizeSelector({ onUpdate }: SizeSelectorProps) {
   return (
     <SizeLoader>
       {(sizes) => (

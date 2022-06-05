@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function Pizza({ size, price }) {
+interface PizzaProps {
+  size: string,
+  price: string,
+}
+
+export default function Pizza({ size, price }: PizzaProps) {
   return (
     <div>
       <div>

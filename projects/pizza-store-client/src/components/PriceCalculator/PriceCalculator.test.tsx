@@ -18,8 +18,6 @@ const prices = {
 };
 
 describe('PriceCalculator', () => {
-  const pizzas = [{ size: 'large', toppings: ['mushroom'] }];
-
   function renderPriceCalculator(pizzas) {
     render(<PriceCalculator pizzas={pizzas} prices={prices} />);
   }

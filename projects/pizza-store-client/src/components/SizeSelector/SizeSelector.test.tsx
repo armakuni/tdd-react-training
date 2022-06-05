@@ -1,13 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, ReactElement, ReactNode } from 'react';
 import {
-  act, fireEvent, render, screen,
+  act, fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import SizeSelector from './SizeSelector';
+import Config from '../../Config';
 
-function WithConfig({ config, children }) {
+interface WithConfigProps {
+  config: Config
+  children: ReactNode
+}
+
+function WithConfig({ config, children }: WithConfigProps): ReactElement {
   return (
     <ConfigContext.Provider value={useMemo(() => config, [config])}>
       { children }
@@ -16,8 +22,8 @@ function WithConfig({ config, children }) {
 }
 
 function renderSizeSelector(
-  onUpdate,
-) {
+  onUpdate: ((_value: string) => void) | undefined = undefined,
+): RenderResult | undefined {
   const config = { apiUrl: 'http://example.com' };
   return render(
     <WithConfig config={config}>

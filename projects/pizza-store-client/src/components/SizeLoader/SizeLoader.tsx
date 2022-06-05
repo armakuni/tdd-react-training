@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import useApiRequest from '../../hooks/useApiRequest';
 
-export default function SizeLoader({ children }) {
-  const sizes = useApiRequest('/sizes');
+interface SizeLoaderProps {
+  children: (sizes: string[]) => ReactElement;
+}
+
+export default function SizeLoader({ children }: SizeLoaderProps) {
+  const sizes = useApiRequest<string[]>('/sizes');
 
   switch (sizes.state) {
     case 'loaded':

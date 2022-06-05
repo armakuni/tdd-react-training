@@ -30,7 +30,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['build/', '.eslintrc.js', 'reportWebVitals.ts', 'src/components/PriceCalculator/PriceCalculator.test.jsx'],
+  ignorePatterns: ['build/', '.eslintrc.js', 'reportWebVitals.ts', 'src/components/PriceCalculator/PriceCalculator.tsx'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
     'import/extensions': [

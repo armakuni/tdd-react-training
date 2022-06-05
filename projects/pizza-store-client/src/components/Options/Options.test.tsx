@@ -22,11 +22,12 @@ describe('Options', () => {
     const bElement = await screen.findByLabelText('b');
 
     expect(aElement).toBeInTheDocument();
-    expect(aElement.type).toBe('radio');
+    expect(aElement).toBeInstanceOf(HTMLInputElement);
+    expect((aElement as HTMLInputElement).type).toBe('radio');
 
     expect(bElement).toBeInTheDocument();
     expect(bElement).toBeInstanceOf(HTMLInputElement);
-    expect(bElement.type).toBe('radio');
+    expect((bElement as HTMLInputElement).type).toBe('radio');
   });
 
   it('selects the initialValue', async () => {
@@ -34,8 +35,8 @@ describe('Options', () => {
     const aElement = await screen.findByLabelText('a');
     const bElement = await screen.findByLabelText('b');
 
-    expect(aElement.checked).toBe(false);
-    expect(bElement.checked).toBe(true);
+    expect((aElement as HTMLInputElement).checked).toBe(false);
+    expect((bElement as HTMLInputElement).checked).toBe(true);
   });
 
   it('selects a different value', async () => {
@@ -45,8 +46,8 @@ describe('Options', () => {
 
     act(() => { fireEvent.click(aElement); });
 
-    expect(aElement.checked).toBe(true);
-    expect(bElement.checked).toBe(false);
+    expect((aElement as HTMLInputElement).checked).toBe(true);
+    expect((bElement as HTMLInputElement).checked).toBe(false);
   });
 
   it('sends back selections on change', async () => {

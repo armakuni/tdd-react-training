@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, ReactElement, ReactNode } from 'react';
 import {
   render, screen,
 } from '@testing-library/react';
@@ -6,11 +6,17 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import SizeLoader from './SizeLoader';
+import Config from '../../Config';
+
+interface WithConfigProps {
+  config: Config;
+  children: ReactNode;
+}
 
 function WithConfig({
   config,
   children,
-}) {
+}: WithConfigProps) {
   return (
     <ConfigContext.Provider value={useMemo(() => config, [config])}>
       {children}
@@ -19,7 +25,7 @@ function WithConfig({
 }
 
 function renderSizeLoader(
-  children,
+  children: (sizes: string[]) => ReactElement,
 ) {
   const config = { apiUrl: 'http://example.com' };
   return render(
@@ -31,7 +37,7 @@ function renderSizeLoader(
   );
 }
 
-function mockChildren(sizes) {
+function mockChildren(sizes: string[]): ReactElement {
   return <>{sizes.map((size) => <span key={size}>{size}</span>)}</>;
 }
 
@@ -72,7 +78,7 @@ describe('SizeLoader', () => {
 
   it('renders the loading message while waiting', async () => {
     httpMock.onGet('http://example.com/sizes')
-      .reply(() => new Promise((_resolve) => { /* never resolve */ }));
+      .reply(() => new Promise(() => { /* never resolve */ }));
 
     renderSizeLoader(mockChildren);
 
