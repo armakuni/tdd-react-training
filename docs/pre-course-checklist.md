@@ -11,3 +11,4 @@ Check you can answer 'Yes' to the following before you attend the course.
   - [vscode-jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
   - [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+  - [Abracadabra](https://marketplace.visualstudio.com/items?itemName=nicoespeon.abracadabra) if you want super refactoring powers!
