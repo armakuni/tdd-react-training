@@ -1,11 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { ReactElement, ReactNode, useMemo } from 'react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { render, screen } from '@testing-library/react';
 import useApiRequest from './useApiRequest';
 import ConfigContext from '../ConfigContext';
+import Config from '../Config';
 
-function WithConfig({ config, children }) {
+interface WithConfigProps {
+  config: Config
+  children: ReactNode
+}
+
+function WithConfig({ config, children }: WithConfigProps) {
   return (
     <ConfigContext.Provider value={useMemo(() => config, [config])}>
       { children }
@@ -13,8 +19,8 @@ function WithConfig({ config, children }) {
   );
 }
 
-function TestComponent() {
-  const response = useApiRequest('/sizes');
+function TestComponent(): ReactElement {
+  const response = useApiRequest<string[]>('/sizes');
 
   switch (response.state) {
     case 'loading':
@@ -39,10 +45,14 @@ describe('useApiRequest', () => {
     httpMock.reset();
   });
 
+  afterAll(() => {
+    // is this necessary?
+    httpMock.restore();
+  });
+
   it('initial state is loading', () => {
     httpMock.onGet('http://example.com/sizes')
-      .reply(() => new Promise((resolve) => { /* never resolve */
-      }));
+      .reply(() => new Promise(() => { /* never resolve */ }));
 
     render(<WithConfig config={config}><TestComponent /></WithConfig>);
 

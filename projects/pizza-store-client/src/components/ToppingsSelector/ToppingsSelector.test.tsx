@@ -5,7 +5,7 @@ import {
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
-import ToppingsSelector from './ToppingsSelector.jsx';
+import ToppingsSelector from './ToppingsSelector';
 
 const toppings = [{ id: 1, name: 'pepperoni' }, { id: 2, name: 'anchovy' }, { id: 3, name: 'mushroom' }];
 

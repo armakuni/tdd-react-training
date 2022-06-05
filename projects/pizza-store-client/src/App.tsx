@@ -12,10 +12,7 @@ function App() {
   }), []);
 
   const [selectedSize, setSelectedSize] = useState('');
-  // const [topping, setTopping] = useState([{id: 1, name: 'pepperoni', price: 2}, {id: 2, name: 'mushroom', price: 0.5}]);
-  // const toppingOptions = [{id: 1, name: 'pepperoni'}, {id: 2, name: 'mushroom'}, {id: 3, name: 'anchovy'}]
   const [selectedToppings, setSelectedToppings] = useState(new Set());
-  // const pizza = {size: size, toppings: topping.map(x => x.name)}
 
   const prices = {
     sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
@@ -39,7 +36,10 @@ function App() {
           <div className="left-section">
             <ConfigContext.Provider value={config}>
               <SizeSelector onUpdate={setSelectedSize} />
-              <ToppingsSelector toppingOptions={prices.toppings} onUpdate={(selected) => setSelectedToppings(selected)} />
+              <ToppingsSelector
+                toppingOptions={prices.toppings}
+                onUpdate={(selected) => { setSelectedToppings(selected); }}
+              />
             </ConfigContext.Provider>
           </div>
           <div className="right-section">
