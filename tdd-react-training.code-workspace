@@ -9,6 +9,12 @@
 		{
 			"path": "projects/day1-react-tdd-exercise"
 		}
+		{
+			"path": "projects/pizza-store-client"
+		},
+		{
+			"path": "projects/pizza-store-server"
+		}
 	],
 	"settings": {
 		"jest.disabledWorkspaceFolders": [
