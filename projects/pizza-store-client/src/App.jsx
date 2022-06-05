@@ -17,32 +17,33 @@ function App() {
   const [selectedToppings, setSelectedToppings] = useState(new Set());
   // const pizza = {size: size, toppings: topping.map(x => x.name)}
 
+  const prices = {
+    sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
+      { size: 'medium', price: 10, toppingPriceMultiplier: 1.5 },
+      { size: 'small', price: 5, toppingPriceMultiplier: 1 },
+      { size: '', price: 0 }],
+    toppings: [{ id: 1, name: 'mushroom', price: 0.5 },
+      { id: 2, name: 'anchovy', price: 1 },
+      { id: 3, name: 'pepperoni', price: 1.5 },
+      { id: 4, name: 'ham', price: 1.5 },
+      { id: 5, name: 'olives', price: 0.5 },
+      { id: 6, name: 'chillis', price: 1 }],
+  };
 
-  const prices = {sizes: [{size: 'large', price: 15, toppingPriceMultiplier: 2}, 
-{size: 'medium', price: 10, toppingPriceMultiplier: 1.5},
-{size: 'small', price: 5, toppingPriceMultiplier: 1},
-{size: '', price: 0}], 
-toppings: [{id: 1, name: 'mushroom', price: 0.5}, 
-{id: 2, name: 'anchovy', price: 1}, 
-{id: 3, name: 'pepperoni', price: 1.5},
-{id: 4, name: 'ham', price: 1.5},
-{id: 5, name: 'olives', price: 0.5},
-{id: 6, name: 'chillis', price: 1}]}
-
-const pizza = {size: selectedSize, toppings: Array.from(selectedToppings)}
+  const pizza = { size: selectedSize, toppings: Array.from(selectedToppings) };
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className='flex-container'>
-          <div className='left-section'>
+        <div className="flex-container">
+          <div className="left-section">
             <ConfigContext.Provider value={config}>
               <SizeSelector onUpdate={setSelectedSize} />
               <ToppingsSelector toppingOptions={prices.toppings} onUpdate={(selected) => setSelectedToppings(selected)} />
             </ConfigContext.Provider>
           </div>
-          <div className='right-section'>
-            <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza)}/>
+          <div className="right-section">
+            <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza)} />
           </div>
         </div>
       </header>

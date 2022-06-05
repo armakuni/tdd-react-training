@@ -1,1 +1,1 @@
-export const getFormattedPrice = price => `£${price.toFixed(2)}`
+export const getFormattedPrice = (price) => `£${price.toFixed(2)}`;

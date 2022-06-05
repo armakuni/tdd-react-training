@@ -9,7 +9,8 @@ export default function Pizza({ size, price }) {
       </div>
       <div>
         Price:
-        £{price}
+        £
+        {price}
       </div>
     </div>
   );

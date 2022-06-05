@@ -7,7 +7,7 @@ import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsSelector from './ToppingsSelector.jsx';
 
-const toppings = [{id: 1, name: 'pepperoni'}, {id: 2, name: 'anchovy'}, {id: 3, name: 'mushroom'}];
+const toppings = [{ id: 1, name: 'pepperoni' }, { id: 2, name: 'anchovy' }, { id: 3, name: 'mushroom' }];
 
 function WithConfig({ config, children }) {
   return (
@@ -27,7 +27,6 @@ function renderToppingSelector(
     </WithConfig>,
   );
 }
-
 
 describe('ToppingsSelector', () => {
   const httpMock = new MockAdapter(axios);

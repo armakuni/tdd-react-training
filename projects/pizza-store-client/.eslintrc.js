@@ -7,8 +7,12 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'airbnb',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: ['./tsconfig.json'],
     ecmaFeatures: {
       jsx: true,
     },
@@ -17,15 +21,16 @@ module.exports = {
   },
   plugins: [
     'react',
+    '@typescript-eslint',
   ],
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
-  ignorePatterns: ['build/', '.eslintrc.js', 'reportWebVitals.ts'],
+  ignorePatterns: ['build/', '.eslintrc.js', 'reportWebVitals.ts', 'src/components/PriceCalculator/PriceCalculator.test.jsx'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
     'import/extensions': [
@@ -33,22 +38,23 @@ module.exports = {
       'ignorePackages',
       {
         js: 'never',
-        jsx: 'never'
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
       },
     ],
   },
   overrides: [
     {
       files: [
-        '**/*.test.js',
-        '**/*.test.jsx',
+        '**/*.test.ts',
+        '**/*.test.tsx',
       ],
       env: {
         jest: true,
       },
       rules: {
         'import/no-extraneous-dependencies': 0,
-        "react/prop-types": "off",
       },
     },
   ],
