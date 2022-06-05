@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Spoiler from './Spoiler';
 
 function App() {
   return (
@@ -7,6 +8,12 @@ function App() {
       <header className="app-header">
         <h1>React TDD Project</h1>
       </header>
+      <div className="components">
+        <Spoiler
+          title="You'll never guess..."
+          content="Bruce Willis is dead!"
+        />
+      </div>
     </div>
   );
 }

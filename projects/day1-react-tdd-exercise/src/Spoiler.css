@@ -1,0 +1,24 @@
+.spoiler {
+  border: solid 3px #069;
+}
+
+.spoiler__header {
+  background-color:#069;
+  padding: 0.3em;
+}
+
+.spoiler__title {
+  font-weight: bold;
+  color: #eee;
+  text-align: left;
+}
+
+.spoiler__button {
+  float: right;
+}
+
+.spoiler__content {
+  padding: 0.3em;
+  background-color: #def;
+  text-align: left;
+}
