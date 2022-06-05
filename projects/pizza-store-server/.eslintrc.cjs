@@ -5,18 +5,22 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'eslint:recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: ['./tsconfig.json'],
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
   plugins: [
+    '@typescript-eslint',
   ],
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js'],
+        extensions: ['.js', '.ts'],
       },
     },
   },
@@ -28,14 +32,16 @@ module.exports = {
       {
         js: 'never',
         jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
       },
     ],
   },
   overrides: [
     {
       files: [
-        '**/*.test.js',
-        '**/*.test.jsx',
+        '**/*.test.ts',
+        '**/*.test.tsx',
       ],
       env: {
         jest: true,

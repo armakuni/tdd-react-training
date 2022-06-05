@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Express } from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 
-export default function server() {
+export default function server(): Express {
   const app = express();
 
   app.use(pino());

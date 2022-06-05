@@ -1,5 +1,5 @@
 import request from 'supertest';
-import server from './server.js';
+import server from './server';
 
 describe('server', () => {
   const app = server();
@@ -71,40 +71,5 @@ describe('server', () => {
       const response = await request(app).get('/sauces');
       expect(response.body).toStrictEqual(['tomato', 'white', 'none']);
     });
-  });
-});
-
-function isObjectWithProperty(value, property) {
-  if (typeof value !== 'object') {
-    return false;
-  }
-
-  if (value === null) {
-    return false;
-  }
-
-  return property in value;
-}
-
-describe('isThing', () => {
-  it('returns false when not an object', () => {
-    expect(isObjectWithProperty(7, 'hello')).toBe(false);
-  });
-
-  it('returns false when object is null', () => {
-    expect(isObjectWithProperty(null, 'hello')).toBe(false);
-  });
-
-  it('returns false key is missing', () => {
-    expect(isObjectWithProperty({}, 'hello')).toBe(false);
-  });
-
-  it('returns true when key exists', () => {
-    const thing = { value: 'hello' };
-
-    if (isObjectWithProperty(thing, 'value')) {
-      expect(thing.value)
-        .toBe(true);
-    }
   });
 });
