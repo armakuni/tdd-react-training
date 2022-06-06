@@ -13,7 +13,7 @@ function App() {
   }), []);
 
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedToppings, setSelectedToppings] = useState(new Set());
+  const [selectedToppings, setSelectedToppings] = useState(new Set<number>());
 
   const prices = {
     sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },

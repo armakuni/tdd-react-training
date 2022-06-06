@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import {
-  act, fireEvent, render, screen,
+  render, screen,
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsSelector from './ToppingsSelector';
 
-const toppings = [{ id: 1, name: 'pepperoni' }, { id: 2, name: 'anchovy' }, { id: 3, name: 'mushroom' }];
+const toppings = [{ id: 1, name: 'pepperoni', price: 1 }, { id: 2, name: 'anchovy', price: 2.5 }, { id: 3, name: 'mushroom', price: 3.0 }];
 
 function WithConfig({ config, children }) {
   return (
