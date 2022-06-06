@@ -5,6 +5,7 @@ import SizeSelector from './components/SizeSelector';
 import ToppingsSelector from './components/ToppingsSelector';
 import Pizza from './components/Pizza';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
+import { Topping } from './components/ToppingsSelector/ToppingsSelector';
 
 function App() {
   const config = useMemo(() => ({
@@ -37,8 +38,8 @@ function App() {
             <ConfigContext.Provider value={config}>
               <SizeSelector onUpdate={setSelectedSize} />
               <ToppingsSelector
-                toppingOptions={prices.toppings}
-                onUpdate={(selected) => { setSelectedToppings(selected); }}
+                toppingOptions={prices.toppings as Topping[]}
+                onUpdate={(selected: Set<number>) => { setSelectedToppings(selected); }}
               />
             </ConfigContext.Provider>
           </div>
