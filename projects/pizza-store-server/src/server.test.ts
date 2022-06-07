@@ -72,4 +72,26 @@ describe('server', () => {
       expect(response.body).toStrictEqual(['tomato', 'white', 'none']);
     });
   });
+
+  describe('/toppings', () => {
+    it('returns a 200 status', async () => {
+      const response = await request(app).get('/toppings');
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('returns a "application/json" content-type', async () => {
+      const response = await request(app).get('/toppings');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
+    });
+
+    it('returns data structure for topping options pepperoni, anchovy, mushroom', async () => {
+      const response = await request(app).get('/toppings');
+      const toppings = [
+        { id: 1, name: 'pepperoni', price: 1 }, 
+        { id: 2, name: 'anchovy', price: 2.5 }, 
+        { id: 3, name: 'mushroom', price: 3.0 }];
+      expect(response.body).toStrictEqual(toppings);
+    });
+  });
 });

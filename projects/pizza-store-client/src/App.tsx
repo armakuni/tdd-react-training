@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 import ConfigContext from './ConfigContext';
 import SizeSelector from './components/SizeSelector';
@@ -9,7 +9,7 @@ import { Topping } from './components/ToppingsSelector/ToppingsSelector';
 
 function App() {
   const config = useMemo(() => ({
-    apiUrl: process.env.SERVER_PORT || 'http://localhost:5000',
+    apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
   }), []);
 
   const [selectedSize, setSelectedSize] = useState('');

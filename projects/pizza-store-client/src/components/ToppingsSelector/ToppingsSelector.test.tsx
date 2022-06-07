@@ -1,15 +1,22 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
+  act,
+  fireEvent,
   render, screen,
 } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsSelector from './ToppingsSelector';
+import Config from '../../Config';
+import { ReactNode } from 'react';
 
 const toppings = [{ id: 1, name: 'pepperoni', price: 1 }, { id: 2, name: 'anchovy', price: 2.5 }, { id: 3, name: 'mushroom', price: 3.0 }];
 
-function WithConfig({ config, children }) {
+interface WithConfigProps {
+  config: Config
+  children: ReactNode
+}
+
+function WithConfig({ config, children }: WithConfigProps) {
   return (
     <ConfigContext.Provider value={useMemo(() => config, [config])}>
       { children }
@@ -18,7 +25,7 @@ function WithConfig({ config, children }) {
 }
 
 function renderToppingSelector(
-  onUpdate,
+  onUpdate: undefined | jest.Mock = undefined,
 ) {
   const config = { apiUrl: 'http://example.com' };
   return render(
@@ -29,21 +36,6 @@ function renderToppingSelector(
 }
 
 describe('ToppingsSelector', () => {
-  const httpMock = new MockAdapter(axios);
-
-  beforeEach(() => {
-    httpMock.onGet('http://example.com/toppings').reply(200, toppings);
-  });
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
   it('displays the title', async () => {
     renderToppingSelector();
     const titleElement = await screen.findByText('Toppings');
@@ -59,24 +51,35 @@ describe('ToppingsSelector', () => {
     expect(anchovyElement).toBeInTheDocument();
   });
 
+  it('sends back selection ids of peperoni and anchov on selection', async () => {
+    const onUpdateMock = jest.fn();
+    renderToppingSelector(onUpdateMock);
+    const pepperoniSelector = await screen.findByLabelText('pepperoni');
+    const anchovySelector = await screen.findByLabelText('anchovy');
+    act(() => { 
+      fireEvent.click(pepperoniSelector);
+      fireEvent.click(anchovySelector);
+    });
+    expect(onUpdateMock).toHaveBeenCalledWith(new Set<number>([1,2]));
+  });
+  
+  it('sends back selection ids of peperoni on de-selection', async () => {
+    const onUpdateMock = jest.fn();
+    renderToppingSelector(onUpdateMock);
+    const pepperoniSelector = await screen.findByLabelText('pepperoni');
+    const anchovySelector = await screen.findByLabelText('anchovy');
+    act(() => { 
+      fireEvent.click(pepperoniSelector);
+      fireEvent.click(anchovySelector);
+      fireEvent.click(pepperoniSelector);
+    });
+    expect(onUpdateMock).toHaveBeenCalledTimes(4)
+    expect(onUpdateMock).toHaveBeenNthCalledWith(4,new Set<number>([2]));
+  });
+
   test('populated snapshot', async () => {
     const wrapper = renderToppingSelector();
     await screen.findByText('pepperoni');
     expect(wrapper).toMatchSnapshot();
   });
-
-  // it('only makes the request once', async () => {
-  //   renderToppingSelector();
-  //   await screen.findByText('pepperoni');
-  //   // todo trigger a redraw
-  //   expect(httpMock.history.get.length).toBe(1);
-  // });
-
-  // it('sends back selections on change', async () => {
-  //   const onUpdate = jest.fn();
-  //   renderToppingSelector(onUpdate);
-  //   const pepperoniSelector = await screen.findByLabelText('pepperoni');
-  //   act(() => { fireEvent.click(pepperoniSelector); });
-  //   expect(onUpdate).toBeCalledWith('pepperoni');
-  // });
 });

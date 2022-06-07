@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
-type toppingsSelectorProps = {
-  toppingOptions: Topping[],
-  onUpdate: (selected: Set<number>) => void
-}
-
-export type Topping = {
+export interface Topping {
   id: number
   name: string
   price: number
+}
+
+type toppingsSelectorProps = {
+  toppingOptions: Topping[],
+  onUpdate: (selected: Set<number>) => void
 }
 
 export default function ToppingsSelector({ toppingOptions, onUpdate }: toppingsSelectorProps) {

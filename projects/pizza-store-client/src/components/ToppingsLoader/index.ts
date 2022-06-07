@@ -1,3 +1,3 @@
-import SizeLoader from './SizeLoader';
+import ToppingsLoader from './ToppingsLoader';
 
-export default SizeLoader;
+export default ToppingsLoader;
