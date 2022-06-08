@@ -1,4 +1,4 @@
-import React, { useMemo, ReactElement, ReactNode } from 'react';
+import { useMemo, ReactElement, ReactNode } from 'react';
 import {
   act, fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';

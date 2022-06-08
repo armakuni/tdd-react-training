@@ -1,4 +1,4 @@
-import React, { ReactElement, useId, useState } from 'react';
+import { ReactElement, useId, useState } from 'react';
 
 interface OptionProps {
   value: string
