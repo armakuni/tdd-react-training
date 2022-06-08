@@ -14,3 +14,4 @@ Check you can answer 'Yes' to the following before you attend the course.
   - [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
   - [Abracadabra](https://marketplace.visualstudio.com/items?itemName=nicoespeon.abracadabra) if you want super refactoring powers!
+ - [jest-snippets](https://marketplace.visualstudio.com/items?itemName=andys8.jest-snippets)
