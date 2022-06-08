@@ -43,6 +43,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'react/react-in-jsx-scope': 'off',
+    'max-len': ['warn', { 'code': 140 }]
   },
   overrides: [
     {
@@ -55,7 +57,6 @@ module.exports = {
       },
       rules: {
         'import/no-extraneous-dependencies': 0,
-        'react/react-in-jsx-scope': 'off',
       },
     },
   ],

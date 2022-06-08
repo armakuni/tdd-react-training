@@ -7,7 +7,7 @@ import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsLoader from './ToppingsLoader';
 import Config from '../../Config';
-import { Topping } from '../ToppingsSelector/ToppingsSelector';
+import { Topping } from '../ToppingsSelector';
 
 interface WithConfigProps {
   config: Config;
@@ -71,7 +71,7 @@ describe('ToppingsLoader', () => {
     httpMock.onGet('http://example.com/toppings')
       .reply(500, 'there was an error');
 
-      renderToppingsLoader(mockChildren);
+    renderToppingsLoader(mockChildren);
 
     expect(await screen.findByText('there was an error')).toBeInTheDocument();
     expect(screen.queryByText('big')).not.toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('ToppingsLoader', () => {
     httpMock.onGet('http://example.com/toppings')
       .reply(() => new Promise(() => { /* never resolve */ }));
 
-      renderToppingsLoader(mockChildren);
+    renderToppingsLoader(mockChildren);
 
     expect(await screen.findByText('Loading')).toBeInTheDocument();
     expect(screen.queryByText('anchovy')).not.toBeInTheDocument();

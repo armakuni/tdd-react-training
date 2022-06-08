@@ -1,13 +1,14 @@
-import { useMemo } from 'react';
+import { useMemo, ReactNode } from 'react';
 import {
   act,
   fireEvent,
   render, screen,
 } from '@testing-library/react';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsSelector from './ToppingsSelector';
 import Config from '../../Config';
-import { ReactNode } from 'react';
 
 const toppings = [{ id: 1, name: 'pepperoni', price: 1 }, { id: 2, name: 'anchovy', price: 2.5 }, { id: 3, name: 'mushroom', price: 3.0 }];
 
@@ -30,12 +31,22 @@ function renderToppingSelector(
   const config = { apiUrl: 'http://example.com' };
   return render(
     <WithConfig config={config}>
-      <ToppingsSelector toppingOptions={toppings} onUpdate={onUpdate || jest.fn()} />
+      <ToppingsSelector onUpdate={onUpdate || jest.fn()} />
     </WithConfig>,
   );
 }
 
 describe('ToppingsSelector', () => {
+  const httpMock = new MockAdapter(axios);
+
+  beforeEach(() => {
+    httpMock.onGet('http://example.com/toppings').reply(200, toppings);
+  });
+
+  afterEach(() => {
+    httpMock.reset();
+  });
+
   it('displays the title', async () => {
     renderToppingSelector();
     const titleElement = await screen.findByText('Toppings');
@@ -56,25 +67,25 @@ describe('ToppingsSelector', () => {
     renderToppingSelector(onUpdateMock);
     const pepperoniSelector = await screen.findByLabelText('pepperoni');
     const anchovySelector = await screen.findByLabelText('anchovy');
-    act(() => { 
+    act(() => {
       fireEvent.click(pepperoniSelector);
       fireEvent.click(anchovySelector);
     });
-    expect(onUpdateMock).toHaveBeenCalledWith(new Set<number>([1,2]));
+    expect(onUpdateMock).toHaveBeenCalledWith(new Set<number>([1, 2]));
   });
-  
+
   it('sends back selection ids of peperoni on de-selection', async () => {
     const onUpdateMock = jest.fn();
     renderToppingSelector(onUpdateMock);
     const pepperoniSelector = await screen.findByLabelText('pepperoni');
     const anchovySelector = await screen.findByLabelText('anchovy');
-    act(() => { 
+    act(() => {
       fireEvent.click(pepperoniSelector);
       fireEvent.click(anchovySelector);
       fireEvent.click(pepperoniSelector);
     });
-    expect(onUpdateMock).toHaveBeenCalledTimes(4)
-    expect(onUpdateMock).toHaveBeenNthCalledWith(4,new Set<number>([2]));
+    expect(onUpdateMock).toHaveBeenCalledTimes(4);
+    expect(onUpdateMock).toHaveBeenNthCalledWith(4, new Set<number>([2]));
   });
 
   test('populated snapshot', async () => {

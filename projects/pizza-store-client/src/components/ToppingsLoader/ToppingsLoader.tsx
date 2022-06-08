@@ -1,19 +1,19 @@
 import { ReactElement } from 'react';
 import useApiRequest from '../../hooks/useApiRequest';
-import { Topping } from '../ToppingsSelector/ToppingsSelector';
+import { Topping } from '../ToppingsSelector';
 
 interface ToppingsLoaderProps {
   children: (toppings: Topping[]) => ReactElement;
 }
 
 export default function ToppingsLoader({ children }: ToppingsLoaderProps) {
-  const sizes = useApiRequest<Topping[]>('/toppings');
+  const toppings = useApiRequest<Topping[]>('/toppings');
 
-  switch (sizes.state) {
+  switch (toppings.state) {
     case 'loaded':
-      return children(sizes.data);
+      return children(toppings.data);
     case 'error':
-      return <div>{sizes.error}</div>;
+      return <div>{toppings.error}</div>;
     case 'loading':
     default:
       return <div>Loading</div>;
