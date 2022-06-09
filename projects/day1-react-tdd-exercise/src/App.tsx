@@ -1,5 +1,21 @@
+import Accordion from './Accordion';
 import './App.css';
 import Spoiler from './Spoiler';
+
+const accordionItems = [
+  {
+    title: 'Bakery',
+    items: ['Bread', 'Cakes'],
+  },
+  {
+    title: 'Dairy',
+    items: ['Milk', 'Cheeses', 'Yoghurts'],
+  },
+  {
+    title: 'Produce',
+    items: ['Vegetables', 'Salads', 'Fruit'],
+  },
+];
 
 function App() {
   return (
@@ -12,6 +28,7 @@ function App() {
           title="You'll never guess..."
           content="Bruce Willis is dead!"
         />
+        <Accordion items={accordionItems} />
       </div>
     </div>
   );

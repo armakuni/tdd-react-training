@@ -1,0 +1,35 @@
+.accordion {
+  margin-top: 25px;
+  text-align: left;
+  background-color: rgb(0, 143, 225);
+}
+
+.accordion__section {
+  border-radius: 5px;
+  border: solid 3px black;
+  background-color: white;
+  margin-bottom: 4px;
+}
+
+.accordion__section-title {
+  font-weight: bold;
+  border-bottom: 2px;
+  font-size: larger;
+  padding-left: 10px;
+}
+
+.accordion__section--closed {
+  background-color: grey;
+}
+
+.accordion__section--opened {
+  background-color: white;
+}
+
+.accordion__items {
+  padding-left: 12px;
+}
+
+.accordion__item {
+  padding-bottom: 4px;
+}
