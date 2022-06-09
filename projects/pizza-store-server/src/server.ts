@@ -36,11 +36,11 @@ export default function server(): Express {
     res
       .status(200)
       .send([
-        { id: 1, name: 'pepperoni', price: 1 }, 
-        { id: 2, name: 'anchovy', price: 2.5 }, 
-        { id: 3, name: 'mushroom', price: 3.0 }]);
+        { id: 1, name: 'pepperoni', price: 1 },
+        { id: 2, name: 'anchovy', price: 2.5 },
+        { id: 3, name: 'mushroom', price: 3.0 },
+      ]);
   });
-
 
   return app;
 }

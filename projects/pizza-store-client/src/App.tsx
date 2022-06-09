@@ -6,6 +6,12 @@ import ToppingsSelector from './components/ToppingsSelector';
 import Pizza from './components/Pizza';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 
+function submitOrder(): boolean {
+  // eslint-disable-next-line no-alert
+  alert('Sorry, no pizza today!');
+  return false;
+}
+
 function App() {
   const config = useMemo(() => ({
     apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
@@ -30,20 +36,28 @@ function App() {
   const pizza = { size: selectedSize, toppings: Array.from(selectedToppings) };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="flex-container">
-          <div className="left-section">
-            <ConfigContext.Provider value={config}>
-              <SizeSelector onUpdate={setSelectedSize} />
-              <ToppingsSelector onUpdate={(selected: Set<number>) => setSelectedToppings(selected)} />
-            </ConfigContext.Provider>
-          </div>
-          <div className="right-section">
-            <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza)} />
+    <div className="app">
+      <header className="app__header">
+        <h1>Ryan&apos;s Pizzeria</h1>
+      </header>
+
+      <div className="columns">
+        <div className="block">
+          <h2 className="block__header">Build Your Order</h2>
+          <ConfigContext.Provider value={config}>
+            <SizeSelector onUpdate={setSelectedSize} />
+            <ToppingsSelector onUpdate={(selected: Set<number>) => setSelectedToppings(selected)} />
+          </ConfigContext.Provider>
+        </div>
+
+        <div className="block">
+          <h2 className="block__header">Your Order</h2>
+          <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza) as string} />
+          <div className="block__footer">
+            <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
           </div>
         </div>
-      </header>
+      </div>
     </div>
   );
 }

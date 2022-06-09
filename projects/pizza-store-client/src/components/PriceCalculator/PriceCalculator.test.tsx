@@ -18,7 +18,7 @@ const prices = {
 };
 
 describe('PriceCalculator', () => {
-  function renderPriceCalculator(pizzas) {
+  function renderPriceCalculator(pizzas: {size: string, toppings: number[]}[]) {
     render(<PriceCalculator pizzas={pizzas} prices={prices} />);
   }
 

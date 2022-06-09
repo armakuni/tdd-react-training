@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-function PriceCalculator(props) {
+function PriceCalculator(props: {pizzas: any, prices: any}) {
     
     const pizzas = props.pizzas
     const prices = props.prices
     const totals = pizzas.map(calculatePizzaCost(prices));
 
     return <div>
-        Total: £{(totals.reduce((x,y) => x + y, 0)).toFixed(2)}
+        Total: £{(totals.reduce((x:any,y:any) => x + y, 0)).toFixed(2)}
     </div>
 }
 
-export function calculatePizzaCost(prices) {
-    return pizza => calc(pizza);
+export function calculatePizzaCost(prices: any) {
+    return (pizza: any) => calc(pizza);
 
-    function calc(input) {
+    function calc(input: any) {
 
 /* Calculate pizza price
     1. Calculate price of pizza based on size
