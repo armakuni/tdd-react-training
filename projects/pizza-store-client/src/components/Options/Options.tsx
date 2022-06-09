@@ -23,16 +23,17 @@ function Option({ value, selected, onChange }: OptionProps) {
 interface OptionsProps {
   question: string
   options: string[]
-  // todo: Remove this!!!
-  // eslint-disable-next-line react/require-default-props
   initialValue?: string
-  // todo: Remove this!!!
-  // eslint-disable-next-line react/require-default-props
   onUpdate?: (_: string) => void
 }
 
-export default function Options({
-  question, options, initialValue = undefined, onUpdate = undefined,
+const defaultProps = {
+  initialValue: undefined,
+  onUpdate: undefined,
+};
+
+function Options({
+  question, options, initialValue, onUpdate,
 }: OptionsProps): ReactElement {
   const [selectedValue, setSelectedValue] = useState(initialValue);
 
@@ -55,3 +56,7 @@ export default function Options({
     </fieldset>
   );
 }
+
+Options.defaultProps = defaultProps;
+
+export default Options;
