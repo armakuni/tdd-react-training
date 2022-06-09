@@ -49,7 +49,7 @@ describe('ToppingsSelector', () => {
 
   it('displays the title', async () => {
     renderToppingSelector();
-    const titleElement = await screen.findByText('Toppings');
+    const titleElement = await screen.findByText('Choose your toppings');
     expect(titleElement).toBeInTheDocument();
   });
 

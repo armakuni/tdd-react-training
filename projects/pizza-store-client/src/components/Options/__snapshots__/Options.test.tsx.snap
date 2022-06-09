@@ -5,27 +5,35 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <fieldset>
-        <legend>
+      <fieldset
+        class="options"
+      >
+        <legend
+          class="options__question"
+        >
           question text
         </legend>
         <input
+          class="options__option_input"
           id=":r0:-radio"
           type="radio"
           value="a"
         />
         <label
+          class="options__option_label"
           for=":r0:-radio"
         >
           a
         </label>
         <br />
         <input
+          class="options__option_input"
           id=":r1:-radio"
           type="radio"
           value="b"
         />
         <label
+          class="options__option_label"
           for=":r1:-radio"
         >
           b
@@ -35,27 +43,35 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <fieldset>
-      <legend>
+    <fieldset
+      class="options"
+    >
+      <legend
+        class="options__question"
+      >
         question text
       </legend>
       <input
+        class="options__option_input"
         id=":r0:-radio"
         type="radio"
         value="a"
       />
       <label
+        class="options__option_label"
         for=":r0:-radio"
       >
         a
       </label>
       <br />
       <input
+        class="options__option_input"
         id=":r1:-radio"
         type="radio"
         value="b"
       />
       <label
+        class="options__option_label"
         for=":r1:-radio"
       >
         b

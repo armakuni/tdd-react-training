@@ -10,7 +10,7 @@ export default function SauceSelector({ onUpdate }: SauceSelectorProps) {
     <SauceLoader>
       {(sauces) => (
         <Options
-          question="Select the sauce for your paucea"
+          question="Select the sauce for your pizza"
           options={sauces}
           onUpdate={onUpdate}
         />

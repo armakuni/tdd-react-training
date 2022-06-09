@@ -50,7 +50,7 @@ describe('SauceSelector', () => {
 
   it('displays the title', async () => {
     renderSauceSelector();
-    const titleElement = await screen.findByText('Select the sauce of your pizza');
+    const titleElement = await screen.findByText('Select the sauce for your pizza');
     expect(titleElement).toBeInTheDocument();
   });
 

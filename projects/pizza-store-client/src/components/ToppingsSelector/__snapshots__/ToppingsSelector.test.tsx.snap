@@ -5,9 +5,13 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <fieldset>
-        <legend>
-          Toppings
+      <fieldset
+        class="multiple-choice"
+      >
+        <legend
+          class="multiple-choice__question"
+        >
+          Choose your toppings
         </legend>
         <input
           id="1"
@@ -49,9 +53,13 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <fieldset>
-      <legend>
-        Toppings
+    <fieldset
+      class="multiple-choice"
+    >
+      <legend
+        class="multiple-choice__question"
+      >
+        Choose your toppings
       </legend>
       <input
         id="1"

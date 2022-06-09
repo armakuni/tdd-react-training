@@ -1,4 +1,5 @@
 import { ReactElement, useId, useState } from 'react';
+import './Options.css';
 
 interface OptionProps {
   value: string
@@ -13,8 +14,20 @@ function Option({ value, selected, onChange }: OptionProps) {
 
   return (
     <>
-      <input id={inputId} type="radio" value={value} checked={selected} onChange={() => onChange()} />
-      <label htmlFor={inputId}>{ value }</label>
+      <input
+        className="options__option_input"
+        id={inputId}
+        type="radio"
+        value={value}
+        checked={selected}
+        onChange={() => onChange()}
+      />
+      <label
+        className="options__option_label"
+        htmlFor={inputId}
+      >
+        { value }
+      </label>
       <br />
     </>
   );
@@ -43,8 +56,8 @@ function Options({
   }
 
   return (
-    <fieldset>
-      <legend>{ question }</legend>
+    <fieldset className="options">
+      <legend className="options__question">{ question }</legend>
       { options.map((value) => (
         <Option
           value={value}

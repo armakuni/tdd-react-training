@@ -5,27 +5,35 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <fieldset>
-        <legend>
-          Select the sauce for your paucea
+      <fieldset
+        class="options"
+      >
+        <legend
+          class="options__question"
+        >
+          Select the sauce for your pizza
         </legend>
         <input
+          class="options__option_input"
           id=":r4:-radio"
           type="radio"
           value="big"
         />
         <label
+          class="options__option_label"
           for=":r4:-radio"
         >
           big
         </label>
         <br />
         <input
+          class="options__option_input"
           id=":r5:-radio"
           type="radio"
           value="small"
         />
         <label
+          class="options__option_label"
           for=":r5:-radio"
         >
           small
@@ -35,27 +43,35 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <fieldset>
-      <legend>
-        Select the sauce for your paucea
+    <fieldset
+      class="options"
+    >
+      <legend
+        class="options__question"
+      >
+        Select the sauce for your pizza
       </legend>
       <input
+        class="options__option_input"
         id=":r4:-radio"
         type="radio"
         value="big"
       />
       <label
+        class="options__option_label"
         for=":r4:-radio"
       >
         big
       </label>
       <br />
       <input
+        class="options__option_input"
         id=":r5:-radio"
         type="radio"
         value="small"
       />
       <label
+        class="options__option_label"
         for=":r5:-radio"
       >
         small

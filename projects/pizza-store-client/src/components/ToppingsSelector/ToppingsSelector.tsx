@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Topping } from './index';
 import ToppingsLoader from '../ToppingsLoader';
+import './ToppingsSelector.css';
 
 type toppingsSelectorProps = {
   onUpdate: (selected: Set<number>) => void
@@ -28,8 +29,8 @@ export default function ToppingsSelector({ onUpdate }: toppingsSelectorProps) {
   return (
     <ToppingsLoader>
       {(toppings) => (
-        <fieldset>
-          <legend>Toppings</legend>
+        <fieldset className="multiple-choice">
+          <legend className="multiple-choice__question">Choose your toppings</legend>
           { toppings.map((topping: Topping) => (
             <>
               <input
