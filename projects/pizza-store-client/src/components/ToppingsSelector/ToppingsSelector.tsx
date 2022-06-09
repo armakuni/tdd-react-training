@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Topping } from './index';
 import ToppingsLoader from '../ToppingsLoader';
 import './ToppingsSelector.css';
@@ -32,19 +32,18 @@ export default function ToppingsSelector({ onUpdate }: toppingsSelectorProps) {
         <fieldset className="multiple-choice">
           <legend className="multiple-choice__question">Choose your toppings</legend>
           { toppings.map((topping: Topping) => (
-            <>
+            <Fragment key={topping.id}>
               <input
                 readOnly
                 id={topping.id.toString()}
                 value={topping.name}
                 type="checkbox"
-                key={topping.id}
                 checked={selected.has(topping.id)}
                 onChange={() => toggle(topping.id)}
               />
               <label htmlFor={topping.id.toString()}>{ topping.name }</label>
               <br />
-            </>
+            </Fragment>
           )) }
         </fieldset>
       )}
