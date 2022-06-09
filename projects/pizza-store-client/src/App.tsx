@@ -6,6 +6,8 @@ import ToppingsSelector from './components/ToppingsSelector';
 import Pizza from './components/Pizza';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
+import * as PizzaType from './model/Pizza';
+import { Sauce, Size, Topping } from './model/Pizza';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -18,12 +20,7 @@ function App() {
     apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
   }), []);
 
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedToppings, setSelectedToppings] = useState(new Set<number>());
-
-  function setSelectedSauce(): void {
-    // todo
-  }
+  const [pizza, setPizza] = useState(PizzaType.create());
 
   const prices = {
     sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
@@ -38,7 +35,17 @@ function App() {
       { id: 6, name: 'chillis', price: 1 }],
   };
 
-  const pizza = { size: selectedSize, toppings: Array.from(selectedToppings) };
+  function selectSize(size: Size) {
+    setPizza((current) => PizzaType.setSize(current, size));
+  }
+
+  function selectSauce(sauce: Sauce) {
+    setPizza((current) => PizzaType.setSauce(current, sauce));
+  }
+
+  function selectToppings(toppings: Set<Topping>) {
+    setPizza((current) => PizzaType.setToppings(current, toppings));
+  }
 
   return (
     <div className="app">
@@ -50,15 +57,15 @@ function App() {
         <div className="block">
           <h2 className="block__header">Build Your Order</h2>
           <ConfigContext.Provider value={config}>
-            <SizeSelector onUpdate={setSelectedSize} />
-            <SauceSelector onUpdate={() => setSelectedSauce} />
-            <ToppingsSelector onUpdate={(selected: Set<number>) => setSelectedToppings(selected)} />
+            <SizeSelector onUpdate={(size) => selectSize(size)} />
+            <SauceSelector onUpdate={(sauce) => selectSauce(sauce)} />
+            <ToppingsSelector onUpdate={(toppings: Set<number>) => selectToppings(toppings)} />
           </ConfigContext.Provider>
         </div>
 
         <div className="block">
           <h2 className="block__header">Your Order</h2>
-          <Pizza size={selectedSize} price={calculatePizzaCost(prices)(pizza) as string} />
+          <Pizza size={pizza.size as string} price={calculatePizzaCost(prices)(pizza) as string} />
           <div className="block__footer">
             <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
           </div>
