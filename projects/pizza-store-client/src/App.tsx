@@ -5,6 +5,7 @@ import SizeSelector from './components/SizeSelector';
 import ToppingsSelector from './components/ToppingsSelector';
 import Pizza from './components/Pizza';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
+import SauceSelector from './components/SauceSelector';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -19,6 +20,10 @@ function App() {
 
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedToppings, setSelectedToppings] = useState(new Set<number>());
+
+  function setSelectedSauce(): void {
+    // todo
+  }
 
   const prices = {
     sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
@@ -46,6 +51,7 @@ function App() {
           <h2 className="block__header">Build Your Order</h2>
           <ConfigContext.Provider value={config}>
             <SizeSelector onUpdate={setSelectedSize} />
+            <SauceSelector onUpdate={() => setSelectedSauce} />
             <ToppingsSelector onUpdate={(selected: Set<number>) => setSelectedToppings(selected)} />
           </ConfigContext.Provider>
         </div>
