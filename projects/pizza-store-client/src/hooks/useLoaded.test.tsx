@@ -1,6 +1,4 @@
 import { ReactElement } from 'react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import { render, screen } from '@testing-library/react';
 import useLoader from './useLoader';
 
@@ -35,22 +33,8 @@ function TestComponent({ loader }: TestProps): ReactElement {
   }
 }
 
-describe('useApiRequest', () => {
-  const httpMock = new MockAdapter(axios);
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
+describe('useLoader', () => {
   it('initial state is loading', () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(() => new Promise(() => { /* never resolve */ }));
-
     const loader: TestLoader = () => new Promise(() => {
       /* never resolve */
     });
@@ -61,9 +45,6 @@ describe('useApiRequest', () => {
   });
 
   it('loads the data', async () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(200, ['a', 'b', 'c']);
-
     const loader: TestLoader = () => new Promise((resolve) => {
       resolve('example result');
     });
@@ -75,9 +56,6 @@ describe('useApiRequest', () => {
   });
 
   it('reports an error', async () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(500, 'there was an error');
-
     const loader: TestLoader = () => new Promise((_resolve, reject) => {
       reject(new Error('there was an error'));
     });
