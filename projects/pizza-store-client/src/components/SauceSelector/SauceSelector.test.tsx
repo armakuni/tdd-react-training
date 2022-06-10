@@ -17,12 +17,12 @@ function renderSauceSelector(
 }
 
 describe('SauceSelector', () => {
-  let wrapper: RenderResult;
+  let view: RenderResult;
   let onUpdate: (_value: string) => void;
 
   beforeEach(async () => {
     onUpdate = jest.fn();
-    wrapper = renderSauceSelector(onUpdate);
+    view = renderSauceSelector(onUpdate);
     await screen.findByText('tomato');
   });
 
@@ -37,7 +37,7 @@ describe('SauceSelector', () => {
   });
 
   test('populated snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(view).toMatchSnapshot();
   });
 
   it('sends back selections on change', () => {

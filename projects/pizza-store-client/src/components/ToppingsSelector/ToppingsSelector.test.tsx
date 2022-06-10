@@ -26,11 +26,11 @@ function renderToppingSelector(
 
 describe('ToppingsSelector', () => {
   let onUpdate: (selected: Set<number>) => void;
-  let wrapper: RenderResult;
+  let view: RenderResult;
 
   beforeEach(async () => {
     onUpdate = jest.fn();
-    wrapper = renderToppingSelector(onUpdate);
+    view = renderToppingSelector(onUpdate);
     await screen.findByText('pepperoni');
   });
 
@@ -61,6 +61,6 @@ describe('ToppingsSelector', () => {
   });
 
   test('populated snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(view).toMatchSnapshot();
   });
 });

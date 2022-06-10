@@ -21,14 +21,14 @@ function mockChildren(sizes: Size[]): ReactElement {
 }
 
 describe('Loader', () => {
-  let component: RenderResult;
+  let view: RenderResult;
 
   describe('when loaded', () => {
     beforeEach(async () => {
       const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
         resolve(['big', 'small']);
       });
-      component = renderSizeLoader(loader, mockChildren);
+      view = renderSizeLoader(loader, mockChildren);
       await screen.findByText('big');
     });
 
@@ -39,7 +39,7 @@ describe('Loader', () => {
     });
 
     it('matches the snapshot', () => {
-      expect(component).toMatchSnapshot();
+      expect(view).toMatchSnapshot();
     });
   });
 
@@ -48,7 +48,7 @@ describe('Loader', () => {
       const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
         reject(new Error('there was an error'));
       });
-      component = renderSizeLoader(loader, mockChildren);
+      view = renderSizeLoader(loader, mockChildren);
       await screen.findByText('there was an error');
     });
 
@@ -60,7 +60,7 @@ describe('Loader', () => {
     });
 
     it('matches the snapshot', () => {
-      expect(component).toMatchSnapshot();
+      expect(view).toMatchSnapshot();
     });
   });
 
@@ -69,7 +69,7 @@ describe('Loader', () => {
       const loader: LoadFunction<string[]> = () => new Promise(() => {
         /* never resolve */
       });
-      component = renderSizeLoader(loader, mockChildren);
+      view = renderSizeLoader(loader, mockChildren);
       await screen.findByTestId('loader');
     });
 
@@ -80,7 +80,7 @@ describe('Loader', () => {
     });
 
     it('matches the snapshot', () => {
-      expect(component).toMatchSnapshot();
+      expect(view).toMatchSnapshot();
     });
   });
 });

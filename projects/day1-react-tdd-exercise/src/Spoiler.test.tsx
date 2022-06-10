@@ -4,10 +4,10 @@ import {
 import Spoiler from './Spoiler';
 
 describe('<Spoiler />', () => {
-  let component: RenderResult;
+  let view: RenderResult;
 
   beforeEach(() => {
-    component = render(<Spoiler title="Example title" content="Secret message" />);
+    view = render(<Spoiler title="Example title" content="Secret message" />);
   });
 
   describe('when content is hidden', () => {
@@ -24,7 +24,7 @@ describe('<Spoiler />', () => {
     });
 
     it('matches the snapshot', () => {
-      expect(component).toMatchSnapshot();
+      expect(view).toMatchSnapshot();
     });
   });
 
@@ -47,7 +47,7 @@ describe('<Spoiler />', () => {
     });
 
     it('matches the snapshot', () => {
-      expect(component).toMatchSnapshot();
+      expect(view).toMatchSnapshot();
     });
   });
 });
