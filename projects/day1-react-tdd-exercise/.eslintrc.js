@@ -1,5 +1,5 @@
 const a11yOff = Object.keys(require('eslint-plugin-jsx-a11y').rules)
-    .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc }, {})
+  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc }, {})
 
 module.exports = {
   env: {
@@ -29,7 +29,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['build/', '.eslintrc.js'],
+  ignorePatterns: ['coverage/', 'build/', '.eslintrc.js'],
   plugins: [
     'react',
     '@typescript-eslint',

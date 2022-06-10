@@ -24,7 +24,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist/*', 'coverage/*', '.eslintrc.cjs', 'jest.config.ts'],
+  ignorePatterns: ['dist/', 'coverage/', '.eslintrc.cjs', 'jest.config.ts'],
   rules: {
     'import/extensions': [
       'error',

@@ -36,7 +36,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist/*', '.eslintrc.js', 'jest.config.ts'],
+  ignorePatterns: ['dist/*', 'coverage/*', '.eslintrc.js', 'jest.config.ts'],
   overrides: [
     {
       files: [
