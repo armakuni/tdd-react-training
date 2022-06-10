@@ -12,25 +12,19 @@ const toppings: Topping[] = [
   { id: 3, name: 'mushroom', price: 3.0 },
 ];
 
-function renderToppingSelector(
-  onUpdate: (selected: Set<number>) => void,
-) {
-  const fetchToppings: FetchToppings = () => new Promise((resolve) => {
-    resolve(toppings);
-  });
-
-  return render(
-    <ToppingsSelector onUpdate={onUpdate} fetchToppings={fetchToppings} />,
-  );
-}
-
 describe('ToppingsSelector', () => {
   let onUpdate: (selected: Set<number>) => void;
   let view: RenderResult;
 
+  const fetchToppings: FetchToppings = () => new Promise((resolve) => {
+    resolve(toppings);
+  });
+
   beforeEach(async () => {
     onUpdate = jest.fn();
-    view = renderToppingSelector(onUpdate);
+    view = render(
+      <ToppingsSelector onUpdate={onUpdate} fetchToppings={fetchToppings} />,
+    );
     await screen.findByText('pepperoni');
   });
 

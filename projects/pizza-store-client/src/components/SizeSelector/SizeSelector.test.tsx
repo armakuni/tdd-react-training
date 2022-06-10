@@ -4,25 +4,19 @@ import {
 import SizeSelector from './SizeSelector';
 import { FetchSizes } from '../../model/SizeRepository';
 
-function renderSizeSelector(
-  onUpdate: (_value: string) => void,
-): RenderResult {
-  const fetchSizes: FetchSizes = () => new Promise((resolve) => {
-    resolve(['big', 'small']);
-  });
-
-  return render(
-    <SizeSelector onUpdate={onUpdate} fetchSizes={fetchSizes} />,
-  );
-}
-
 describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
   let view: RenderResult;
 
+  const fetchSizes: FetchSizes = () => new Promise((resolve) => {
+    resolve(['big', 'small']);
+  });
+
   beforeEach(async () => {
     onUpdate = jest.fn();
-    view = renderSizeSelector(onUpdate);
+    view = render(
+      <SizeSelector onUpdate={onUpdate} fetchSizes={fetchSizes} />,
+    );
     await screen.findByText('big');
   });
   it('displays the title', () => {

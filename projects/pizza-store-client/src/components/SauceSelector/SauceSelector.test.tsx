@@ -4,25 +4,19 @@ import {
 import SauceSelector from './SauceSelector';
 import { FetchSauces } from '../../model/SauceRepository';
 
-function renderSauceSelector(
-  onUpdate: (_value: string) => void,
-): RenderResult {
-  const fetchSauces: FetchSauces = () => new Promise((resolve) => {
-    resolve(['tomato', 'no-sauce']);
-  });
-
-  return render(
-    <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate} />,
-  );
-}
-
 describe('SauceSelector', () => {
   let view: RenderResult;
   let onUpdate: (_value: string) => void;
 
+  const fetchSauces: FetchSauces = () => new Promise((resolve) => {
+    resolve(['tomato', 'no-sauce']);
+  });
+
   beforeEach(async () => {
     onUpdate = jest.fn();
-    view = renderSauceSelector(onUpdate);
+    view = render(
+      <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate} />,
+    );
     await screen.findByText('tomato');
   });
 
