@@ -1,53 +1,22 @@
-import { useMemo, ReactElement, ReactNode } from 'react';
 import {
   act, fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import ConfigContext from '../../ConfigContext';
 import SauceSelector from './SauceSelector';
-import Config from '../../Config';
-
-interface WithConfigProps {
-  config: Config
-  children: ReactNode
-}
-
-function WithConfig({ config, children }: WithConfigProps): ReactElement {
-  return (
-    <ConfigContext.Provider value={useMemo(() => config, [config])}>
-      { children }
-    </ConfigContext.Provider>
-  );
-}
+import { FetchSauces } from '../../model/SauceRepository';
 
 function renderSauceSelector(
   onUpdate: ((_value: string) => void) | undefined = undefined,
 ): RenderResult | undefined {
-  const config = { apiUrl: 'http://example.com' };
+  const fetchSauces: FetchSauces = () => new Promise((resolve) => {
+    resolve(['tomato', 'no-sauce']);
+  });
+
   return render(
-    <WithConfig config={config}>
-      <SauceSelector onUpdate={onUpdate || jest.fn()} />
-    </WithConfig>,
+    <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate || jest.fn()} />,
   );
 }
 
 describe('SauceSelector', () => {
-  const httpMock = new MockAdapter(axios);
-
-  beforeEach(() => {
-    httpMock.onGet('http://example.com/sauces').reply(200, ['big', 'small']);
-  });
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
   it('displays the title', async () => {
     renderSauceSelector();
     const titleElement = await screen.findByText('Select the sauce for your pizza');
@@ -56,31 +25,24 @@ describe('SauceSelector', () => {
 
   it('displays the sauces', async () => {
     renderSauceSelector();
-    const bigElement = await screen.findByText('big');
-    const smallElement = await screen.findByText('small');
+    const tomatoElement = await screen.findByText('tomato');
+    const noSauceElement = await screen.findByText('no-sauce');
 
-    expect(bigElement).toBeInTheDocument();
-    expect(smallElement).toBeInTheDocument();
+    expect(tomatoElement).toBeInTheDocument();
+    expect(noSauceElement).toBeInTheDocument();
   });
 
   test('populated snapshot', async () => {
     const wrapper = renderSauceSelector();
-    await screen.findByText('big');
+    await screen.findByText('tomato');
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('only makes the request once', async () => {
-    renderSauceSelector();
-    await screen.findByText('big');
-    // todo trigger a redraw
-    expect(httpMock.history.get.length).toBe(1);
   });
 
   it('sends back selections on change', async () => {
     const onUpdate = jest.fn();
     renderSauceSelector(onUpdate);
-    const bigSelector = await screen.findByLabelText('big');
-    act(() => { fireEvent.click(bigSelector); });
-    expect(onUpdate).toBeCalledWith('big');
+    const tomatoSelector = await screen.findByLabelText('tomato');
+    act(() => { fireEvent.click(tomatoSelector); });
+    expect(onUpdate).toBeCalledWith('tomato');
   });
 });

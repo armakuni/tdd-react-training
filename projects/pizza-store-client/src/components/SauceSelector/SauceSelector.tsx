@@ -1,13 +1,15 @@
+import { FetchSauces } from '../../model/SauceRepository';
+import Loader from '../Loader';
 import Options from '../Options';
-import SauceLoader from '../SauceLoader';
 
 interface SauceSelectorProps {
+  fetchSauces: FetchSauces;
   onUpdate: (value: string) => void;
 }
 
-export default function SauceSelector({ onUpdate }: SauceSelectorProps) {
+export default function SauceSelector({ fetchSauces, onUpdate }: SauceSelectorProps) {
   return (
-    <SauceLoader>
+    <Loader loader={fetchSauces}>
       {(sauces) => (
         <Options
           question="Select the sauce for your pizza"
@@ -15,6 +17,6 @@ export default function SauceSelector({ onUpdate }: SauceSelectorProps) {
           onUpdate={onUpdate}
         />
       )}
-    </SauceLoader>
+    </Loader>
   );
 }

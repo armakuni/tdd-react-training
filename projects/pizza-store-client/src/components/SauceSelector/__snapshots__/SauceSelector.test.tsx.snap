@@ -17,26 +17,26 @@ Object {
           class="options__option_input"
           id=":r4:-radio"
           type="radio"
-          value="big"
+          value="tomato"
         />
         <label
           class="options__option_label"
           for=":r4:-radio"
         >
-          big
+          tomato
         </label>
         <br />
         <input
           class="options__option_input"
           id=":r5:-radio"
           type="radio"
-          value="small"
+          value="no-sauce"
         />
         <label
           class="options__option_label"
           for=":r5:-radio"
         >
-          small
+          no-sauce
         </label>
         <br />
       </fieldset>
@@ -55,26 +55,26 @@ Object {
         class="options__option_input"
         id=":r4:-radio"
         type="radio"
-        value="big"
+        value="tomato"
       />
       <label
         class="options__option_label"
         for=":r4:-radio"
       >
-        big
+        tomato
       </label>
       <br />
       <input
         class="options__option_input"
         id=":r5:-radio"
         type="radio"
-        value="small"
+        value="no-sauce"
       />
       <label
         class="options__option_label"
         for=":r5:-radio"
       >
-        small
+        no-sauce
       </label>
       <br />
     </fieldset>

@@ -11,6 +11,7 @@ import { Topping } from './model/Topping';
 import { Sauce } from './model/Sauce';
 import { Size } from './model/Size';
 import { fetchSizes } from './infrastructure/HTTPSizeRespository';
+import { fetchSauces } from './infrastructure/HTTPSauceRepository';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -61,7 +62,7 @@ function App() {
           <h2 className="block__header">Build Your Order</h2>
           <ConfigContext.Provider value={config}>
             <SizeSelector onUpdate={selectSize} fetchSizes={fetchSizes} />
-            <SauceSelector onUpdate={selectSauce} />
+            <SauceSelector onUpdate={selectSauce} fetchSauces={fetchSauces} />
             <ToppingsSelector onUpdate={selectToppings} />
           </ConfigContext.Provider>
         </div>
