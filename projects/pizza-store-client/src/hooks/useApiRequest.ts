@@ -24,7 +24,7 @@ type Response<ResponseType> = LoadingResponse | LoadedResponse<ResponseType> | E
 
 async function fetchData<ResponseType>(url: string): Promise<ResponseType> {
   try {
-    const response = await axios.get<ResponseType>(url);
+    const response = await axios.get<ResponseType>(url, { timeout: 3000 });
     return response.data;
   } catch (err) {
     throw !axios.isAxiosError(err)

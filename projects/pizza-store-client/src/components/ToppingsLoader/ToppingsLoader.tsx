@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import useApiRequest from '../../hooks/useApiRequest';
-import { Topping } from '../ToppingsSelector';
+import Topping from '../ToppingsSelector/Topping';
 
 interface ToppingsLoaderProps {
   children: (toppings: Topping[]) => ReactElement;

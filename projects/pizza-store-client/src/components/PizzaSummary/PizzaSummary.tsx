@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface PizzaProps {
   size: string,
   price: string,
