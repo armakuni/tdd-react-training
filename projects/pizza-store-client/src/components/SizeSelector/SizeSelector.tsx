@@ -1,6 +1,6 @@
 import { FetchSizes } from '../../model/SizeRepository';
 import Options from '../Options';
-import SizeLoader from '../SizeLoader';
+import Loader from '../Loader';
 
 interface SizeSelectorProps {
   fetchSizes: FetchSizes;
@@ -9,7 +9,7 @@ interface SizeSelectorProps {
 
 export default function SizeSelector({ fetchSizes, onUpdate }: SizeSelectorProps) {
   return (
-    <SizeLoader fetchSizes={fetchSizes}>
+    <Loader loader={fetchSizes}>
       {(sizes) => (
         <Options
           question="Select the size of your pizza"
@@ -17,6 +17,6 @@ export default function SizeSelector({ fetchSizes, onUpdate }: SizeSelectorProps
           onUpdate={onUpdate}
         />
       )}
-    </SizeLoader>
+    </Loader>
   );
 }

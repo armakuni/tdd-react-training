@@ -2,31 +2,31 @@ import { ReactElement } from 'react';
 import {
   render, screen,
 } from '@testing-library/react';
-import SizeLoader from './SizeLoader';
-import { FetchSizes } from '../../model/SizeRepository';
+import Loader, { LoadFunction } from './Loader';
+import { Size } from '../../model/Size';
 
 function renderSizeLoader(
-  fetchSizes: FetchSizes,
-  children: (sizes: string[]) => ReactElement,
+  loader: LoadFunction<string[]>,
+  children: (results: string[]) => ReactElement,
 ) {
   return render(
-    <SizeLoader fetchSizes={fetchSizes}>
+    <Loader loader={loader}>
       {children}
-    </SizeLoader>,
+    </Loader>,
   );
 }
 
-function mockChildren(sizes: string[]): ReactElement {
+function mockChildren(sizes: Size[]): ReactElement {
   return <>{sizes.map((size) => <span key={size}>{size}</span>)}</>;
 }
 
-describe('SizeLoader', () => {
+describe('Loader', () => {
   it('renders the children with the loaded sizes', async () => {
-    const fetchSizes: FetchSizes = () => new Promise((resolve) => {
+    const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
       resolve(['big', 'small']);
     });
 
-    renderSizeLoader(fetchSizes, mockChildren);
+    renderSizeLoader(loader, mockChildren);
 
     expect(await screen.findByText('big')).toBeInTheDocument();
     expect(await screen.findByText('small')).toBeInTheDocument();
@@ -34,11 +34,11 @@ describe('SizeLoader', () => {
   });
 
   it('renders an error message', async () => {
-    const fetchSizes: FetchSizes = () => new Promise((_resolve, reject) => {
+    const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
       reject(new Error('there was an error'));
     });
 
-    renderSizeLoader(fetchSizes, mockChildren);
+    renderSizeLoader(loader, mockChildren);
 
     expect(await screen.findByText('there was an error')).toBeInTheDocument();
     expect(screen.queryByText('big')).not.toBeInTheDocument();
@@ -47,11 +47,11 @@ describe('SizeLoader', () => {
   });
 
   it('renders the loading message while waiting', async () => {
-    const fetchSizes: FetchSizes = () => new Promise(() => {
+    const loader: LoadFunction<string[]> = () => new Promise(() => {
       /* never resolve */
     });
 
-    renderSizeLoader(fetchSizes, mockChildren);
+    renderSizeLoader(loader, mockChildren);
 
     expect(await screen.findByText('Loading')).toBeInTheDocument();
     expect(screen.queryByText('big')).not.toBeInTheDocument();
