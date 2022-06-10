@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import App from './App';
@@ -40,7 +42,13 @@ test('renders the pizza shop', async () => {
     expect(screen.getByText('pepperoni')).toBeVisible();
     expect(screen.getByText('anchovy')).toBeVisible();
     expect(screen.getByText('mushroom')).toBeVisible();
-
-    expect(screen.getByText('Your Order')).toBeVisible();
   });
+
+  fireEvent.click(screen.getByText('large'));
+  fireEvent.click(screen.getByText('tomato'));
+  fireEvent.click(screen.getByText('pepperoni'));
+  fireEvent.click(screen.getByText('mushroom'));
+
+  expect(screen.getByText('Your Order')).toBeVisible();
+  expect(screen.getByText(/Price.*£19/)).toBeVisible();
 });
