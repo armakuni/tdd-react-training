@@ -1,53 +1,22 @@
-import { useMemo, ReactElement, ReactNode } from 'react';
 import {
   act, fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import ConfigContext from '../../ConfigContext';
 import SizeSelector from './SizeSelector';
-import Config from '../../Config';
-
-interface WithConfigProps {
-  config: Config
-  children: ReactNode
-}
-
-function WithConfig({ config, children }: WithConfigProps): ReactElement {
-  return (
-    <ConfigContext.Provider value={useMemo(() => config, [config])}>
-      { children }
-    </ConfigContext.Provider>
-  );
-}
+import { FetchSizes } from '../../model/SizeRepository';
 
 function renderSizeSelector(
   onUpdate: ((_value: string) => void) | undefined = undefined,
 ): RenderResult | undefined {
-  const config = { apiUrl: 'http://example.com' };
+  const fetchSizes: FetchSizes = () => new Promise((resolve) => {
+    resolve(['big', 'small']);
+  });
+
   return render(
-    <WithConfig config={config}>
-      <SizeSelector onUpdate={onUpdate || jest.fn()} />
-    </WithConfig>,
+    <SizeSelector onUpdate={onUpdate || jest.fn()} fetchSizes={fetchSizes} />,
   );
 }
 
 describe('SizeSelector', () => {
-  const httpMock = new MockAdapter(axios);
-
-  beforeEach(() => {
-    httpMock.onGet('http://example.com/sizes').reply(200, ['big', 'small']);
-  });
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
   it('displays the title', async () => {
     renderSizeSelector();
     const titleElement = await screen.findByText('Select the size of your pizza');
@@ -67,13 +36,6 @@ describe('SizeSelector', () => {
     const wrapper = renderSizeSelector();
     await screen.findByText('big');
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('only makes the request once', async () => {
-    renderSizeSelector();
-    await screen.findByText('big');
-    // todo trigger a redraw
-    expect(httpMock.history.get.length).toBe(1);
   });
 
   it('sends back selections on change', async () => {

@@ -1,8 +1,6 @@
-export type Size = string;
-
-export type Sauce = string;
-
-export type Topping = number;
+import { Sauce } from './Sauce';
+import { Size } from './Size';
+import { Topping } from './Topping';
 
 export interface Pizza {
   readonly size: Size | undefined;

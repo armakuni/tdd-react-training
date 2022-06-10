@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
-import useApiRequest from '../../hooks/useApiRequest';
+import useLoader from '../../hooks/useLoader';
+import { FetchSizes } from '../../model/SizeRepository';
 
 interface SizeLoaderProps {
+  fetchSizes: FetchSizes;
   children: (sizes: string[]) => ReactElement;
 }
 
-export default function SizeLoader({ children }: SizeLoaderProps) {
-  const sizes = useApiRequest<string[]>('/sizes');
+export default function SizeLoader({ fetchSizes, children }: SizeLoaderProps) {
+  const sizes = useLoader(fetchSizes);
 
   switch (sizes.state) {
     case 'loaded':

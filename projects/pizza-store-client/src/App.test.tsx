@@ -29,8 +29,17 @@ test('renders learn react link', async () => {
   await waitFor(() => {
     expect(screen.getByText('Build Your Order')).toBeVisible();
     expect(screen.getByText('Select the size of your pizza')).toBeVisible();
+    expect(screen.getByText('large')).toBeVisible();
+    expect(screen.getByText('small')).toBeVisible();
+
     expect(screen.getByText('Select the sauce for your pizza')).toBeVisible();
+    expect(screen.getByText('garlic')).toBeVisible();
+    expect(screen.getByText('tomato')).toBeVisible();
+
     expect(screen.getByText('Choose your toppings')).toBeVisible();
+    expect(screen.getByText('pepperoni')).toBeVisible();
+    expect(screen.getByText('anchovy')).toBeVisible();
+    expect(screen.getByText('mushroom')).toBeVisible();
 
     expect(screen.getByText('Your Order')).toBeVisible();
   });

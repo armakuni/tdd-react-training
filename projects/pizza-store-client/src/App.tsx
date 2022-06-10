@@ -7,7 +7,10 @@ import PizzaSummary from './components/PizzaSummary';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
 import * as Pizza from './model/Pizza';
-import { Sauce, Size, Topping } from './model/Pizza';
+import { Topping } from './model/Topping';
+import { Sauce } from './model/Sauce';
+import { Size } from './model/Size';
+import { fetchSizes } from './infrastructure/HTTPSizeRespository';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -57,7 +60,7 @@ function App() {
         <div className="block">
           <h2 className="block__header">Build Your Order</h2>
           <ConfigContext.Provider value={config}>
-            <SizeSelector onUpdate={selectSize} />
+            <SizeSelector onUpdate={selectSize} fetchSizes={fetchSizes} />
             <SauceSelector onUpdate={selectSauce} />
             <ToppingsSelector onUpdate={selectToppings} />
           </ConfigContext.Provider>

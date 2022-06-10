@@ -1,39 +1,18 @@
-import { useMemo, ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import {
   render, screen,
 } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import ConfigContext from '../../ConfigContext';
 import SizeLoader from './SizeLoader';
-import Config from '../../Config';
-
-interface WithConfigProps {
-  config: Config;
-  children: ReactNode;
-}
-
-function WithConfig({
-  config,
-  children,
-}: WithConfigProps) {
-  return (
-    <ConfigContext.Provider value={useMemo(() => config, [config])}>
-      {children}
-    </ConfigContext.Provider>
-  );
-}
+import { FetchSizes } from '../../model/SizeRepository';
 
 function renderSizeLoader(
+  fetchSizes: FetchSizes,
   children: (sizes: string[]) => ReactElement,
 ) {
-  const config = { apiUrl: 'http://example.com' };
   return render(
-    <WithConfig config={config}>
-      <SizeLoader>
-        {children}
-      </SizeLoader>
-    </WithConfig>,
+    <SizeLoader fetchSizes={fetchSizes}>
+      {children}
+    </SizeLoader>,
   );
 }
 
@@ -42,22 +21,12 @@ function mockChildren(sizes: string[]): ReactElement {
 }
 
 describe('SizeLoader', () => {
-  const httpMock = new MockAdapter(axios);
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
-  afterAll(() => {
-    // is this necessary?
-    httpMock.restore();
-  });
-
   it('renders the children with the loaded sizes', async () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(200, ['big', 'small']);
+    const fetchSizes: FetchSizes = () => new Promise((resolve) => {
+      resolve(['big', 'small']);
+    });
 
-    renderSizeLoader(mockChildren);
+    renderSizeLoader(fetchSizes, mockChildren);
 
     expect(await screen.findByText('big')).toBeInTheDocument();
     expect(await screen.findByText('small')).toBeInTheDocument();
@@ -65,10 +34,11 @@ describe('SizeLoader', () => {
   });
 
   it('renders an error message', async () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(500, 'there was an error');
+    const fetchSizes: FetchSizes = () => new Promise((_resolve, reject) => {
+      reject(new Error('there was an error'));
+    });
 
-    renderSizeLoader(mockChildren);
+    renderSizeLoader(fetchSizes, mockChildren);
 
     expect(await screen.findByText('there was an error')).toBeInTheDocument();
     expect(screen.queryByText('big')).not.toBeInTheDocument();
@@ -77,10 +47,11 @@ describe('SizeLoader', () => {
   });
 
   it('renders the loading message while waiting', async () => {
-    httpMock.onGet('http://example.com/sizes')
-      .reply(() => new Promise(() => { /* never resolve */ }));
+    const fetchSizes: FetchSizes = () => new Promise(() => {
+      /* never resolve */
+    });
 
-    renderSizeLoader(mockChildren);
+    renderSizeLoader(fetchSizes, mockChildren);
 
     expect(await screen.findByText('Loading')).toBeInTheDocument();
     expect(screen.queryByText('big')).not.toBeInTheDocument();
