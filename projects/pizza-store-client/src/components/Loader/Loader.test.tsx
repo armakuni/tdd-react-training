@@ -33,8 +33,8 @@ describe('Loader', () => {
     });
 
     it('renders the children with the data', () => {
-      expect(screen.getByText('big')).toBeInTheDocument();
-      expect(screen.getByText('small')).toBeInTheDocument();
+      expect(screen.getByText('big')).toBeVisible();
+      expect(screen.getByText('small')).toBeVisible();
       expect(screen.queryByText('Loading')).not.toBeInTheDocument();
     });
 
@@ -53,7 +53,7 @@ describe('Loader', () => {
     });
 
     it('renders an error message', () => {
-      expect(screen.getByText('there was an error')).toBeInTheDocument();
+      expect(screen.getByText('there was an error')).toBeVisible();
       expect(screen.queryByText('big')).not.toBeInTheDocument();
       expect(screen.queryByText('small')).not.toBeInTheDocument();
       expect(screen.queryByText('Loading')).not.toBeInTheDocument();
@@ -70,11 +70,11 @@ describe('Loader', () => {
         /* never resolve */
       });
       component = renderSizeLoader(loader, mockChildren);
-      await screen.findByText('Loading');
+      await screen.findByTestId('loader');
     });
 
     it('renders the loading message', () => {
-      expect(screen.getByText('Loading')).toBeInTheDocument();
+      expect(screen.getByTestId('loader')).toBeVisible();
       expect(screen.queryByText('big')).not.toBeInTheDocument();
       expect(screen.queryByText('small')).not.toBeInTheDocument();
     });

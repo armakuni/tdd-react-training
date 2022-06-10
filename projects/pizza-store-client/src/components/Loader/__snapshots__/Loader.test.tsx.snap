@@ -5,14 +5,36 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
-        there was an error
+      <div
+        class="loader-error"
+      >
+        <div
+          class="loader-error__title"
+        >
+          An Error Occurred:
+        </div>
+        <div
+          class="loader-error__message"
+        >
+          there was an error
+        </div>
       </div>
     </div>
   </body>,
   "container": <div>
-    <div>
-      there was an error
+    <div
+      class="loader-error"
+    >
+      <div
+        class="loader-error__title"
+      >
+        An Error Occurred:
+      </div>
+      <div
+        class="loader-error__message"
+      >
+        there was an error
+      </div>
     </div>
   </div>,
   "debug": [Function],
@@ -149,15 +171,17 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
-        Loading
-      </div>
+      <div
+        class="loader"
+        data-testid="loader"
+      />
     </div>
   </body>,
   "container": <div>
-    <div>
-      Loading
-    </div>
+    <div
+      class="loader"
+      data-testid="loader"
+    />
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

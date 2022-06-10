@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import useLoader from '../../hooks/useLoader';
+import './Loader.css';
 
 export type LoadFunction<ReturnType> = () => Promise<ReturnType>
 
@@ -15,9 +16,14 @@ export default function Loader<ReturnType>({ loader, children }: LoaderProps<Ret
     case 'loaded':
       return children(result.data);
     case 'error':
-      return <div>{result.error}</div>;
+      return (
+        <div className="loader-error">
+          <div className="loader-error__title">An Error Occurred:</div>
+          <div className="loader-error__message">{result.error}</div>
+        </div>
+      );
     case 'loading':
     default:
-      return <div>Loading</div>;
+      return <div className="loader" data-testid="loader" />;
   }
 }
