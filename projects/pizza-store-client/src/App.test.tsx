@@ -28,25 +28,25 @@ test('renders the pizza shop', async () => {
 
   render(<App />);
 
-  expect(await screen.findByText('Build Your Order')).toBeVisible();
+  expect(await screen.findByRole('heading', { name: 'Build Your Order' })).toBeVisible();
   expect(await screen.findByText('Select the size of your pizza')).toBeVisible();
-  expect(await screen.findByText('large')).toBeVisible();
-  expect(await screen.findByText('small')).toBeVisible();
+  expect(await screen.findByLabelText('large')).toBeVisible();
+  expect(await screen.findByLabelText('small')).toBeVisible();
 
   expect(await screen.findByText('Select the sauce for your pizza')).toBeVisible();
-  expect(await screen.findByText('garlic')).toBeVisible();
-  expect(await screen.findByText('tomato')).toBeVisible();
+  expect(await screen.findByLabelText('garlic')).toBeVisible();
+  expect(await screen.findByLabelText('tomato')).toBeVisible();
 
   expect(await screen.findByText('Choose your toppings')).toBeVisible();
-  expect(await screen.findByText('pepperoni')).toBeVisible();
-  expect(await screen.findByText('anchovy')).toBeVisible();
-  expect(await screen.findByText('mushroom')).toBeVisible();
+  expect(await screen.findByLabelText('pepperoni')).toBeVisible();
+  expect(await screen.findByLabelText('anchovy')).toBeVisible();
+  expect(await screen.findByLabelText('mushroom')).toBeVisible();
 
-  fireEvent.click(screen.getByText('large'));
-  fireEvent.click(screen.getByText('tomato'));
-  fireEvent.click(screen.getByText('pepperoni'));
-  fireEvent.click(screen.getByText('mushroom'));
+  fireEvent.click(screen.getByLabelText('large'));
+  fireEvent.click(screen.getByLabelText('tomato'));
+  fireEvent.click(screen.getByLabelText('pepperoni'));
+  fireEvent.click(screen.getByLabelText('mushroom'));
 
-  expect(screen.getByText('Your Order')).toBeVisible();
+  expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
   expect(screen.getByText(/Price.*£19/)).toBeVisible();
 });
