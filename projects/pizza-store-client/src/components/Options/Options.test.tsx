@@ -5,8 +5,8 @@ import Options from './Options';
 
 describe('Options', () => {
   test('initial state snapshot', () => {
-    const wrapper = render(<Options question="question text" options={['a', 'b']} />);
-    expect(wrapper).toMatchSnapshot();
+    const view = render(<Options question="question text" options={['a', 'b']} />);
+    expect(view).toMatchSnapshot();
   });
 
   it('displays the question', async () => {

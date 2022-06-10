@@ -18,11 +18,11 @@ function renderSizeSelector(
 
 describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
-  let wrapper: RenderResult;
+  let view: RenderResult;
 
   beforeEach(async () => {
     onUpdate = jest.fn();
-    wrapper = renderSizeSelector(onUpdate);
+    view = renderSizeSelector(onUpdate);
     await screen.findByText('big');
   });
   it('displays the title', () => {
@@ -36,7 +36,7 @@ describe('SizeSelector', () => {
   });
 
   test('populated snapshot', () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(view).toMatchSnapshot();
   });
 
   it('sends back selections on change', () => {
