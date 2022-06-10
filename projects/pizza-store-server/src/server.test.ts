@@ -88,8 +88,8 @@ describe('server', () => {
     it('returns data structure for topping options pepperoni, anchovy, mushroom', async () => {
       const response = await request(app).get('/toppings');
       const toppings = [
-        { id: 1, name: 'pepperoni', price: 1 }, 
-        { id: 2, name: 'anchovy', price: 2.5 }, 
+        { id: 1, name: 'pepperoni', price: 1 },
+        { id: 2, name: 'anchovy', price: 2.5 },
         { id: 3, name: 'mushroom', price: 3.0 }];
       expect(response.body).toStrictEqual(toppings);
     });
