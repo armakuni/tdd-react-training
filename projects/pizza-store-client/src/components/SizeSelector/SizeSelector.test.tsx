@@ -1,48 +1,46 @@
 import {
-  act, fireEvent, render, RenderResult, screen,
+  fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
 import SizeSelector from './SizeSelector';
 import { FetchSizes } from '../../model/SizeRepository';
 
 function renderSizeSelector(
-  onUpdate: ((_value: string) => void) | undefined = undefined,
-): RenderResult | undefined {
+  onUpdate: (_value: string) => void,
+): RenderResult {
   const fetchSizes: FetchSizes = () => new Promise((resolve) => {
     resolve(['big', 'small']);
   });
 
   return render(
-    <SizeSelector onUpdate={onUpdate || jest.fn()} fetchSizes={fetchSizes} />,
+    <SizeSelector onUpdate={onUpdate} fetchSizes={fetchSizes} />,
   );
 }
 
 describe('SizeSelector', () => {
-  it('displays the title', async () => {
-    renderSizeSelector();
-    const titleElement = await screen.findByText('Select the size of your pizza');
-    expect(titleElement).toBeInTheDocument();
-  });
+  let onUpdate: (_value: string) => void;
+  let wrapper: RenderResult;
 
-  it('displays the sizes', async () => {
-    renderSizeSelector();
-    const bigElement = await screen.findByText('big');
-    const smallElement = await screen.findByText('small');
-
-    expect(bigElement).toBeInTheDocument();
-    expect(smallElement).toBeInTheDocument();
-  });
-
-  test('populated snapshot', async () => {
-    const wrapper = renderSizeSelector();
+  beforeEach(async () => {
+    onUpdate = jest.fn();
+    wrapper = renderSizeSelector(onUpdate);
     await screen.findByText('big');
+  });
+  it('displays the title', () => {
+    const titleElement = screen.getByText('Select the size of your pizza');
+    expect(titleElement).toBeVisible();
+  });
+
+  it('displays the sizes', () => {
+    expect(screen.getByText('big')).toBeVisible();
+    expect(screen.getByText('small')).toBeVisible();
+  });
+
+  test('populated snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('sends back selections on change', async () => {
-    const onUpdate = jest.fn();
-    renderSizeSelector(onUpdate);
-    const bigSelector = await screen.findByLabelText('big');
-    act(() => { fireEvent.click(bigSelector); });
+  it('sends back selections on change', () => {
+    fireEvent.click(screen.getByText('big'));
     expect(onUpdate).toBeCalledWith('big');
   });
 });

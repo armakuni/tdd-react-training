@@ -1,48 +1,47 @@
 import {
-  act, fireEvent, render, RenderResult, screen,
+  fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
 import SauceSelector from './SauceSelector';
 import { FetchSauces } from '../../model/SauceRepository';
 
 function renderSauceSelector(
-  onUpdate: ((_value: string) => void) | undefined = undefined,
-): RenderResult | undefined {
+  onUpdate: (_value: string) => void,
+): RenderResult {
   const fetchSauces: FetchSauces = () => new Promise((resolve) => {
     resolve(['tomato', 'no-sauce']);
   });
 
   return render(
-    <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate || jest.fn()} />,
+    <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate} />,
   );
 }
 
 describe('SauceSelector', () => {
-  it('displays the title', async () => {
-    renderSauceSelector();
-    const titleElement = await screen.findByText('Select the sauce for your pizza');
-    expect(titleElement).toBeInTheDocument();
-  });
+  let wrapper: RenderResult;
+  let onUpdate: (_value: string) => void;
 
-  it('displays the sauces', async () => {
-    renderSauceSelector();
-    const tomatoElement = await screen.findByText('tomato');
-    const noSauceElement = await screen.findByText('no-sauce');
-
-    expect(tomatoElement).toBeInTheDocument();
-    expect(noSauceElement).toBeInTheDocument();
-  });
-
-  test('populated snapshot', async () => {
-    const wrapper = renderSauceSelector();
+  beforeEach(async () => {
+    onUpdate = jest.fn();
+    wrapper = renderSauceSelector(onUpdate);
     await screen.findByText('tomato');
+  });
+
+  it('displays the title', () => {
+    const titleElement = screen.getByText('Select the sauce for your pizza');
+    expect(titleElement).toBeVisible();
+  });
+
+  it('displays the sauces', () => {
+    expect(screen.getByText('tomato')).toBeVisible();
+    expect(screen.getByText('no-sauce')).toBeVisible();
+  });
+
+  test('populated snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('sends back selections on change', async () => {
-    const onUpdate = jest.fn();
-    renderSauceSelector(onUpdate);
-    const tomatoSelector = await screen.findByLabelText('tomato');
-    act(() => { fireEvent.click(tomatoSelector); });
+  it('sends back selections on change', () => {
+    fireEvent.click(screen.getByLabelText('tomato'));
     expect(onUpdate).toBeCalledWith('tomato');
   });
 });

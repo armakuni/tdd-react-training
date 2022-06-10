@@ -1,6 +1,6 @@
 import {
   fireEvent,
-  render, screen,
+  render, RenderResult, screen,
 } from '@testing-library/react';
 import ToppingsSelector from './ToppingsSelector';
 import { FetchToppings } from '../../model/ToppingRepository';
@@ -13,58 +13,54 @@ const toppings: Topping[] = [
 ];
 
 function renderToppingSelector(
-  onUpdate: undefined | jest.Mock = undefined,
+  onUpdate: (selected: Set<number>) => void,
 ) {
   const fetchToppings: FetchToppings = () => new Promise((resolve) => {
     resolve(toppings);
   });
 
   return render(
-    <ToppingsSelector onUpdate={onUpdate || jest.fn()} fetchToppings={fetchToppings} />,
+    <ToppingsSelector onUpdate={onUpdate} fetchToppings={fetchToppings} />,
   );
 }
 
 describe('ToppingsSelector', () => {
-  it('displays the title', async () => {
-    renderToppingSelector();
-    const titleElement = await screen.findByText('Choose your toppings');
-    expect(titleElement).toBeInTheDocument();
-  });
+  let onUpdate: (selected: Set<number>) => void;
+  let wrapper: RenderResult;
 
-  it('displays the toppings', async () => {
-    renderToppingSelector();
-    const pepperoniElement = await screen.findByText('pepperoni');
-    const anchovyElement = await screen.findByText('anchovy');
-
-    expect(pepperoniElement).toBeInTheDocument();
-    expect(anchovyElement).toBeInTheDocument();
-  });
-
-  it('sends back selection ids of peperoni and anchov on selection', async () => {
-    const onUpdateMock = jest.fn();
-    renderToppingSelector(onUpdateMock);
-    const pepperoniSelector = await screen.findByLabelText('pepperoni');
-    const anchovySelector = await screen.findByLabelText('anchovy');
-    fireEvent.click(pepperoniSelector);
-    fireEvent.click(anchovySelector);
-    expect(onUpdateMock).toHaveBeenCalledWith(new Set<number>([1, 2]));
-  });
-
-  it('sends back selection ids of peperoni on de-selection', async () => {
-    const onUpdateMock = jest.fn();
-    renderToppingSelector(onUpdateMock);
-    const pepperoniSelector = await screen.findByLabelText('pepperoni');
-    const anchovySelector = await screen.findByLabelText('anchovy');
-    fireEvent.click(pepperoniSelector);
-    fireEvent.click(anchovySelector);
-    fireEvent.click(pepperoniSelector);
-    expect(onUpdateMock).toHaveBeenCalledTimes(4);
-    expect(onUpdateMock).toHaveBeenNthCalledWith(4, new Set<number>([2]));
-  });
-
-  test('populated snapshot', async () => {
-    const wrapper = renderToppingSelector();
+  beforeEach(async () => {
+    onUpdate = jest.fn();
+    wrapper = renderToppingSelector(onUpdate);
     await screen.findByText('pepperoni');
+  });
+
+  it('displays the title', () => {
+    const titleElement = screen.getByText('Choose your toppings');
+    expect(titleElement).toBeVisible();
+  });
+
+  it('displays the toppings', () => {
+    expect(screen.getByText('pepperoni')).toBeVisible();
+    expect(screen.getByText('anchovy')).toBeVisible();
+  });
+
+  it('sends back selection ids of peperoni and anchov on selection', () => {
+    fireEvent.click(screen.getByLabelText('pepperoni'));
+    fireEvent.click(screen.getByLabelText('anchovy'));
+    expect(onUpdate).toHaveBeenCalledWith(new Set<number>([1, 2]));
+  });
+
+  it('sends back selection ids of peperoni on de-selection', () => {
+    const pepperoniSelector = screen.getByLabelText('pepperoni');
+    const anchovySelector = screen.getByLabelText('anchovy');
+    fireEvent.click(pepperoniSelector);
+    fireEvent.click(anchovySelector);
+    fireEvent.click(pepperoniSelector);
+    expect(onUpdate).toHaveBeenCalledTimes(4);
+    expect(onUpdate).toHaveBeenNthCalledWith(4, new Set<number>([2]));
+  });
+
+  test('populated snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
