@@ -1,52 +1,30 @@
-import { useMemo, ReactNode } from 'react';
 import {
-  act,
   fireEvent,
   render, screen,
 } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
-import ConfigContext from '../../ConfigContext';
 import ToppingsSelector from './ToppingsSelector';
-import Config from '../../Config';
+import { FetchToppings } from '../../model/ToppingRepository';
+import { Topping } from '../../model/Topping';
 
-const toppings = [{ id: 1, name: 'pepperoni', price: 1 }, { id: 2, name: 'anchovy', price: 2.5 }, { id: 3, name: 'mushroom', price: 3.0 }];
-
-interface WithConfigProps {
-  config: Config
-  children: ReactNode
-}
-
-function WithConfig({ config, children }: WithConfigProps) {
-  return (
-    <ConfigContext.Provider value={useMemo(() => config, [config])}>
-      { children }
-    </ConfigContext.Provider>
-  );
-}
+const toppings: Topping[] = [
+  { id: 1, name: 'pepperoni', price: 1 },
+  { id: 2, name: 'anchovy', price: 2.5 },
+  { id: 3, name: 'mushroom', price: 3.0 },
+];
 
 function renderToppingSelector(
   onUpdate: undefined | jest.Mock = undefined,
 ) {
-  const config = { apiUrl: 'http://example.com' };
+  const fetchToppings: FetchToppings = () => new Promise((resolve) => {
+    resolve(toppings);
+  });
+
   return render(
-    <WithConfig config={config}>
-      <ToppingsSelector onUpdate={onUpdate || jest.fn()} />
-    </WithConfig>,
+    <ToppingsSelector onUpdate={onUpdate || jest.fn()} fetchToppings={fetchToppings} />,
   );
 }
 
 describe('ToppingsSelector', () => {
-  const httpMock = new MockAdapter(axios);
-
-  beforeEach(() => {
-    httpMock.onGet('http://example.com/toppings').reply(200, toppings);
-  });
-
-  afterEach(() => {
-    httpMock.reset();
-  });
-
   it('displays the title', async () => {
     renderToppingSelector();
     const titleElement = await screen.findByText('Choose your toppings');
@@ -67,10 +45,8 @@ describe('ToppingsSelector', () => {
     renderToppingSelector(onUpdateMock);
     const pepperoniSelector = await screen.findByLabelText('pepperoni');
     const anchovySelector = await screen.findByLabelText('anchovy');
-    act(() => {
-      fireEvent.click(pepperoniSelector);
-      fireEvent.click(anchovySelector);
-    });
+    fireEvent.click(pepperoniSelector);
+    fireEvent.click(anchovySelector);
     expect(onUpdateMock).toHaveBeenCalledWith(new Set<number>([1, 2]));
   });
 
@@ -79,11 +55,9 @@ describe('ToppingsSelector', () => {
     renderToppingSelector(onUpdateMock);
     const pepperoniSelector = await screen.findByLabelText('pepperoni');
     const anchovySelector = await screen.findByLabelText('anchovy');
-    act(() => {
-      fireEvent.click(pepperoniSelector);
-      fireEvent.click(anchovySelector);
-      fireEvent.click(pepperoniSelector);
-    });
+    fireEvent.click(pepperoniSelector);
+    fireEvent.click(anchovySelector);
+    fireEvent.click(pepperoniSelector);
     expect(onUpdateMock).toHaveBeenCalledTimes(4);
     expect(onUpdateMock).toHaveBeenNthCalledWith(4, new Set<number>([2]));
   });

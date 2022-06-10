@@ -1,15 +1,17 @@
 import {
   Fragment, useEffect, useState,
 } from 'react';
-import Topping from './Topping';
-import ToppingsLoader from '../ToppingsLoader';
 import './ToppingsSelector.css';
+import { FetchToppings } from '../../model/ToppingRepository';
+import Loader from '../Loader';
+import { Topping } from '../../model/Topping';
 
 type ToppingsSelectorProps = {
-  onUpdate: (selected: Set<number>) => void
+  fetchToppings: FetchToppings;
+  onUpdate: (selected: Set<number>) => void;
 }
 
-export default function ToppingsSelector({ onUpdate }: ToppingsSelectorProps) {
+export default function ToppingsSelector({ fetchToppings, onUpdate }: ToppingsSelectorProps) {
   const [selected, setSelected] = useState(new Set<number>());
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function ToppingsSelector({ onUpdate }: ToppingsSelectorProps) {
   };
 
   return (
-    <ToppingsLoader>
+    <Loader loader={fetchToppings}>
       {(toppings) => (
         <fieldset className="multiple-choice">
           <legend className="multiple-choice__question">Choose your toppings</legend>
@@ -50,6 +52,6 @@ export default function ToppingsSelector({ onUpdate }: ToppingsSelectorProps) {
         </fieldset>
       )}
 
-    </ToppingsLoader>
+    </Loader>
   );
 }
