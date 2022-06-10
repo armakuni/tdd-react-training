@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import {
-  render, screen,
+  render, RenderResult, screen,
 } from '@testing-library/react';
 import Loader, { LoadFunction } from './Loader';
 import { Size } from '../../model/Size';
@@ -21,40 +21,66 @@ function mockChildren(sizes: Size[]): ReactElement {
 }
 
 describe('Loader', () => {
-  it('renders the children with the loaded sizes', async () => {
-    const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
-      resolve(['big', 'small']);
+  let component: RenderResult;
+
+  describe('when loaded', () => {
+    beforeEach(async () => {
+      const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
+        resolve(['big', 'small']);
+      });
+      component = renderSizeLoader(loader, mockChildren);
+      await screen.findByText('big');
     });
 
-    renderSizeLoader(loader, mockChildren);
+    it('renders the children with the data', () => {
+      expect(screen.getByText('big')).toBeInTheDocument();
+      expect(screen.getByText('small')).toBeInTheDocument();
+      expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+    });
 
-    expect(await screen.findByText('big')).toBeInTheDocument();
-    expect(await screen.findByText('small')).toBeInTheDocument();
-    expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+    it('matches the snapshot', () => {
+      expect(component).toMatchSnapshot();
+    });
   });
 
-  it('renders an error message', async () => {
-    const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
-      reject(new Error('there was an error'));
+  describe('when an error occurred', () => {
+    beforeEach(async () => {
+      const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
+        reject(new Error('there was an error'));
+      });
+      component = renderSizeLoader(loader, mockChildren);
+      await screen.findByText('there was an error');
     });
 
-    renderSizeLoader(loader, mockChildren);
+    it('renders an error message', () => {
+      expect(screen.getByText('there was an error')).toBeInTheDocument();
+      expect(screen.queryByText('big')).not.toBeInTheDocument();
+      expect(screen.queryByText('small')).not.toBeInTheDocument();
+      expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+    });
 
-    expect(await screen.findByText('there was an error')).toBeInTheDocument();
-    expect(screen.queryByText('big')).not.toBeInTheDocument();
-    expect(screen.queryByText('small')).not.toBeInTheDocument();
-    expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+    it('matches the snapshot', () => {
+      expect(component).toMatchSnapshot();
+    });
   });
 
-  it('renders the loading message while waiting', async () => {
-    const loader: LoadFunction<string[]> = () => new Promise(() => {
-      /* never resolve */
+  describe('when loading', () => {
+    beforeEach(async () => {
+      const loader: LoadFunction<string[]> = () => new Promise(() => {
+        /* never resolve */
+      });
+      component = renderSizeLoader(loader, mockChildren);
+      await screen.findByText('Loading');
     });
 
-    renderSizeLoader(loader, mockChildren);
+    it('renders the loading message', () => {
+      expect(screen.getByText('Loading')).toBeInTheDocument();
+      expect(screen.queryByText('big')).not.toBeInTheDocument();
+      expect(screen.queryByText('small')).not.toBeInTheDocument();
+    });
 
-    expect(await screen.findByText('Loading')).toBeInTheDocument();
-    expect(screen.queryByText('big')).not.toBeInTheDocument();
-    expect(screen.queryByText('small')).not.toBeInTheDocument();
+    it('matches the snapshot', () => {
+      expect(component).toMatchSnapshot();
+    });
   });
 });
