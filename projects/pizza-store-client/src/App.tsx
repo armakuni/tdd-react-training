@@ -1,6 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import './App.css';
-import ConfigContext from './ConfigContext';
 import SizeSelector from './components/SizeSelector';
 import ToppingsSelector from './components/ToppingsSelector';
 import PizzaSummary from './components/PizzaSummary';
@@ -21,10 +20,6 @@ function submitOrder(): boolean {
 }
 
 function App() {
-  const config = useMemo(() => ({
-    apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
-  }), []);
-
   const [pizza, setPizza] = useState(Pizza.create());
 
   const prices = {
@@ -61,11 +56,9 @@ function App() {
       <div className="columns">
         <div className="block">
           <h2 className="block__header">Build Your Order</h2>
-          <ConfigContext.Provider value={config}>
-            <SizeSelector onUpdate={selectSize} fetchSizes={fetchSizes} />
-            <SauceSelector onUpdate={selectSauce} fetchSauces={fetchSauces} />
-            <ToppingsSelector onUpdate={selectToppings} fetchToppings={fetchToppings} />
-          </ConfigContext.Provider>
+          <SizeSelector onUpdate={selectSize} fetchSizes={fetchSizes} />
+          <SauceSelector onUpdate={selectSauce} fetchSauces={fetchSauces} />
+          <ToppingsSelector onUpdate={selectToppings} fetchToppings={fetchToppings} />
         </div>
 
         <div className="block">
