@@ -1,5 +1,5 @@
 import {
-  fireEvent, render, screen, waitFor,
+  fireEvent, render, screen,
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -28,21 +28,19 @@ test('renders the pizza shop', async () => {
 
   render(<App />);
 
-  await waitFor(() => {
-    expect(screen.getByText('Build Your Order')).toBeVisible();
-    expect(screen.getByText('Select the size of your pizza')).toBeVisible();
-    expect(screen.getByText('large')).toBeVisible();
-    expect(screen.getByText('small')).toBeVisible();
+  expect(await screen.findByText('Build Your Order')).toBeVisible();
+  expect(await screen.findByText('Select the size of your pizza')).toBeVisible();
+  expect(await screen.findByText('large')).toBeVisible();
+  expect(await screen.findByText('small')).toBeVisible();
 
-    expect(screen.getByText('Select the sauce for your pizza')).toBeVisible();
-    expect(screen.getByText('garlic')).toBeVisible();
-    expect(screen.getByText('tomato')).toBeVisible();
+  expect(await screen.findByText('Select the sauce for your pizza')).toBeVisible();
+  expect(await screen.findByText('garlic')).toBeVisible();
+  expect(await screen.findByText('tomato')).toBeVisible();
 
-    expect(screen.getByText('Choose your toppings')).toBeVisible();
-    expect(screen.getByText('pepperoni')).toBeVisible();
-    expect(screen.getByText('anchovy')).toBeVisible();
-    expect(screen.getByText('mushroom')).toBeVisible();
-  });
+  expect(await screen.findByText('Choose your toppings')).toBeVisible();
+  expect(await screen.findByText('pepperoni')).toBeVisible();
+  expect(await screen.findByText('anchovy')).toBeVisible();
+  expect(await screen.findByText('mushroom')).toBeVisible();
 
   fireEvent.click(screen.getByText('large'));
   fireEvent.click(screen.getByText('tomato'));
