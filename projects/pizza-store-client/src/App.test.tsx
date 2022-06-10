@@ -15,7 +15,7 @@ const toppings = [
   { id: 3, name: 'mushroom', price: 3.0 },
 ];
 
-test('renders learn react link', async () => {
+test('renders the pizza shop', async () => {
   httpMock
     .onGet('http://localhost:5001/sizes')
     .reply(200, ['large', 'small'])
