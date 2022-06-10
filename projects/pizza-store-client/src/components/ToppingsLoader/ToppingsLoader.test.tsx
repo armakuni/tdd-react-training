@@ -7,7 +7,7 @@ import axios from 'axios';
 import ConfigContext from '../../ConfigContext';
 import ToppingsLoader from './ToppingsLoader';
 import Config from '../../Config';
-import { Topping } from '../ToppingsSelector';
+import Topping from '../ToppingsSelector/Topping';
 
 interface WithConfigProps {
   config: Config;

@@ -1,13 +1,15 @@
-import { Fragment, useEffect, useState } from 'react';
-import { Topping } from './index';
+import {
+  Fragment, useEffect, useState,
+} from 'react';
+import Topping from './Topping';
 import ToppingsLoader from '../ToppingsLoader';
 import './ToppingsSelector.css';
 
-type toppingsSelectorProps = {
+type ToppingsSelectorProps = {
   onUpdate: (selected: Set<number>) => void
 }
 
-export default function ToppingsSelector({ onUpdate }: toppingsSelectorProps) {
+export default function ToppingsSelector({ onUpdate }: ToppingsSelectorProps) {
   const [selected, setSelected] = useState(new Set<number>());
 
   useEffect(() => {

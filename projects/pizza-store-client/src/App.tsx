@@ -1,12 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import './App.css';
 import ConfigContext from './ConfigContext';
 import SizeSelector from './components/SizeSelector';
 import ToppingsSelector from './components/ToppingsSelector';
-import Pizza from './components/Pizza';
+import PizzaSummary from './components/PizzaSummary';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
-import * as PizzaType from './model/Pizza';
+import * as Pizza from './model/Pizza';
 import { Sauce, Size, Topping } from './model/Pizza';
 
 function submitOrder(): boolean {
@@ -20,7 +20,7 @@ function App() {
     apiUrl: process.env.SERVER_PORT || 'http://localhost:5001',
   }), []);
 
-  const [pizza, setPizza] = useState(PizzaType.create());
+  const [pizza, setPizza] = useState(Pizza.create());
 
   const prices = {
     sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
@@ -35,17 +35,17 @@ function App() {
       { id: 6, name: 'chillis', price: 1 }],
   };
 
-  function selectSize(size: Size) {
-    setPizza((current) => PizzaType.setSize(current, size));
-  }
+  const selectSize = useCallback((size: Size) => {
+    setPizza((current) => Pizza.setSize(current, size));
+  }, []);
 
-  function selectSauce(sauce: Sauce) {
-    setPizza((current) => PizzaType.setSauce(current, sauce));
-  }
+  const selectSauce = useCallback((sauce: Sauce) => {
+    setPizza((current) => Pizza.setSauce(current, sauce));
+  }, []);
 
-  function selectToppings(toppings: Set<Topping>) {
-    setPizza((current) => PizzaType.setToppings(current, toppings));
-  }
+  const selectToppings = useCallback((toppings: Set<Topping>) => {
+    setPizza((current) => Pizza.setToppings(current, toppings));
+  }, []);
 
   return (
     <div className="app">
@@ -57,15 +57,15 @@ function App() {
         <div className="block">
           <h2 className="block__header">Build Your Order</h2>
           <ConfigContext.Provider value={config}>
-            <SizeSelector onUpdate={(size) => selectSize(size)} />
-            <SauceSelector onUpdate={(sauce) => selectSauce(sauce)} />
-            <ToppingsSelector onUpdate={(toppings: Set<number>) => selectToppings(toppings)} />
+            <SizeSelector onUpdate={selectSize} />
+            <SauceSelector onUpdate={selectSauce} />
+            <ToppingsSelector onUpdate={selectToppings} />
           </ConfigContext.Provider>
         </div>
 
         <div className="block">
           <h2 className="block__header">Your Order</h2>
-          <Pizza size={pizza.size as string} price={calculatePizzaCost(prices)(pizza) as string} />
+          <PizzaSummary size={pizza.size as string} price={calculatePizzaCost(prices)(pizza) as string} />
           <div className="block__footer">
             <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
           </div>
