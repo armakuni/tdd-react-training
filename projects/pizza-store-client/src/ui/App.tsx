@@ -12,6 +12,7 @@ import { Size } from '../model/entities/Size';
 import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
 import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
 import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
+import GetSizes from '../model/usecases/GetSizes';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -47,6 +48,8 @@ function App() {
     setPizza((current) => Pizza.setToppings(current, toppings));
   }, []);
 
+  const getSizes = useCallback(() => new GetSizes(fetchSizes).execute(), []);
+
   return (
     <div className="app">
       <header className="app__header">
@@ -56,7 +59,7 @@ function App() {
       <div className="columns">
         <div className="block">
           <h2 className="block__header">Build Your Order</h2>
-          <SizeSelector onUpdate={selectSize} fetchSizes={fetchSizes} />
+          <SizeSelector onUpdate={selectSize} fetchSizes={getSizes} />
           <SauceSelector onUpdate={selectSauce} fetchSauces={fetchSauces} />
           <ToppingsSelector onUpdate={selectToppings} fetchToppings={fetchToppings} />
         </div>

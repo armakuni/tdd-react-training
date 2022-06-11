@@ -39,6 +39,7 @@ module.exports = {
     'src/ui/components/PriceCalculator/PriceCalculator.tsx'
   ],
   rules: {
+    'no-useless-constructor': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
     'import/extensions': [
       'error',
