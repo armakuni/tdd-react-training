@@ -3,7 +3,7 @@ import {
   render, RenderResult, screen,
 } from '@testing-library/react';
 import Loader, { LoadFunction } from './Loader';
-import { Size } from '../../model/Size';
+import { Size } from '../../../model/Size';
 
 function renderSizeLoader(
   loader: LoadFunction<string[]>,

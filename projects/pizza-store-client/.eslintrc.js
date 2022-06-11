@@ -30,7 +30,14 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['coverage/', 'build/', '.eslintrc.js', 'reportWebVitals.ts', 'src/components/PriceCalculator/PriceCalculator.tsx'],
+  ignorePatterns: [
+    'coverage/',
+    'build/',
+    '.eslintrc.js',
+    'reportWebVitals.ts',
+    // Remove the following and fix the errors
+    'src/ui/components/PriceCalculator/PriceCalculator.tsx'
+  ],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
     'import/extensions': [

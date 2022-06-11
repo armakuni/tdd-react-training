@@ -1,4 +1,4 @@
-import { FetchSizes } from '../../model/SizeRepository';
+import { FetchSizes } from '../../../model/SizeRepository';
 import Options from '../Options';
 import Loader from '../Loader';
 

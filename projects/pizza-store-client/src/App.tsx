@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import './App.css';
-import SizeSelector from './components/SizeSelector';
-import ToppingsSelector from './components/ToppingsSelector';
-import PizzaSummary from './components/PizzaSummary';
-import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
-import SauceSelector from './components/SauceSelector';
+import SizeSelector from './ui/components/SizeSelector';
+import ToppingsSelector from './ui/components/ToppingsSelector';
+import PizzaSummary from './ui/components/PizzaSummary';
+import { calculatePizzaCost } from './ui/components/PriceCalculator/PriceCalculator';
+import SauceSelector from './ui/components/SauceSelector';
 import * as Pizza from './model/Pizza';
 import { ToppingID } from './model/Topping';
 import { Sauce } from './model/Sauce';

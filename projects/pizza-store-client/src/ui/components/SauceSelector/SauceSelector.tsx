@@ -1,4 +1,4 @@
-import { FetchSauces } from '../../model/SauceRepository';
+import { FetchSauces } from '../../../model/SauceRepository';
 import Loader from '../Loader';
 import Options from '../Options';
 

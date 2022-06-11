@@ -3,8 +3,8 @@ import {
   render, RenderResult, screen,
 } from '@testing-library/react';
 import ToppingsSelector from './ToppingsSelector';
-import { FetchToppings } from '../../model/ToppingRepository';
-import { Topping } from '../../model/Topping';
+import { FetchToppings } from '../../../model/ToppingRepository';
+import { Topping } from '../../../model/Topping';
 
 const toppings: Topping[] = [
   { id: 1, name: 'pepperoni', price: 1 },

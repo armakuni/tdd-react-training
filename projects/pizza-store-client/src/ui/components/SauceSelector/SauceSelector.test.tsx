@@ -2,7 +2,7 @@ import {
   fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
 import SauceSelector from './SauceSelector';
-import { FetchSauces } from '../../model/SauceRepository';
+import { FetchSauces } from '../../../model/SauceRepository';
 
 describe('SauceSelector', () => {
   let view: RenderResult;
