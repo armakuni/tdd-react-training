@@ -14,6 +14,7 @@ import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
 import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
 import GetSizes from '../model/usecases/GetSizes';
 import GetSauces from '../model/usecases/GetSauces';
+import GetToppings from '../model/usecases/GetToppings';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -51,6 +52,7 @@ function App() {
 
   const getSizes = useCallback(() => new GetSizes(fetchSizes).execute(), []);
   const getSauces = useCallback(() => new GetSauces(fetchSauces).execute(), []);
+  const getToppings = useCallback(() => new GetToppings(fetchToppings).execute(), []);
 
   return (
     <div className="app">
@@ -63,7 +65,7 @@ function App() {
           <h2 className="block__header">Build Your Order</h2>
           <SizeSelector onUpdate={selectSize} fetchSizes={getSizes} />
           <SauceSelector onUpdate={selectSauce} fetchSauces={getSauces} />
-          <ToppingsSelector onUpdate={selectToppings} fetchToppings={fetchToppings} />
+          <ToppingsSelector onUpdate={selectToppings} fetchToppings={getToppings} />
         </div>
 
         <div className="block">
