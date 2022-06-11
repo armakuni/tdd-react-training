@@ -14,39 +14,33 @@ Object {
           Choose your toppings
         </legend>
         <input
-          id="1"
-          readonly=""
+          id=":r4:-topping-pepperoni"
           type="checkbox"
-          value="pepperoni"
         />
         <label
-          for="1"
+          for=":r4:-topping-pepperoni"
         >
-          pepperoni
+          Pepperoni
         </label>
         <br />
         <input
-          id="2"
-          readonly=""
+          id=":r4:-topping-anchovy"
           type="checkbox"
-          value="anchovy"
         />
         <label
-          for="2"
+          for=":r4:-topping-anchovy"
         >
-          anchovy
+          Anchovy
         </label>
         <br />
         <input
-          id="3"
-          readonly=""
+          id=":r4:-topping-mushroom"
           type="checkbox"
-          value="mushroom"
         />
         <label
-          for="3"
+          for=":r4:-topping-mushroom"
         >
-          mushroom
+          Mushroom
         </label>
         <br />
       </fieldset>
@@ -62,39 +56,33 @@ Object {
         Choose your toppings
       </legend>
       <input
-        id="1"
-        readonly=""
+        id=":r4:-topping-pepperoni"
         type="checkbox"
-        value="pepperoni"
       />
       <label
-        for="1"
+        for=":r4:-topping-pepperoni"
       >
-        pepperoni
+        Pepperoni
       </label>
       <br />
       <input
-        id="2"
-        readonly=""
+        id=":r4:-topping-anchovy"
         type="checkbox"
-        value="anchovy"
       />
       <label
-        for="2"
+        for=":r4:-topping-anchovy"
       >
-        anchovy
+        Anchovy
       </label>
       <br />
       <input
-        id="3"
-        readonly=""
+        id=":r4:-topping-mushroom"
         type="checkbox"
-        value="mushroom"
       />
       <label
-        for="3"
+        for=":r4:-topping-mushroom"
       >
-        mushroom
+        Mushroom
       </label>
       <br />
     </fieldset>

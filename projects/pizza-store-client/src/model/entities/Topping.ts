@@ -1,7 +1,7 @@
-export type ToppingID = number;
+export type ToppingID = string;
 
 export interface Topping {
   id: ToppingID;
-  name: string;
+  display: string;
   price: number;
 }

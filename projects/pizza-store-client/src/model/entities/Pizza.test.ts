@@ -35,10 +35,10 @@ describe('Pizza', () => {
 
   describe('setToppings', () => {
     it('returns an updated pizza', () => {
-      expect(setToppings(create(), new Set([2, 3]))).toEqual({
+      expect(setToppings(create(), new Set(['olives', 'rocket']))).toEqual({
         size: undefined,
         sauce: undefined,
-        toppings: new Set([2, 3]),
+        toppings: new Set(['olives', 'rocket']),
       });
     });
   });

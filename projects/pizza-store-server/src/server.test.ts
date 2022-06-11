@@ -86,13 +86,13 @@ describe('server', () => {
       expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
     });
 
-    it('returns tomato, white and none', async () => {
+    it('returns the sauce options', async () => {
       const response = await request(app).get('/sauces');
       expect(response.body).toStrictEqual([
         { id: 'none', display: 'None' },
         { id: 'tomato', display: 'Tomato' },
         { id: 'white', display: 'White' },
-        { id: 'garlic', display: 'Garlic Butter' },
+        { id: 'garlic', display: 'Garlic Bread' },
       ]);
     });
   });
@@ -109,12 +109,16 @@ describe('server', () => {
       expect(response.headers['content-type']).toBe('application/json; charset=utf-8');
     });
 
-    it('returns data structure for topping options pepperoni, anchovy, mushroom', async () => {
+    it('returns data structure for topping options', async () => {
       const response = await request(app).get('/toppings');
       const toppings = [
-        { id: 1, name: 'pepperoni', price: 1 },
-        { id: 2, name: 'anchovy', price: 2.5 },
-        { id: 3, name: 'mushroom', price: 3.0 }];
+        { id: 'mushroom', display: 'Mushrooms', price: 0.5 },
+        { id: 'anchovy', display: 'Anchovies', price: 1 },
+        { id: 'pepperoni', display: 'Pepperoni', price: 1.5 },
+        { id: 'ham', display: 'Ham', price: 1.5 },
+        { id: 'olives', display: 'Olives', price: 0.5 },
+        { id: 'chillis', display: 'Chillis', price: 1 },
+      ];
       expect(response.body).toStrictEqual(toppings);
     });
   });

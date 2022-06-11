@@ -36,9 +36,9 @@ test('renders the pizza shop', async () => {
   ];
 
   const toppings: Topping[] = [
-    { id: 1, name: 'pepperoni', price: 1 },
-    { id: 2, name: 'anchovy', price: 2.5 },
-    { id: 3, name: 'mushroom', price: 3.0 },
+    { id: 'pepperoni', display: 'Pepperoni', price: 1 },
+    { id: 'anchovy', display: 'Anchovies', price: 2.5 },
+    { id: 'mushroom', display: 'Mushrooms', price: 3.0 },
   ];
 
   httpMock
@@ -61,14 +61,14 @@ test('renders the pizza shop', async () => {
   expect(await screen.findByLabelText('tomato')).toBeVisible();
 
   expect(await screen.findByText('Choose your toppings')).toBeVisible();
-  expect(await screen.findByLabelText('pepperoni')).toBeVisible();
-  expect(await screen.findByLabelText('anchovy')).toBeVisible();
-  expect(await screen.findByLabelText('mushroom')).toBeVisible();
+  expect(await screen.findByLabelText('Pepperoni')).toBeVisible();
+  expect(await screen.findByLabelText('Anchovies')).toBeVisible();
+  expect(await screen.findByLabelText('Mushrooms')).toBeVisible();
 
   fireEvent.click(screen.getByLabelText('large'));
   fireEvent.click(screen.getByLabelText('tomato'));
-  fireEvent.click(screen.getByLabelText('pepperoni'));
-  fireEvent.click(screen.getByLabelText('mushroom'));
+  fireEvent.click(screen.getByLabelText('Pepperoni'));
+  fireEvent.click(screen.getByLabelText('Mushrooms'));
 
   expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
   expect(screen.getByText(/Price.*£19/)).toBeVisible();

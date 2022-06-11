@@ -6,14 +6,14 @@ describe('GetToppings', () => {
     it('returns the Toppings', async () => {
       const fetchToppings: FetchToppings = () => new Promise((resolve) => {
         resolve([
-          { id: 1, name: 'onions', price: 1 },
-          { id: 2, name: 'sweetcorn', price: 0.5 },
+          { id: 'onions', display: 'Onions', price: 1 },
+          { id: 'sweetcorn', display: 'Sweetcorn', price: 0.5 },
         ]);
       });
       const useCase = new GetToppings(fetchToppings);
       expect(await useCase.execute()).toEqual([
-        { id: 1, name: 'onions' },
-        { id: 2, name: 'sweetcorn' },
+        { id: 'onions', display: 'Onions' },
+        { id: 'sweetcorn', display: 'Sweetcorn' },
       ]);
     });
   });

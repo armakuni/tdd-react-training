@@ -23,16 +23,18 @@ function App() {
   const [pizza, setPizza] = useState(Pizza.create());
 
   const prices = {
-    sizes: [{ size: 'large', price: 15, toppingPriceMultiplier: 2 },
+    sizes: [
+      { size: 'large', price: 15, toppingPriceMultiplier: 2 },
       { size: 'medium', price: 10, toppingPriceMultiplier: 1.5 },
       { size: 'small', price: 5, toppingPriceMultiplier: 1 },
       { size: '', price: 0 }],
-    toppings: [{ id: 1, name: 'mushroom', price: 0.5 },
-      { id: 2, name: 'anchovy', price: 1 },
-      { id: 3, name: 'pepperoni', price: 1.5 },
-      { id: 4, name: 'ham', price: 1.5 },
-      { id: 5, name: 'olives', price: 0.5 },
-      { id: 6, name: 'chillis', price: 1 }],
+    toppings: [
+      { id: 'mushroom', price: 0.5 },
+      { id: 'anchovy', price: 1 },
+      { id: 'pepperoni', price: 1.5 },
+      { id: 'ham', price: 1.5 },
+      { id: 'olives', price: 0.5 },
+      { id: 'chillis', price: 1 }],
   };
 
   const selectSize = useCallback((size: string) => {
@@ -43,7 +45,7 @@ function App() {
     setPizza((current) => Pizza.setSauce(current, sauce));
   }, []);
 
-  const selectToppings = useCallback((toppings: Set<number>) => {
+  const selectToppings = useCallback((toppings: Set<string>) => {
     setPizza((current) => Pizza.setToppings(current, toppings));
   }, []);
 
