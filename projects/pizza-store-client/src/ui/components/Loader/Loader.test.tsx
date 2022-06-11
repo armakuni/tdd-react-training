@@ -3,21 +3,9 @@ import {
   render, RenderResult, screen,
 } from '@testing-library/react';
 import Loader, { LoadFunction } from './Loader';
-import { Size } from '../../../model/Size';
 
-function renderSizeLoader(
-  loader: LoadFunction<string[]>,
-  children: (results: string[]) => ReactElement,
-) {
-  return render(
-    <Loader loader={loader}>
-      {children}
-    </Loader>,
-  );
-}
-
-function mockChildren(sizes: Size[]): ReactElement {
-  return <>{sizes.map((size) => <span key={size}>{size}</span>)}</>;
+function mockChildren(items: string[]): ReactElement {
+  return <>{items.map((item) => <span key={item}>{item}</span>)}</>;
 }
 
 describe('Loader', () => {
@@ -28,7 +16,7 @@ describe('Loader', () => {
       const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
         resolve(['big', 'small']);
       });
-      view = renderSizeLoader(loader, mockChildren);
+      view = render(<Loader loader={loader}>{mockChildren}</Loader>);
       await screen.findByText('big');
     });
 
@@ -48,7 +36,7 @@ describe('Loader', () => {
       const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
         reject(new Error('there was an error'));
       });
-      view = renderSizeLoader(loader, mockChildren);
+      view = render(<Loader loader={loader}>{mockChildren}</Loader>);
       await screen.findByText('there was an error');
     });
 
@@ -69,7 +57,7 @@ describe('Loader', () => {
       const loader: LoadFunction<string[]> = () => new Promise(() => {
         /* never resolve */
       });
-      view = renderSizeLoader(loader, mockChildren);
+      view = render(<Loader loader={loader}>{mockChildren}</Loader>);
       await screen.findByTestId('loader');
     });
 

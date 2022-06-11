@@ -2,9 +2,9 @@ import {
   Fragment, useEffect, useState,
 } from 'react';
 import './ToppingsSelector.css';
-import { FetchToppings } from '../../../model/ToppingRepository';
+import { FetchToppings } from '../../../model/entities/ToppingRepository';
 import Loader from '../Loader';
-import { Topping } from '../../../model/Topping';
+import { Topping } from '../../../model/entities/Topping';
 
 type ToppingsSelectorProps = {
   fetchToppings: FetchToppings;

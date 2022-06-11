@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Sauce } from '../model/Sauce';
-import { FetchSauces } from '../model/SauceRepository';
+import { Sauce } from '../model/entities/Sauce';
+import { FetchSauces } from '../model/entities/SauceRepository';
 
 // eslint-disable-next-line import/prefer-default-export
 export const fetchSauces: FetchSauces = async () => {

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Size } from '../model/Size';
-import { FetchSizes } from '../model/SizeRepository';
+import { Size } from '../model/entities/Size';
+import { FetchSizes } from '../model/entities/SizeRepository';
 
 // eslint-disable-next-line import/prefer-default-export
 export const fetchSizes: FetchSizes = async () => {

@@ -2,7 +2,7 @@ import {
   fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
 import SizeSelector from './SizeSelector';
-import { FetchSizes } from '../../../model/SizeRepository';
+import { FetchSizes } from '../../../model/entities/SizeRepository';
 
 describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
