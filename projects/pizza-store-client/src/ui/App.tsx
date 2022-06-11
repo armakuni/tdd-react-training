@@ -1,17 +1,17 @@
 import { useCallback, useState } from 'react';
 import './App.css';
-import SizeSelector from './ui/components/SizeSelector';
-import ToppingsSelector from './ui/components/ToppingsSelector';
-import PizzaSummary from './ui/components/PizzaSummary';
-import { calculatePizzaCost } from './ui/components/PriceCalculator/PriceCalculator';
-import SauceSelector from './ui/components/SauceSelector';
-import * as Pizza from './model/Pizza';
-import { ToppingID } from './model/Topping';
-import { Sauce } from './model/Sauce';
-import { Size } from './model/Size';
-import { fetchSizes } from './infrastructure/HTTPSizeRespository';
-import { fetchSauces } from './infrastructure/HTTPSauceRepository';
-import { fetchToppings } from './infrastructure/HTTPToppingRepository';
+import SizeSelector from './components/SizeSelector';
+import ToppingsSelector from './components/ToppingsSelector';
+import PizzaSummary from './components/PizzaSummary';
+import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
+import SauceSelector from './components/SauceSelector';
+import * as Pizza from '../model/Pizza';
+import { ToppingID } from '../model/Topping';
+import { Sauce } from '../model/Sauce';
+import { Size } from '../model/Size';
+import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
+import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
+import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
