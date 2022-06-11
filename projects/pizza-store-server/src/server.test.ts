@@ -88,7 +88,12 @@ describe('server', () => {
 
     it('returns tomato, white and none', async () => {
       const response = await request(app).get('/sauces');
-      expect(response.body).toStrictEqual(['tomato', 'white', 'none']);
+      expect(response.body).toStrictEqual([
+        { id: 'none', display: 'None' },
+        { id: 'tomato', display: 'Tomato' },
+        { id: 'white', display: 'White' },
+        { id: 'garlic', display: 'Garlic Butter' },
+      ]);
     });
   });
 

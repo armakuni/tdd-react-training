@@ -64,7 +64,12 @@ export default function server(): Express {
   app.get('/sauces', (_, res) => {
     res
       .status(200)
-      .send(['tomato', 'white', 'none']);
+      .send([
+        { id: 'none', display: 'None' },
+        { id: 'tomato', display: 'Tomato' },
+        { id: 'white', display: 'White' },
+        { id: 'garlic', display: 'Garlic Butter' },
+      ]);
   });
 
   app.get('/toppings', (_, res) => {

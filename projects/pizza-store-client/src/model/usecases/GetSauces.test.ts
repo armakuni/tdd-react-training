@@ -5,7 +5,10 @@ describe('GetSauces', () => {
   describe('.execute()', () => {
     it('returns the sauces', async () => {
       const fetchSauces: FetchSauces = () => new Promise((resolve) => {
-        resolve(['tomato', 'garlic']);
+        resolve([
+          { id: 'tomato', display: 'Tomato' },
+          { id: 'garlic', display: 'Garlic Bread' },
+        ]);
       });
       const useCase = new GetSauces(fetchSauces);
       expect(await useCase.execute()).toEqual(['tomato', 'garlic']);

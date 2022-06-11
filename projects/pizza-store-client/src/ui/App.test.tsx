@@ -4,6 +4,9 @@ import {
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import App from './App';
+import { Size } from '../model/entities/Size';
+import { Sauce } from '../model/entities/Sauce';
+import { Topping } from '../model/entities/Topping';
 
 const httpMock = new MockAdapter(axios);
 
@@ -11,31 +14,38 @@ afterEach(() => {
   httpMock.reset();
 });
 
-const toppings = [
-  { id: 1, name: 'pepperoni', price: 1 },
-  { id: 2, name: 'anchovy', price: 2.5 },
-  { id: 3, name: 'mushroom', price: 3.0 },
-];
-
 test('renders the pizza shop', async () => {
+  const sizes: Size[] = [
+    {
+      id: 'large',
+      display: 'Large',
+      price: 15,
+      toppingPriceMultiplier: 2,
+    },
+    {
+      id: 'small',
+      display: 'Small',
+      price: 10,
+      toppingPriceMultiplier: 1,
+    },
+  ];
+
+  const sauces: Sauce[] = [
+    { id: 'garlic', display: 'Garlic Bread' },
+    { id: 'tomato', display: 'Tomato' },
+  ];
+
+  const toppings: Topping[] = [
+    { id: 1, name: 'pepperoni', price: 1 },
+    { id: 2, name: 'anchovy', price: 2.5 },
+    { id: 3, name: 'mushroom', price: 3.0 },
+  ];
+
   httpMock
     .onGet('http://localhost:5001/sizes')
-    .reply(200, [
-      {
-        id: 'large',
-        display: 'Large',
-        price: 15,
-        toppingPriceMultiplier: 2,
-      },
-      {
-        id: 'small',
-        display: 'Small',
-        price: 10,
-        toppingPriceMultiplier: 1,
-      },
-    ])
+    .reply(200, sizes)
     .onGet('http://localhost:5001/sauces')
-    .reply(200, ['garlic', 'tomato'])
+    .reply(200, sauces)
     .onGet('http://localhost:5001/toppings')
     .reply(200, toppings);
 
