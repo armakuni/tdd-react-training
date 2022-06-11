@@ -1,9 +1,10 @@
-import { FetchSauces } from '../../../model/entities/SauceRepository';
 import Loader from '../Loader';
 import Options from '../Options';
 
+export type SaucesFetcher = () => Promise<string[]>
+
 interface SauceSelectorProps {
-  fetchSauces: FetchSauces;
+  fetchSauces: SaucesFetcher;
   onUpdate: (value: string) => void;
 }
 

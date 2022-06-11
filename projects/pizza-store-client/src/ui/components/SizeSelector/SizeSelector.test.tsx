@@ -1,14 +1,13 @@
 import {
   fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
-import SizeSelector from './SizeSelector';
-import { FetchSizes } from '../../../model/entities/SizeRepository';
+import SizeSelector, { SizesFetcher } from './SizeSelector';
 
 describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
   let view: RenderResult;
 
-  const fetchSizes: FetchSizes = () => new Promise((resolve) => {
+  const fetchSizes: SizesFetcher = () => new Promise((resolve) => {
     resolve(['big', 'small']);
   });
 

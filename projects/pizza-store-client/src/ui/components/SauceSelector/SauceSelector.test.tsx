@@ -1,14 +1,13 @@
 import {
   fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
-import SauceSelector from './SauceSelector';
-import { FetchSauces } from '../../../model/entities/SauceRepository';
+import SauceSelector, { SaucesFetcher } from './SauceSelector';
 
 describe('SauceSelector', () => {
   let view: RenderResult;
   let onUpdate: (_value: string) => void;
 
-  const fetchSauces: FetchSauces = () => new Promise((resolve) => {
+  const fetchSauces: SaucesFetcher = () => new Promise((resolve) => {
     resolve(['tomato', 'no-sauce']);
   });
 

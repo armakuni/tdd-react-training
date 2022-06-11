@@ -2,12 +2,17 @@ import {
   Fragment, useEffect, useState,
 } from 'react';
 import './ToppingsSelector.css';
-import { FetchToppings } from '../../../model/entities/ToppingRepository';
 import Loader from '../Loader';
-import { Topping } from '../../../model/entities/Topping';
+
+export interface ToppingDetails {
+  id: number;
+  name: string;
+}
+
+export type ToppingsFetcher = () => Promise<ToppingDetails[]>
 
 type ToppingsSelectorProps = {
-  fetchToppings: FetchToppings;
+  fetchToppings: ToppingsFetcher;
   onUpdate: (selected: Set<number>) => void;
 }
 
@@ -35,7 +40,7 @@ export default function ToppingsSelector({ fetchToppings, onUpdate }: ToppingsSe
       {(toppings) => (
         <fieldset className="multiple-choice">
           <legend className="multiple-choice__question">Choose your toppings</legend>
-          { toppings.map((topping: Topping) => (
+          { toppings.map((topping) => (
             <Fragment key={topping.id}>
               <input
                 readOnly

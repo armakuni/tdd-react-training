@@ -6,9 +6,6 @@ import PizzaSummary from './components/PizzaSummary';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
 import * as Pizza from '../model/entities/Pizza';
-import { ToppingID } from '../model/entities/Topping';
-import { Sauce } from '../model/entities/Sauce';
-import { Size } from '../model/entities/Size';
 import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
 import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
 import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
@@ -38,15 +35,15 @@ function App() {
       { id: 6, name: 'chillis', price: 1 }],
   };
 
-  const selectSize = useCallback((size: Size) => {
+  const selectSize = useCallback((size: string) => {
     setPizza((current) => Pizza.setSize(current, size));
   }, []);
 
-  const selectSauce = useCallback((sauce: Sauce) => {
+  const selectSauce = useCallback((sauce: string) => {
     setPizza((current) => Pizza.setSauce(current, sauce));
   }, []);
 
-  const selectToppings = useCallback((toppings: Set<ToppingID>) => {
+  const selectToppings = useCallback((toppings: Set<number>) => {
     setPizza((current) => Pizza.setToppings(current, toppings));
   }, []);
 

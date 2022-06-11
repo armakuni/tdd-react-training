@@ -1,9 +1,10 @@
-import { FetchSizes } from '../../../model/entities/SizeRepository';
 import Options from '../Options';
 import Loader from '../Loader';
 
+export type SizesFetcher = () => Promise<string[]>
+
 interface SizeSelectorProps {
-  fetchSizes: FetchSizes;
+  fetchSizes: SizesFetcher;
   onUpdate: (value: string) => void;
 }
 

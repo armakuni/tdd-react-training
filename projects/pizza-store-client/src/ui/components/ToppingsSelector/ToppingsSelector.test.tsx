@@ -2,21 +2,19 @@ import {
   fireEvent,
   render, RenderResult, screen,
 } from '@testing-library/react';
-import ToppingsSelector from './ToppingsSelector';
-import { FetchToppings } from '../../../model/entities/ToppingRepository';
-import { Topping } from '../../../model/entities/Topping';
+import ToppingsSelector, { ToppingDetails, ToppingsFetcher } from './ToppingsSelector';
 
-const toppings: Topping[] = [
-  { id: 1, name: 'pepperoni', price: 1 },
-  { id: 2, name: 'anchovy', price: 2.5 },
-  { id: 3, name: 'mushroom', price: 3.0 },
+const toppings: ToppingDetails[] = [
+  { id: 1, name: 'pepperoni' },
+  { id: 2, name: 'anchovy' },
+  { id: 3, name: 'mushroom' },
 ];
 
 describe('ToppingsSelector', () => {
   let onUpdate: (selected: Set<number>) => void;
   let view: RenderResult;
 
-  const fetchToppings: FetchToppings = () => new Promise((resolve) => {
+  const fetchToppings: ToppingsFetcher = () => new Promise((resolve) => {
     resolve(toppings);
   });
 
