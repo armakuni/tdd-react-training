@@ -1,9 +1,9 @@
 import { Sauce } from './Sauce';
-import { Size } from './Size';
+import { SizeID } from './Size';
 import { ToppingID } from './Topping';
 
 export interface Pizza {
-  readonly size: Size | undefined;
+  readonly size: SizeID | undefined;
   readonly sauce: Sauce | undefined;
   readonly toppings: Set<ToppingID>;
 }
@@ -16,7 +16,7 @@ export function create(): Pizza {
   };
 }
 
-export function setSize(pizza: Pizza, size: Size): Pizza {
+export function setSize(pizza: Pizza, size: SizeID): Pizza {
   return { ...pizza, size };
 }
 

@@ -5,7 +5,8 @@ type GetSizesResponse = string[]
 export default class GetSizes {
   constructor(private readonly fetchSizes: FetchSizes) { }
 
-  public execute(): Promise<GetSizesResponse> {
-    return this.fetchSizes();
+  public async execute(): Promise<GetSizesResponse> {
+    const sizes = await this.fetchSizes();
+    return sizes.map((size) => size.id);
   }
 }

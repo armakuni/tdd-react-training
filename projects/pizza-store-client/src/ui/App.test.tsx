@@ -20,7 +20,20 @@ const toppings = [
 test('renders the pizza shop', async () => {
   httpMock
     .onGet('http://localhost:5001/sizes')
-    .reply(200, ['large', 'small'])
+    .reply(200, [
+      {
+        id: 'large',
+        display: 'Large',
+        price: 15,
+        toppingPriceMultiplier: 2,
+      },
+      {
+        id: 'small',
+        display: 'Small',
+        price: 10,
+        toppingPriceMultiplier: 1,
+      },
+    ])
     .onGet('http://localhost:5001/sauces')
     .reply(200, ['garlic', 'tomato'])
     .onGet('http://localhost:5001/toppings')

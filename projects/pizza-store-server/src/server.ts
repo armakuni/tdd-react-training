@@ -20,10 +20,45 @@ export default function server(): Express {
       .send('"pong"');
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const prices = {
+    sizes: [
+      { size: 'large', price: 15, toppingPriceMultiplier: 2 },
+      { size: 'medium', price: 10, toppingPriceMultiplier: 1.5 },
+      { size: 'small', price: 5, toppingPriceMultiplier: 1 },
+      { size: '', price: 0 }],
+    toppings: [
+      { id: 1, name: 'mushroom', price: 0.5 },
+      { id: 2, name: 'anchovy', price: 1 },
+      { id: 3, name: 'pepperoni', price: 1.5 },
+      { id: 4, name: 'ham', price: 1.5 },
+      { id: 5, name: 'olives', price: 0.5 },
+      { id: 6, name: 'chillis', price: 1 }],
+  };
+
   app.get('/sizes', (_, res) => {
     res
       .status(200)
-      .send(['small', 'medium', 'large']);
+      .send([
+        {
+          id: 'small',
+          display: 'Small - 7"',
+          price: 5,
+          toppingPriceMultiplier: 1,
+        },
+        {
+          id: 'medium',
+          display: 'Medium - 9"',
+          price: 10,
+          toppingPriceMultiplier: 1.5,
+        },
+        {
+          id: 'large',
+          display: 'Large - 12"',
+          price: 15,
+          toppingPriceMultiplier: 2,
+        },
+      ]);
   });
 
   app.get('/sauces', (_, res) => {

@@ -51,7 +51,26 @@ describe('server', () => {
 
     it('returns small, medium and large', async () => {
       const response = await request(app).get('/sizes');
-      expect(response.body).toStrictEqual(['small', 'medium', 'large']);
+      expect(response.body).toStrictEqual([
+        {
+          id: 'small',
+          display: 'Small - 7"',
+          price: 5,
+          toppingPriceMultiplier: 1,
+        },
+        {
+          id: 'medium',
+          display: 'Medium - 9"',
+          price: 10,
+          toppingPriceMultiplier: 1.5,
+        },
+        {
+          id: 'large',
+          display: 'Large - 12"',
+          price: 15,
+          toppingPriceMultiplier: 2,
+        },
+      ]);
     });
   });
 
