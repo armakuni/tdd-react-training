@@ -31,6 +31,7 @@ function App() {
       calculatePrice,
     ).execute({
       size: pizza.size || '',
+      sauce: pizza.sauce || '',
       toppings: Array.from(pizza.toppings),
     }),
     [pizza],
@@ -80,6 +81,8 @@ function App() {
             {(summary) => (
               <PizzaSummary
                 size={summary.size}
+                sauce={summary.sauce}
+                toppings={summary.toppings}
                 price={summary.price.toString()}
               />
             )}
