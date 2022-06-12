@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import groupBy from "../../helpers/groupBy";
 import { PriceCalculator } from "./PriceCalculator";
 

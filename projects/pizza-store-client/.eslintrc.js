@@ -34,9 +34,6 @@ module.exports = {
     'coverage/',
     'build/',
     '.eslintrc.js',
-    'reportWebVitals.ts',
-    // TODO: Remove the following and fix the errors
-    'src/model/entities/calculatePrice.ts',
   ],
   rules: {
     'no-useless-constructor': 'off',
