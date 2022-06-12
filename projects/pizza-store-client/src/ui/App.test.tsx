@@ -7,6 +7,7 @@ import App from './App';
 import { Size } from '../model/entities/Size';
 import { Sauce } from '../model/entities/Sauce';
 import { Topping } from '../model/entities/Topping';
+import setupUseCases from '../setupUseCases';
 
 const httpMock = new MockAdapter(axios);
 
@@ -49,7 +50,9 @@ test('renders the pizza shop', async () => {
     .onGet('http://localhost:5001/toppings')
     .reply(200, toppings);
 
-  render(<App />);
+  const useCases = setupUseCases();
+
+  render(<App useCases={useCases} />);
 
   expect(await screen.findByRole('heading', { name: 'Build Your Order' })).toBeVisible();
   expect(await screen.findByText('Select the size of your pizza')).toBeVisible();

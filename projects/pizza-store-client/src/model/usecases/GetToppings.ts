@@ -1,6 +1,6 @@
 import { FetchToppings } from '../entities/ToppingRepository';
 
-type GetToppingsResponse = { id: string, display: string }[];
+export type GetToppingsResponse = { id: string, display: string }[];
 
 export default class GetToppings {
   constructor(private readonly fetchToppings: FetchToppings) { }

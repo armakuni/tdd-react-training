@@ -1,6 +1,6 @@
 import { FetchSizes } from '../entities/SizeRepository';
 
-type GetSizesResponse = { id: string, display: string }[];
+export type GetSizesResponse = { id: string, display: string }[];
 
 export default class GetSizes {
   constructor(private readonly fetchSizes: FetchSizes) { }

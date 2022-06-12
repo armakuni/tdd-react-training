@@ -8,12 +8,12 @@ import * as Pizza from './state/Pizza';
 import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
 import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
 import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
-import GetSizes from '../model/usecases/GetSizes';
-import GetSauces from '../model/usecases/GetSauces';
-import GetToppings from '../model/usecases/GetToppings';
+import GetSizes, { GetSizesResponse } from '../model/usecases/GetSizes';
+import GetSauces, { GetSaucesResponse } from '../model/usecases/GetSauces';
+import GetToppings, { GetToppingsResponse } from '../model/usecases/GetToppings';
 import PriceListLoader from '../model/entities/PriceListLoader';
 import Loader from './components/Loader';
-import SummarisePizza from '../model/usecases/SummarisePizza';
+import SummarisePizza, { SummarisePizzaRequest, SummarisePizzaResponse } from '../model/usecases/SummarisePizza';
 import calculatePrice from '../model/entities/calculatePrice';
 
 function submitOrder(): boolean {
@@ -22,7 +22,18 @@ function submitOrder(): boolean {
   return false;
 }
 
-function App() {
+export interface UseCases {
+  getSizes(): Promise<GetSizesResponse>;
+  getSauces(): Promise<GetSaucesResponse>;
+  getToppings(): Promise<GetToppingsResponse>;
+  summarisePizza(pizza: SummarisePizzaRequest): Promise<SummarisePizzaResponse>;
+}
+
+interface AppProps {
+  useCases: UseCases;
+}
+
+function App({ useCases }: AppProps) {
   const [pizza, setPizza] = useState(Pizza.create());
 
   const selectSize = useCallback((size: string) => {
@@ -38,27 +49,24 @@ function App() {
   }, []);
 
   const getSizes = useCallback(async (): Promise<Record<string, string>> => {
-    const sizes = await new GetSizes(fetchSizes).execute();
+    const sizes = await useCases.getSizes();
     return Object.fromEntries(sizes.map(({ id, display }) => [id, display]));
-  }, []);
+  }, [useCases]);
 
   const getSauces = useCallback(async (): Promise<Record<string, string>> => {
-    const sauces = await new GetSauces(fetchSauces).execute();
+    const sauces = await useCases.getSauces();
     return Object.fromEntries(sauces.map(({ id, display }) => [id, display]));
-  }, []);
+  }, [useCases]);
 
-  const getToppings = useCallback(() => new GetToppings(fetchToppings).execute(), []);
+  const getToppings = useCallback(() => useCases.getToppings(), [useCases]);
 
   const getSummary = useCallback(
-    () => new SummarisePizza(
-      () => new PriceListLoader(fetchSizes, fetchToppings).load(),
-      calculatePrice,
-    ).execute({
+    () => useCases.summarisePizza({
       size: pizza.size || '',
       sauce: pizza.sauce || '',
       toppings: Array.from(pizza.toppings),
     }),
-    [pizza],
+    [pizza.sauce, pizza.size, pizza.toppings, useCases],
   );
 
   return (
