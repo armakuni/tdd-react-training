@@ -25,17 +25,16 @@ function submitOrder(): boolean {
 function App() {
   const [pizza, setPizza] = useState(Pizza.create());
 
-  const getPrice = useCallback(async () => {
-    const result = await new SummarisePizza(
+  const getSummary = useCallback(
+    () => new SummarisePizza(
       () => new PriceListLoader(fetchSizes, fetchToppings).load(),
       calculatePrice,
     ).execute({
       size: pizza.size || '',
       toppings: Array.from(pizza.toppings),
-    });
-
-    return result;
-  }, [pizza]);
+    }),
+    [pizza],
+  );
 
   const selectSize = useCallback((size: string) => {
     setPizza((current) => Pizza.setSize(current, size));
@@ -77,10 +76,10 @@ function App() {
 
         <div className="block">
           <h2 className="block__header">Your Order</h2>
-          <Loader loader={getPrice}>
+          <Loader loader={getSummary}>
             {(summary) => (
               <PizzaSummary
-                size={pizza.size as string}
+                size={summary.size}
                 price={summary.price.toString()}
               />
             )}

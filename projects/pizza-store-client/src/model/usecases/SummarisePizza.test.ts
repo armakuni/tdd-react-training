@@ -17,6 +17,7 @@ describe('SummarisePizza', () => {
       const usecase = new SummarisePizza(getPrices, calculatePrice);
       const summary = await usecase.execute(pizza);
       expect(summary.price).toBe(15);
+      expect(summary.size).toBe('large');
       expect(calculatePrice).toHaveBeenCalledWith(priceList, pizza);
     });
   });

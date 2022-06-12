@@ -7,6 +7,7 @@ export interface SummarisePizzaRequest {
 }
 
 export interface SummarisePizzaResponse {
+  size: string;
   price: number;
 }
 
@@ -19,6 +20,6 @@ export default class SummarisePizza {
   public async execute(request: SummarisePizzaRequest): Promise<SummarisePizzaResponse> {
     const priceList = await this.getPrices();
     const price = await this.calculatePrice(priceList, request);
-    return { price };
+    return { size: request.size, price };
   }
 }
