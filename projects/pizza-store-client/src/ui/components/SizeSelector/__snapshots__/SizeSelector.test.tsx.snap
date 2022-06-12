@@ -23,7 +23,7 @@ Object {
           class="options__option_label"
           for=":r4:-radio"
         >
-          big
+          Big
         </label>
         <br />
         <input
@@ -36,7 +36,7 @@ Object {
           class="options__option_label"
           for=":r5:-radio"
         >
-          small
+          Small
         </label>
         <br />
       </fieldset>
@@ -61,7 +61,7 @@ Object {
         class="options__option_label"
         for=":r4:-radio"
       >
-        big
+        Big
       </label>
       <br />
       <input
@@ -74,7 +74,7 @@ Object {
         class="options__option_label"
         for=":r5:-radio"
       >
-        small
+        Small
       </label>
       <br />
     </fieldset>

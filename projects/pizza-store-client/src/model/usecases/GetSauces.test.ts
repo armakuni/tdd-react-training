@@ -11,7 +11,10 @@ describe('GetSauces', () => {
         ]);
       });
       const useCase = new GetSauces(fetchSauces);
-      expect(await useCase.execute()).toEqual(['tomato', 'garlic']);
+      expect(await useCase.execute()).toEqual([
+        { id: 'tomato', display: 'Tomato' },
+        { id: 'garlic', display: 'Garlic Bread' },
+      ]);
     });
   });
 });

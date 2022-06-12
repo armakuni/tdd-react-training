@@ -2,12 +2,15 @@ import { ReactElement, useId, useState } from 'react';
 import './Options.css';
 
 interface OptionProps {
-  value: string
-  selected: boolean
-  onChange: () => void
+  value: string;
+  display: string;
+  selected: boolean;
+  onChange: () => void;
 }
 
-function Option({ value, selected, onChange }: OptionProps) {
+function Option({
+  value, display, selected, onChange,
+}: OptionProps) {
   const id = useId();
 
   const inputId = `${id}-radio`;
@@ -26,7 +29,7 @@ function Option({ value, selected, onChange }: OptionProps) {
         className="options__option_label"
         htmlFor={inputId}
       >
-        { value }
+        {display}
       </label>
       <br />
     </>
@@ -34,13 +37,13 @@ function Option({ value, selected, onChange }: OptionProps) {
 }
 
 interface OptionsProps {
-  question: string
-  options: string[]
-  initialValue?: string
-  onUpdate?: (_: string) => void
+  question: string;
+  options: Record<string, string>;
+  initialValue?: string;
+  onUpdate?: (_: string) => void;
 }
 
-const defaultProps = {
+const defaultOptionsProps = {
   initialValue: undefined,
   onUpdate: undefined,
 };
@@ -58,9 +61,10 @@ function Options({
   return (
     <fieldset className="options">
       <legend className="options__question">{ question }</legend>
-      { options.map((value) => (
+      { Object.entries(options).map(([value, display]) => (
         <Option
           value={value}
+          display={display}
           key={value}
           selected={selectedValue === value}
           onChange={() => onChange(value)}
@@ -70,6 +74,6 @@ function Options({
   );
 }
 
-Options.defaultProps = defaultProps;
+Options.defaultProps = defaultOptionsProps;
 
 export default Options;

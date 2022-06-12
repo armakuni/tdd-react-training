@@ -7,14 +7,14 @@ describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
   let view: RenderResult;
 
-  const fetchSizes: SizesFetcher = () => Promise.resolve(['big', 'small']);
+  const fetchSizes: SizesFetcher = () => Promise.resolve({ big: 'Big', small: 'Small' });
 
   beforeEach(async () => {
     onUpdate = jest.fn();
     view = render(
       <SizeSelector onUpdate={onUpdate} fetchSizes={fetchSizes} />,
     );
-    await screen.findByText('big');
+    await screen.findByLabelText('Big');
   });
   it('displays the title', () => {
     const titleElement = screen.getByText('Select the size of your pizza');
@@ -22,8 +22,8 @@ describe('SizeSelector', () => {
   });
 
   it('displays the sizes', () => {
-    expect(screen.getByText('big')).toBeVisible();
-    expect(screen.getByText('small')).toBeVisible();
+    expect(screen.getByLabelText('Big')).toBeVisible();
+    expect(screen.getByLabelText('Small')).toBeVisible();
   });
 
   test('populated snapshot', () => {
@@ -31,7 +31,7 @@ describe('SizeSelector', () => {
   });
 
   it('sends back selections on change', () => {
-    fireEvent.click(screen.getByText('big'));
+    fireEvent.click(screen.getByLabelText('Big'));
     expect(onUpdate).toBeCalledWith('big');
   });
 });

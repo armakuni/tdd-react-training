@@ -23,7 +23,7 @@ Object {
           class="options__option_label"
           for=":r0:-radio"
         >
-          a
+          Option A
         </label>
         <br />
         <input
@@ -36,7 +36,7 @@ Object {
           class="options__option_label"
           for=":r1:-radio"
         >
-          b
+          Option B
         </label>
         <br />
       </fieldset>
@@ -61,7 +61,7 @@ Object {
         class="options__option_label"
         for=":r0:-radio"
       >
-        a
+        Option A
       </label>
       <br />
       <input
@@ -74,7 +74,7 @@ Object {
         class="options__option_label"
         for=":r1:-radio"
       >
-        b
+        Option B
       </label>
       <br />
     </fieldset>

@@ -48,8 +48,16 @@ function App() {
     setPizza((current) => Pizza.setToppings(current, toppings));
   }, []);
 
-  const getSizes = useCallback(() => new GetSizes(fetchSizes).execute(), []);
-  const getSauces = useCallback(() => new GetSauces(fetchSauces).execute(), []);
+  const getSizes = useCallback(async (): Promise<Record<string, string>> => {
+    const sizes = await new GetSizes(fetchSizes).execute();
+    return Object.fromEntries(sizes.map(({ id, display }) => [id, display]));
+  }, []);
+
+  const getSauces = useCallback(async () => {
+    const sauces = await new GetSauces(fetchSauces).execute();
+    return Object.fromEntries(sauces.map(({ id, display }) => [id, display]));
+  }, []);
+
   const getToppings = useCallback(() => new GetToppings(fetchToppings).execute(), []);
 
   return (

@@ -7,14 +7,14 @@ describe('SauceSelector', () => {
   let view: RenderResult;
   let onUpdate: (_value: string) => void;
 
-  const fetchSauces: SaucesFetcher = () => Promise.resolve(['tomato', 'no-sauce']);
+  const fetchSauces: SaucesFetcher = () => Promise.resolve({ tomato: 'Tomato', 'no-sauce': 'None' });
 
   beforeEach(async () => {
     onUpdate = jest.fn();
     view = render(
       <SauceSelector fetchSauces={fetchSauces} onUpdate={onUpdate} />,
     );
-    await screen.findByText('tomato');
+    await screen.findByLabelText('Tomato');
   });
 
   it('displays the title', () => {
@@ -23,8 +23,8 @@ describe('SauceSelector', () => {
   });
 
   it('displays the sauces', () => {
-    expect(screen.getByText('tomato')).toBeVisible();
-    expect(screen.getByText('no-sauce')).toBeVisible();
+    expect(screen.getByLabelText('Tomato')).toBeVisible();
+    expect(screen.getByLabelText('None')).toBeVisible();
   });
 
   test('populated snapshot', () => {
@@ -32,7 +32,7 @@ describe('SauceSelector', () => {
   });
 
   it('sends back selections on change', () => {
-    fireEvent.click(screen.getByLabelText('tomato'));
+    fireEvent.click(screen.getByLabelText('Tomato'));
     expect(onUpdate).toBeCalledWith('tomato');
   });
 });

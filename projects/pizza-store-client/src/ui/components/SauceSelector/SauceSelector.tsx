@@ -1,7 +1,7 @@
 import Loader from '../Loader';
 import Options from '../Options';
 
-export type SaucesFetcher = () => Promise<string[]>
+export type SaucesFetcher = () => Promise<Record<string, string>>
 
 interface SauceSelectorProps {
   fetchSauces: SaucesFetcher;

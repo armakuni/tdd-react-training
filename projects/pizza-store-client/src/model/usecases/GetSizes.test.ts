@@ -21,7 +21,10 @@ describe('GetSizes', () => {
         ]);
       });
       const useCase = new GetSizes(fetchSizes);
-      expect(await useCase.execute()).toEqual(['large', 'small']);
+      expect(await useCase.execute()).toEqual([
+        { id: 'large', display: 'Large' },
+        { id: 'small', display: 'Small' },
+      ]);
     });
   });
 });

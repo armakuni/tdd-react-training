@@ -1,7 +1,7 @@
 import Options from '../Options';
 import Loader from '../Loader';
 
-export type SizesFetcher = () => Promise<string[]>
+export type SizesFetcher = () => Promise<Record<string, string>>
 
 interface SizeSelectorProps {
   fetchSizes: SizesFetcher;
