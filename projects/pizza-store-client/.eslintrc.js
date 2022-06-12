@@ -35,8 +35,8 @@ module.exports = {
     'build/',
     '.eslintrc.js',
     'reportWebVitals.ts',
-    // Remove the following and fix the errors
-    'src/ui/components/PriceCalculator/PriceCalculator.tsx'
+    // TODO: Remove the following and fix the errors
+    'src/model/entities/calculatePrice.ts',
   ],
   rules: {
     'no-useless-constructor': 'off',

@@ -1,22 +1,14 @@
-import { FetchSizes } from '../entities/SizeRepository';
-import { FetchToppings } from '../entities/ToppingRepository';
+import { FetchSizes } from './SizeRepository';
+import { FetchToppings } from './ToppingRepository';
+import { PriceList } from './PriceList';
 
-interface Price {
-  readonly type: string,
-  readonly id: string,
-  readonly price: number,
-  readonly toppingPriceMultiplier?: number,
-}
-
-type GetPricesResponse = Price[];
-
-export default class GetPrices {
+export default class PriceListLoader {
   constructor(
     private readonly fetchSizes: FetchSizes,
     private readonly fetchToppings: FetchToppings,
   ) { }
 
-  public async execute(): Promise<GetPricesResponse> {
+  public async load(): Promise<PriceList> {
     const sizes = await this.fetchSizes();
     const toppings = await this.fetchToppings();
     const sizePrices = sizes.map((size) => ({

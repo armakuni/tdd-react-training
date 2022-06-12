@@ -3,7 +3,6 @@ import './App.css';
 import SizeSelector from './components/SizeSelector';
 import ToppingsSelector from './components/ToppingsSelector';
 import PizzaSummary from './components/PizzaSummary';
-import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
 import * as Pizza from './state/Pizza';
 import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
@@ -12,9 +11,10 @@ import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
 import GetSizes from '../model/usecases/GetSizes';
 import GetSauces from '../model/usecases/GetSauces';
 import GetToppings from '../model/usecases/GetToppings';
-import GetPrices from '../model/usecases/GetPrices';
-import groupBy from '../helpers/groupBy';
+import PriceListLoader from '../model/entities/PriceListLoader';
 import Loader from './components/Loader';
+import SummarisePizza from '../model/usecases/SummarisePizza';
+import calculatePrice from '../model/entities/calculatePrice';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -25,16 +25,17 @@ function submitOrder(): boolean {
 function App() {
   const [pizza, setPizza] = useState(Pizza.create());
 
-  const getPrices = useCallback(async () => {
-    const priceList = await new GetPrices(fetchSizes, fetchToppings).execute();
+  const getPrice = useCallback(async () => {
+    const result = await new SummarisePizza(
+      () => new PriceListLoader(fetchSizes, fetchToppings).load(),
+      calculatePrice,
+    ).execute({
+      size: pizza.size || '',
+      toppings: Array.from(pizza.toppings),
+    });
 
-    const result = groupBy((price) => price.type, priceList);
-
-    return {
-      sizes: result.size.map((size) => ({ ...size, size: size.id })),
-      toppings: result.topping,
-    };
-  }, []);
+    return result;
+  }, [pizza]);
 
   const selectSize = useCallback((size: string) => {
     setPizza((current) => Pizza.setSize(current, size));
@@ -53,7 +54,7 @@ function App() {
     return Object.fromEntries(sizes.map(({ id, display }) => [id, display]));
   }, []);
 
-  const getSauces = useCallback(async () => {
+  const getSauces = useCallback(async (): Promise<Record<string, string>> => {
     const sauces = await new GetSauces(fetchSauces).execute();
     return Object.fromEntries(sauces.map(({ id, display }) => [id, display]));
   }, []);
@@ -76,11 +77,11 @@ function App() {
 
         <div className="block">
           <h2 className="block__header">Your Order</h2>
-          <Loader loader={getPrices}>
-            {(prices) => (
+          <Loader loader={getPrice}>
+            {(summary) => (
               <PizzaSummary
                 size={pizza.size as string}
-                price={calculatePizzaCost(prices)(pizza) as string}
+                price={summary.price.toString()}
               />
             )}
           </Loader>

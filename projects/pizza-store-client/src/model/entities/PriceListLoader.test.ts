@@ -1,11 +1,11 @@
-import { Size } from '../entities/Size';
-import { FetchSizes } from '../entities/SizeRepository';
-import { Topping } from '../entities/Topping';
-import { FetchToppings } from '../entities/ToppingRepository';
-import GetPrices from './GetPrices';
+import { Size } from './Size';
+import { FetchSizes } from './SizeRepository';
+import { Topping } from './Topping';
+import { FetchToppings } from './ToppingRepository';
+import PriceListLoader from './PriceListLoader';
 
-describe('GetPrices', () => {
-  describe('.execute()', () => {
+describe('PriceListLoader', () => {
+  describe('.load()', () => {
     const sizes: Size[] = [
       {
         id: 's',
@@ -29,8 +29,8 @@ describe('GetPrices', () => {
     const fetchToppings: FetchToppings = () => Promise.resolve(toppings);
 
     it('returns the size prices', async () => {
-      const usecase = new GetPrices(fetchSizes, fetchToppings);
-      const prices = await usecase.execute();
+      const usecase = new PriceListLoader(fetchSizes, fetchToppings);
+      const prices = await usecase.load();
       expect(prices).toContainEqual({
         type: 'size', id: 's', price: 10, toppingPriceMultiplier: 1,
       });
@@ -40,8 +40,8 @@ describe('GetPrices', () => {
     });
 
     it('returns the topping prices', async () => {
-      const usecase = new GetPrices(fetchSizes, fetchToppings);
-      const prices = await usecase.execute();
+      const usecase = new PriceListLoader(fetchSizes, fetchToppings);
+      const prices = await usecase.load();
       expect(prices).toContainEqual({ type: 'topping', id: 'mid', price: 1 });
       expect(prices).toContainEqual({ type: 'topping', id: 'oid', price: 1 });
     });

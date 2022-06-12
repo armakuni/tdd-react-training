@@ -71,5 +71,5 @@ test('renders the pizza shop', async () => {
   fireEvent.click(screen.getByLabelText('Mushrooms'));
 
   expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
-  expect(screen.getByText(/Price.*£.*23/)).toBeVisible();
+  expect(await screen.findByText(/Price.*£.*23/)).toBeVisible();
 });
