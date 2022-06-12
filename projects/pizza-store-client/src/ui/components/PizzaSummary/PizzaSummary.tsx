@@ -1,9 +1,9 @@
-interface PizzaProps {
+interface PizzaSummaryProps {
   size: string,
   price: string,
 }
 
-export default function PizzaSummary({ size, price }: PizzaProps) {
+export default function PizzaSummary({ size, price }: PizzaSummaryProps) {
   return (
     <div>
       <div>
