@@ -7,9 +7,7 @@ describe('SizeSelector', () => {
   let onUpdate: (_value: string) => void;
   let view: RenderResult;
 
-  const fetchSizes: SizesFetcher = () => new Promise((resolve) => {
-    resolve(['big', 'small']);
-  });
+  const fetchSizes: SizesFetcher = () => Promise.resolve(['big', 'small']);
 
   beforeEach(async () => {
     onUpdate = jest.fn();

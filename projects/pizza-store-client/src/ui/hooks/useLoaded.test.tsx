@@ -45,9 +45,7 @@ describe('useLoader', () => {
   });
 
   it('loads the data', async () => {
-    const loader: TestLoader = () => new Promise((resolve) => {
-      resolve('example result');
-    });
+    const loader: TestLoader = () => Promise.resolve('example result');
 
     render(<TestComponent loader={loader} />);
 
@@ -56,9 +54,7 @@ describe('useLoader', () => {
   });
 
   it('reports an error', async () => {
-    const loader: TestLoader = () => new Promise((_resolve, reject) => {
-      reject(new Error('there was an error'));
-    });
+    const loader: TestLoader = () => Promise.reject(new Error('there was an error'));
 
     render(<TestComponent loader={loader} />);
 

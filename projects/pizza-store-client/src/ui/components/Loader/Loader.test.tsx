@@ -13,9 +13,7 @@ describe('Loader', () => {
 
   describe('when loaded', () => {
     beforeEach(async () => {
-      const loader: LoadFunction<string[]> = () => new Promise((resolve) => {
-        resolve(['big', 'small']);
-      });
+      const loader: LoadFunction<string[]> = () => Promise.resolve(['big', 'small']);
       view = render(<Loader loader={loader}>{mockChildren}</Loader>);
       await screen.findByText('big');
     });
@@ -33,9 +31,7 @@ describe('Loader', () => {
 
   describe('when an error occurred', () => {
     beforeEach(async () => {
-      const loader: LoadFunction<string[]> = () => new Promise((_resolve, reject) => {
-        reject(new Error('there was an error'));
-      });
+      const loader: LoadFunction<string[]> = () => Promise.reject(new Error('there was an error'));
       view = render(<Loader loader={loader}>{mockChildren}</Loader>);
       await screen.findByText('there was an error');
     });

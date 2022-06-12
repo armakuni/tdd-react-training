@@ -7,9 +7,7 @@ describe('SauceSelector', () => {
   let view: RenderResult;
   let onUpdate: (_value: string) => void;
 
-  const fetchSauces: SaucesFetcher = () => new Promise((resolve) => {
-    resolve(['tomato', 'no-sauce']);
-  });
+  const fetchSauces: SaucesFetcher = () => Promise.resolve(['tomato', 'no-sauce']);
 
   beforeEach(async () => {
     onUpdate = jest.fn();

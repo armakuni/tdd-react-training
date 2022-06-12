@@ -14,9 +14,7 @@ describe('ToppingsSelector', () => {
   let onUpdate: (selected: Set<string>) => void;
   let view: RenderResult;
 
-  const fetchToppings: ToppingsFetcher = () => new Promise((resolve) => {
-    resolve(toppings);
-  });
+  const fetchToppings: ToppingsFetcher = () => Promise.resolve(toppings);
 
   beforeEach(async () => {
     onUpdate = jest.fn();
