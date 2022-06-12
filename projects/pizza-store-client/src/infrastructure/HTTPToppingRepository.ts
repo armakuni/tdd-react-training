@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { Topping } from '../model/entities/Topping';
+/* eslint-disable import/prefer-default-export */
 import { FetchToppings } from '../model/entities/ToppingRepository';
 
-// eslint-disable-next-line import/prefer-default-export
+// eslint-disable-next-line arrow-body-style
 export const fetchToppings: FetchToppings = async () => {
-  const response = await axios.get<Topping[]>('http://localhost:5001/toppings');
-  return response.data;
+  // TODO Fetch from the toppings API
+  return Promise.resolve([]);
 };

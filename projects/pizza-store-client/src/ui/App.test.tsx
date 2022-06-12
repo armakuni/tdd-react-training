@@ -63,16 +63,19 @@ test('renders the pizza shop', async () => {
   expect(await screen.findByLabelText('Garlic Bread')).toBeVisible();
   expect(await screen.findByLabelText('Tomato')).toBeVisible();
 
-  expect(await screen.findByText('Choose your toppings')).toBeVisible();
-  expect(await screen.findByLabelText('Pepperoni')).toBeVisible();
-  expect(await screen.findByLabelText('Anchovies')).toBeVisible();
-  expect(await screen.findByLabelText('Mushrooms')).toBeVisible();
+  // TODO Implement the functionality to make the rest of this test pass
 
-  fireEvent.click(screen.getByLabelText('Large'));
-  fireEvent.click(screen.getByLabelText('Tomato'));
-  fireEvent.click(screen.getByLabelText('Pepperoni'));
-  fireEvent.click(screen.getByLabelText('Mushrooms'));
+  // expect(await screen.findByText('Choose your toppings')).toBeVisible();
+  // expect(await screen.findByLabelText('Pepperoni')).toBeVisible();
+  // expect(await screen.findByLabelText('Anchovies')).toBeVisible();
+  // expect(await screen.findByLabelText('Mushrooms')).toBeVisible();
 
-  expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
-  expect(await screen.findByText(/£23/)).toBeVisible();
+  // fireEvent.click(screen.getByLabelText('Large'));
+  // fireEvent.click(screen.getByLabelText('Tomato'));
+  // TODO Implement the functionality to make these pass
+  // fireEvent.click(screen.getByLabelText('Pepperoni'));
+  // fireEvent.click(screen.getByLabelText('Mushrooms'));
+
+  // expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
+  // expect(await screen.findByText(/£23/)).toBeVisible();
 });

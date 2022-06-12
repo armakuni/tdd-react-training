@@ -1,8 +1,4 @@
-import {
-  Fragment, useEffect, useId, useState,
-} from 'react';
 import './ToppingsSelector.css';
-import Loader from '../Loader';
 
 export interface ToppingDetails {
   id: string;
@@ -17,45 +13,26 @@ type ToppingsSelectorProps = {
 }
 
 export default function ToppingsSelector({ fetchToppings, onUpdate }: ToppingsSelectorProps) {
-  const [selected, setSelected] = useState(new Set<string>());
-  const id = useId();
+  // TODO Implement a set of checkboxes for the set of toppings returned by fetchToppings
 
-  useEffect(() => {
-    onUpdate(selected);
-  }, [onUpdate, selected]);
+  // TODO Each time a checkbox is checked or unchecked, set the set of selected topping IDs back with onUpdate()
 
-  const toggle = (toppingId: string) => {
-    setSelected((current) => {
-      const selectedCopy = new Set(current);
-      if (selectedCopy.has(toppingId)) {
-        selectedCopy.delete(toppingId);
-      } else {
-        selectedCopy.add(toppingId);
-      }
-      return selectedCopy;
-    });
-  };
+  // TODO Make the final output look like this
+  // <fieldset className="multiple-choice">
+  //   <legend className="multiple-choice__question">Choose your toppings</legend>
+  //   <input
+  //     id="???-topping-olives"
+  //     type="checkbox"
+  //   />
+  //   <label for="???-topping-olives">Olives</label>
+  //   <br />
+  //   <input
+  //     id="???-topping-rocket"
+  //     type="checkbox"
+  //   />
+  //   <label for="???-topping-rocket">Rocket</label>
+  //   <br />
+  // </fieldset>;
 
-  return (
-    <Loader loader={fetchToppings}>
-      {(toppings) => (
-        <fieldset className="multiple-choice">
-          <legend className="multiple-choice__question">Choose your toppings</legend>
-          { toppings.map((topping) => (
-            <Fragment key={topping.id}>
-              <input
-                id={`${id}-topping-${topping.id}`}
-                type="checkbox"
-                checked={selected.has(topping.id)}
-                onChange={() => toggle(topping.id)}
-              />
-              <label htmlFor={`${id}-topping-${topping.id}`}>{ topping.display }</label>
-              <br />
-            </Fragment>
-          )) }
-        </fieldset>
-      )}
-
-    </Loader>
-  );
+  return <div className="under-construction" />;
 }
