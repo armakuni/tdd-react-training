@@ -12,6 +12,9 @@ import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
 import GetSizes from '../model/usecases/GetSizes';
 import GetSauces from '../model/usecases/GetSauces';
 import GetToppings from '../model/usecases/GetToppings';
+import GetPrices from '../model/usecases/GetPrices';
+import groupBy from '../helpers/groupBy';
+import Loader from './components/Loader';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert
@@ -22,20 +25,16 @@ function submitOrder(): boolean {
 function App() {
   const [pizza, setPizza] = useState(Pizza.create());
 
-  const prices = {
-    sizes: [
-      { size: 'large', price: 15, toppingPriceMultiplier: 2 },
-      { size: 'medium', price: 10, toppingPriceMultiplier: 1.5 },
-      { size: 'small', price: 5, toppingPriceMultiplier: 1 },
-      { size: '', price: 0 }],
-    toppings: [
-      { id: 'mushroom', price: 0.5 },
-      { id: 'anchovy', price: 1 },
-      { id: 'pepperoni', price: 1.5 },
-      { id: 'ham', price: 1.5 },
-      { id: 'olives', price: 0.5 },
-      { id: 'chillis', price: 1 }],
-  };
+  const getPrices = useCallback(async () => {
+    const priceList = await new GetPrices(fetchSizes, fetchToppings).execute();
+
+    const result = groupBy((price) => price.type, priceList);
+
+    return {
+      sizes: result.size.map((size) => ({ ...size, size: size.id })),
+      toppings: result.topping,
+    };
+  }, []);
 
   const selectSize = useCallback((size: string) => {
     setPizza((current) => Pizza.setSize(current, size));
@@ -69,7 +68,14 @@ function App() {
 
         <div className="block">
           <h2 className="block__header">Your Order</h2>
-          <PizzaSummary size={pizza.size as string} price={calculatePizzaCost(prices)(pizza) as string} />
+          <Loader loader={getPrices}>
+            {(prices) => (
+              <PizzaSummary
+                size={pizza.size as string}
+                price={calculatePizzaCost(prices)(pizza) as string}
+              />
+            )}
+          </Loader>
           <div className="block__footer">
             <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
           </div>

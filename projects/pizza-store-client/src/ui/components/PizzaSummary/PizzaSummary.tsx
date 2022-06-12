@@ -3,7 +3,7 @@ interface PizzaProps {
   price: string,
 }
 
-export default function Pizza({ size, price }: PizzaProps) {
+export default function PizzaSummary({ size, price }: PizzaProps) {
   return (
     <div>
       <div>
