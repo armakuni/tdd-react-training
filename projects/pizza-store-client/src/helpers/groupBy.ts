@@ -1,4 +1,4 @@
-export default function groupBy<Item>(f: (item: Item) => string, items: Item[]): { [key: string]: Item[] } {
+export default function groupBy<Item>(f: (item: Item) => string, items: Item[]): Record<string, Item[]> {
   const result: Record<string, Item[]> = {};
 
   items.forEach((item) => {
