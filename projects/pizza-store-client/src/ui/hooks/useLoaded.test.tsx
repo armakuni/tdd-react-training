@@ -61,4 +61,18 @@ describe('useLoader', () => {
     expect(await screen.findByText(/there was an error/)).toBeInTheDocument();
     expect(screen.queryByText('loading')).not.toBeInTheDocument();
   });
+
+  it('shows the spinner on reload', async () => {
+    const loader: TestLoader = () => Promise.resolve('example result');
+
+    const { rerender } = render(<TestComponent loader={loader} />);
+    await screen.findByText(/example result/);
+
+    const newLoader: TestLoader = () => new Promise(() => {
+      /* never resolve */
+    });
+    rerender(<TestComponent loader={newLoader} />);
+
+    expect(await screen.findByText('loading')).toBeInTheDocument();
+  });
 });

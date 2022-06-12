@@ -79,17 +79,19 @@ function App() {
           <h2 className="block__header">Your Order</h2>
           <Loader loader={getSummary}>
             {(summary) => (
-              <PizzaSummary
-                size={summary.size}
-                sauce={summary.sauce}
-                toppings={summary.toppings}
-                price={summary.price.toString()}
-              />
+              <>
+                <PizzaSummary
+                  size={summary.size}
+                  sauce={summary.sauce}
+                  toppings={summary.toppings}
+                  price={summary.price.toString()}
+                />
+                <div className="block__footer">
+                  <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
+                </div>
+              </>
             )}
           </Loader>
-          <div className="block__footer">
-            <button className="order_button" type="submit" onClick={submitOrder}>Buy</button>
-          </div>
         </div>
       </div>
     </div>

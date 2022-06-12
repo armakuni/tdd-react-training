@@ -34,6 +34,8 @@ export default function useLoader<ResponseType>(load: () => Promise<ResponseType
       setState({ state: 'error', error: message });
     }
 
+    setState({ state: 'loading' });
+
     load()
       .then(setLoaded)
       .catch((error: Error) => {

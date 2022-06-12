@@ -63,27 +63,31 @@ export default function server(): Express {
   });
 
   app.get('/sauces', (_, res) => {
-    res
-      .status(200)
-      .send([
-        { id: 'none', display: 'None' },
-        { id: 'tomato', display: 'Tomato' },
-        { id: 'white', display: 'White' },
-        { id: 'garlic', display: 'Garlic Bread' },
-      ]);
+    setTimeout(() => {
+      res
+        .status(200)
+        .send([
+          { id: 'none', display: 'None' },
+          { id: 'tomato', display: 'Tomato' },
+          { id: 'white', display: 'White' },
+          { id: 'garlic', display: 'Garlic Bread' },
+        ]);
+    }, 500);
   });
 
   app.get('/toppings', (_, res) => {
-    res
-      .status(200)
-      .send([
-        { id: 'mushroom', display: 'Mushrooms', price: 0.5 },
-        { id: 'anchovy', display: 'Anchovies', price: 1 },
-        { id: 'pepperoni', display: 'Pepperoni', price: 1.5 },
-        { id: 'ham', display: 'Ham', price: 1.5 },
-        { id: 'olives', display: 'Olives', price: 0.5 },
-        { id: 'chillis', display: 'Chillis', price: 1 },
-      ]);
+    setTimeout(() => {
+      res
+        .status(200)
+        .send([
+          { id: 'mushroom', display: 'Mushrooms', price: 0.5 },
+          { id: 'anchovy', display: 'Anchovies', price: 1 },
+          { id: 'pepperoni', display: 'Pepperoni', price: 1.5 },
+          { id: 'ham', display: 'Ham', price: 1.5 },
+          { id: 'olives', display: 'Olives', price: 0.5 },
+          { id: 'chillis', display: 'Chillis', price: 1 },
+        ]);
+    }, 250);
   });
 
   return app;
