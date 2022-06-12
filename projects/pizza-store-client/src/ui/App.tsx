@@ -5,16 +5,11 @@ import ToppingsSelector from './components/ToppingsSelector';
 import PizzaSummary from './components/PizzaSummary';
 import SauceSelector from './components/SauceSelector';
 import * as Pizza from './state/Pizza';
-import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
-import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
-import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
-import GetSizes, { GetSizesResponse } from '../model/usecases/GetSizes';
-import GetSauces, { GetSaucesResponse } from '../model/usecases/GetSauces';
-import GetToppings, { GetToppingsResponse } from '../model/usecases/GetToppings';
-import PriceListLoader from '../model/entities/PriceListLoader';
+import { GetSizesResponse } from '../model/usecases/GetSizes';
+import { GetSaucesResponse } from '../model/usecases/GetSauces';
+import { GetToppingsResponse } from '../model/usecases/GetToppings';
 import Loader from './components/Loader';
-import SummarisePizza, { SummarisePizzaRequest, SummarisePizzaResponse } from '../model/usecases/SummarisePizza';
-import calculatePrice from '../model/entities/calculatePrice';
+import { SummarisePizzaRequest, SummarisePizzaResponse } from '../model/usecases/SummarisePizza';
 
 function submitOrder(): boolean {
   // eslint-disable-next-line no-alert

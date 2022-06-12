@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { setupUseCases } from './setupUseCases';
+import setupUseCases from './setupUseCases';
 import App from './ui/App';
 
 const useCases = setupUseCases();
