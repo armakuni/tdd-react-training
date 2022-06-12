@@ -1,11 +1,8 @@
-import { FetchSauces } from '../entities/SauceRepository';
-
 export type GetSaucesResponse = { id: string, display: string }[];
 
 export default class GetSauces {
-  constructor(private readonly fetchSauces: FetchSauces) { }
-
+  // eslint-disable-next-line class-methods-use-this
   public execute(): Promise<GetSaucesResponse> {
-    return this.fetchSauces();
+    return Promise.resolve([]);
   }
 }

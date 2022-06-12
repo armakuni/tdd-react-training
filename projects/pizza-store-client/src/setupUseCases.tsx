@@ -1,4 +1,3 @@
-import { fetchSauces } from './infrastructure/HTTPSauceRepository';
 import { fetchSizes } from './infrastructure/HTTPSizeRespository';
 import { fetchToppings } from './infrastructure/HTTPToppingRepository';
 import calculatePrice from './model/entities/calculatePrice';
@@ -13,7 +12,7 @@ export default function setupUseCases(): UseCases {
   const priceLoader = new PriceListLoader(fetchSizes, fetchToppings);
 
   const getSizesUseCase = new GetSizes(fetchSizes);
-  const getSaucesUseCase = new GetSauces(fetchSauces);
+  const getSaucesUseCase = new GetSauces();
   const getToppingsUseCase = new GetToppings();
   const summarisePizzaUseCase = new SummarisePizza(() => priceLoader.load(), calculatePrice);
 

@@ -9,15 +9,5 @@ interface SauceSelectorProps {
 }
 
 export default function SauceSelector({ fetchSauces, onUpdate }: SauceSelectorProps) {
-  return (
-    <Loader loader={fetchSauces}>
-      {(sauces) => (
-        <Options
-          question="Select the sauce for your pizza"
-          options={sauces}
-          onUpdate={onUpdate}
-        />
-      )}
-    </Loader>
-  );
+  return <div className="under-construction" />;
 }

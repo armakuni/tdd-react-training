@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { Sauce } from '../model/entities/Sauce';
+/* eslint-disable import/prefer-default-export */
 import { FetchSauces } from '../model/entities/SauceRepository';
 
-// eslint-disable-next-line import/prefer-default-export
-export const fetchSauces: FetchSauces = async () => {
-  const response = await axios.get<Sauce[]>('http://localhost:5001/sauces');
-  return response.data;
+// eslint-disable-next-line arrow-body-style
+export const fetchSauces: FetchSauces = () => {
+  // TODO Fetch from the toppings API
+  return Promise.resolve([]);
 };

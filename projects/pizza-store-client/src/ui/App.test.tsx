@@ -59,9 +59,9 @@ test('renders the pizza shop', async () => {
   expect(await screen.findByLabelText('Large')).toBeVisible();
   expect(await screen.findByLabelText('Small')).toBeVisible();
 
-  expect(await screen.findByText('Select the sauce for your pizza')).toBeVisible();
-  expect(await screen.findByLabelText('Garlic Bread')).toBeVisible();
-  expect(await screen.findByLabelText('Tomato')).toBeVisible();
+  // expect(await screen.findByText('Select the sauce for your pizza')).toBeVisible();
+  // expect(await screen.findByLabelText('Garlic Bread')).toBeVisible();
+  // expect(await screen.findByLabelText('Tomato')).toBeVisible();
 
   // TODO Implement the functionality to make the rest of this test pass
 
