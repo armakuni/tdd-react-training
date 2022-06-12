@@ -5,7 +5,7 @@ import ToppingsSelector from './components/ToppingsSelector';
 import PizzaSummary from './components/PizzaSummary';
 import { calculatePizzaCost } from './components/PriceCalculator/PriceCalculator';
 import SauceSelector from './components/SauceSelector';
-import * as Pizza from '../model/entities/Pizza';
+import * as Pizza from './state/Pizza';
 import { fetchSizes } from '../infrastructure/HTTPSizeRespository';
 import { fetchSauces } from '../infrastructure/HTTPSauceRepository';
 import { fetchToppings } from '../infrastructure/HTTPToppingRepository';
