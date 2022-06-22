@@ -12,7 +12,6 @@ export interface Product {
 }
 
 export interface Order {
-  readonly orderId: string;
   readonly items: Item[];
 }
 
