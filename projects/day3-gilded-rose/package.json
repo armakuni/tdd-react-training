@@ -2,6 +2,7 @@
   "name": "gilded-rose-kata",
   "version": "1.0.0",
   "description": "Gilded Rose kata in TypeScript",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll"
@@ -18,5 +19,9 @@
     "ts-node": "^10.8.1",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "ts-complex": "^1.0.0",
+    "typhonjs-escomplex": "^0.1.0"
   }
 }
