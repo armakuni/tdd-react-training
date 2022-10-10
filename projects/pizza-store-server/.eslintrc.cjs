@@ -24,7 +24,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist/', 'coverage/', '.eslintrc.cjs', 'jest.config.ts'],
+  ignorePatterns: ['dist/', 'coverage/', '.eslintrc.cjs', 'jest.config.ts', '*.tsx'],
   rules: {
     'import/extensions': [
       'error',
@@ -33,7 +33,6 @@ module.exports = {
         js: 'never',
         jsx: 'never',
         ts: 'never',
-        tsx: 'never',
       },
     ],
   },
