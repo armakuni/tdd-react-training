@@ -1,13 +1,11 @@
 import {
   fireEvent, render, RenderResult, screen, waitFor,
 } from '@testing-library/react';
-import ToppingsSelector from './ToppingsSelector';
-import { ToppingsFetcher } from './ToppingsSelector'
+import ToppingsSelector, { ToppingsFetcher } from './ToppingsSelector';
 
 describe('ToppingsSelector', () => {
-
   it('displays the title', async () => {
-    const {container} = render(
+    const { container } = render(
       <ToppingsSelector
         fetchToppings={() => Promise.resolve([{ id: 'pepperoni', display: 'Pepperoni' }])}
         onUpdate={() => { /* do nothing */ }}
@@ -20,6 +18,6 @@ describe('ToppingsSelector', () => {
 
       const option1 = container.querySelector('label');
       expect(option1?.textContent).toBe('Pepperoni');
-    })
+    });
   });
 });

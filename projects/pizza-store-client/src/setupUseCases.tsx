@@ -14,7 +14,7 @@ export default function setupUseCases(): UseCases {
 
   const getSizesUseCase = new GetSizes(fetchSizes);
   const getSaucesUseCase = new GetSauces(fetchSauces);
-  const getToppingsUseCase = new GetToppings();
+  const getToppingsUseCase = new GetToppings(fetchToppings);
   const summarisePizzaUseCase = new SummarisePizza(() => priceLoader.load(), calculatePrice);
 
   return {

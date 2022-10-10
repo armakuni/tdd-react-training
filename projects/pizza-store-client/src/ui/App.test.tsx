@@ -1,5 +1,5 @@
 import {
-  fireEvent, render, screen,
+  fireEvent, render, screen, act
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -52,7 +52,7 @@ test('renders the pizza shop', async () => {
 
   const useCases = setupUseCases();
 
-  render(<App useCases={useCases} />);
+  const { container } = render(<App useCases={useCases} />);
 
   expect(await screen.findByRole('heading', { name: 'Build Your Order' })).toBeVisible();
   expect(await screen.findByText('Select the size of your pizza')).toBeVisible();
@@ -67,15 +67,22 @@ test('renders the pizza shop', async () => {
 
   expect(await screen.findByText('Choose your toppings')).toBeVisible();
   expect(await screen.findByLabelText('Pepperoni')).toBeVisible();
-  // expect(await screen.findByLabelText('Anchovies')).toBeVisible();
-  // expect(await screen.findByLabelText('Mushrooms')).toBeVisible();
+  expect(await screen.findByLabelText('Anchovies')).toBeVisible();
+  expect(await screen.findByLabelText('Mushrooms')).toBeVisible();
 
-  // fireEvent.click(screen.getByLabelText('Large'));
-  // fireEvent.click(screen.getByLabelText('Tomato'));
-  // TODO Implement the functionality to make these pass
-  // fireEvent.click(screen.getByLabelText('Pepperoni'));
-  // fireEvent.click(screen.getByLabelText('Mushrooms'));
+  await act( async () => {
+    fireEvent.click(screen.getByLabelText('Large'));
+    fireEvent.click(screen.getByLabelText('Tomato'));
+    // TODO Implement the functionality to make these pass
+    fireEvent.click(screen.getByLabelText('Pepperoni'));
+    fireEvent.click(screen.getByLabelText('Mushrooms'));
+    fireEvent.click(screen.getByLabelText('Anchovies'));
 
-  // expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
-  // expect(await screen.findByText(/£23/)).toBeVisible();
+  });
+
+  expect(container.querySelector('.pizza-summary__description')?.textContent)
+  .toEqual("You are orderinga large tomato pizzawith extrapepperoni, mushroom, anchovy");
+
+  expect(screen.getByRole('heading', { name: 'Your Order' })).toBeVisible();
+  expect(await screen.findByText('£28')).toBeVisible();
 });
