@@ -76,7 +76,6 @@ test('renders the pizza shop', async () => {
     // TODO Implement the functionality to make these pass
     fireEvent.click(screen.getByLabelText('Pepperoni'));
     fireEvent.click(screen.getByLabelText('Mushrooms'));
-    fireEvent.click(screen.getByLabelText('Anchovies'));
 
   });
 

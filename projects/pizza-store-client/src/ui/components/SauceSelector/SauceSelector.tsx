@@ -9,7 +9,7 @@ interface SauceSelectorProps {
 }
 
 export default function SauceSelector({ fetchSauces, onUpdate }: SauceSelectorProps) {
-  return (
+  return ( 
     <Loader loader={fetchSauces}>
       {(sauces) => (
         <Options
