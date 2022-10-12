@@ -6,26 +6,37 @@ interface SpoilerProps {
   content: string
 }
 
-export default function Spoiler({ title, content }: SpoilerProps): ReactElement {
-  const [show, setShow] = useState(false);
+const SpoilerState = {
+  HIDDEN: 'hidden',
+  SHOWING: 'showing'
+}
 
-  function toggle(): void {
-    setShow((visible) => !visible);
+const ButtonText = {
+  SHOW: 'Show',
+  HIDE: 'Hide'
+}
+
+export default function Spoiler({ title, content }: SpoilerProps): ReactElement {
+  const [spoilerState, setSpoilerState] = useState(SpoilerState.HIDDEN);
+  let buttonText : string;
+  
+  const isSpoilerShowing = () : boolean => {
+    return spoilerState === SpoilerState.SHOWING 
   }
 
-  const toggleButton: ReactElement = show
-    ? <button type="button" className="spoiler__button" onClick={toggle}>Hide</button>
-    : <button type="button" className="spoiler__button" onClick={toggle}>Show</button>;
+  const clickHandler = () => {
+    setSpoilerState(isSpoilerShowing() ? SpoilerState.HIDDEN : SpoilerState.SHOWING);
+  }
 
-  const contentElement = show ? <div className="spoiler__content">{content}</div> : '';
+  buttonText = isSpoilerShowing() ? ButtonText.HIDE : ButtonText.SHOW;
 
   return (
-    <div className="spoiler">
-      <div className="spoiler__header">
-        {toggleButton}
-        <div className="spoiler__title">{title}</div>
-      </div>
-      {contentElement}
-    </div>
-  );
+    <>
+      <button onClick={clickHandler}>{buttonText}</button>
+      <h2>
+        {title}
+      </h2>
+        {isSpoilerShowing() ? <div className='spoiler__content'>{content}</div> : '' }
+    </>
+  )
 }
