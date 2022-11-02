@@ -1,53 +1,49 @@
 import {
   fireEvent, render, RenderResult, screen,
 } from '@testing-library/react';
+import exp from 'constants';
 import Spoiler from './Spoiler';
 
 describe('<Spoiler />', () => {
   let view: RenderResult;
 
   beforeEach(() => {
-    view = render(<Spoiler title="Example title" content="Secret message" />);
+    view = render(<Spoiler/>);
   });
 
-  describe('when content is hidden', () => {
-    it('displays the title', () => {
-      expect(screen.getByText('Example title')).toBeVisible();
-    });
+  describe('Spoiler Component', () => {
+    // it('displays the title passed in the prop', () => {
+    //     expect(screen.getByRole('title')).toHaveTextContent('Example title');
+    // });
 
-    it('does not display the content', () => {
-      expect(screen.queryByText('Secret message')).not.toBeInTheDocument();
-    });
+    // it('shows the spoiler content when the "show" button is clicked', () => {
+    //   fireEvent.click(screen.getByText('Show'));
 
-    it('does not display the Hide button', () => {
-      expect(screen.queryByText('Hide')).not.toBeInTheDocument();
-    });
+    //   expect(screen.queryByRole('content')).toBeInTheDocument();
+    //   expect(screen.getByRole('content')).toHaveTextContent('Test content');
+    // });
 
-    it('matches the snapshot', () => {
-      expect(view).toMatchSnapshot();
-    });
-  });
+    // it('does not display the passed content in the prop by default', () => {
+    //   expect(screen.queryByRole('content')).not.toBeInTheDocument();
+    // });
 
-  describe('when content is shown', () => {
-    beforeEach(() => {
-      fireEvent.click(screen.getByText('Show'));
-    });
+    // it('hides the spoiler content when the "hide" button is clicked', () => {
+    //   // given show was already clicked
+    //   fireEvent.click(screen.getByText('Show'));
 
-    it('displays the content', () => {
-      expect(screen.getByText('Secret message')).toBeVisible();
-    });
+    //   // when I "hide"
+    //   fireEvent.click(screen.getByText('Hide'));
 
-    it('does not display the Show button', () => {
-      expect(screen.queryByText('Show')).not.toBeInTheDocument();
-    });
+    //   expect(screen.queryByRole('content')).not.toBeInTheDocument();
+    // });
 
-    it('hides the content when the Hide button is clicked', () => {
-      fireEvent.click(screen.getByText('Hide'));
-      expect(screen.queryByText('Secret message')).not.toBeInTheDocument();
-    });
+    // it('matches the spoiler-showing snapshot', () => {
+    //   expect(view).toMatchSnapshot();
+    // })
 
-    it('matches the snapshot', () => {
-      expect(view).toMatchSnapshot();
-    });
+    // it('matches the spoiler-showing snapshot', () => {
+    //   fireEvent.click(screen.getByText('Show'));
+    //   expect(view).toMatchSnapshot();
+    // })
   });
 });
