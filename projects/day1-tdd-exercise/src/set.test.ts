@@ -1,11 +1,11 @@
 import ElementSet from "./set";
 
 describe('Set', () => {
-    it('creates a set containing only A given one element "A"', ()=> {
+    it('creates an empty set given no arugments', ()=> {
 
-        const mySet = new ElementSet(['A']);
+        const mySet = new ElementSet();
 
-        expect(mySet).toEqual(new ElementSet(['A']));
+        expect(mySet.elements).toEqual([]);
     })
 
 })
