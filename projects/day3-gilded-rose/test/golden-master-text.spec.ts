@@ -5,21 +5,21 @@ import * as path from 'path'
 describe('gilded rose', () => {
   test('golden master', () => {
     const itemNames = [
-      // "Aged Brie",
-      // "Elixir of the Mongoose",
-      // "Sulfuras, Hand of Ragnaros",
-      // "Backstage passes to a TAFKAL80ETC concert",
+      "Aged Brie",
+      "Elixir of the Mongoose",
+      "Sulfuras, Hand of Ragnaros",
+      "Backstage passes to a TAFKAL80ETC concert",
     ];
 
     const sellIns = [
-      // -1, 0, 1, 5, 6, 7, 9, 10, 11
+      -1, 0, 1, 5, 6, 7, 9, 10, 11
     ];
 
     const qualities = [
-      // 1, 49, 50, 51
+      1, 49, 50, 51
     ];
 
-    const days = 1;
+    const days = 2;
 
     const items = itemNames.flatMap(
       name => sellIns.flatMap(
