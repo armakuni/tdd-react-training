@@ -1,4 +1,8 @@
 import './ToppingsSelector.css';
+import Loader from '../Loader';
+import {
+  Fragment, useEffect, useId, useState,
+} from 'react';
 
 export interface ToppingDetails {
   id: string;
@@ -17,6 +21,7 @@ export default function ToppingsSelector({ fetchToppings, onUpdate }: ToppingsSe
 
   // TODO Each time a checkbox is checked or unchecked, set the set of selected topping IDs back with onUpdate()
 
+  // TODO Use <Loader loader={fetchToppings}></Loader> to provide the data for the component
   // TODO Make the final output look like this
   // <fieldset className="multiple-choice">
   //   <legend className="multiple-choice__question">Choose your toppings</legend>
