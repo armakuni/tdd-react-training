@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "cucumber": "cucumber-js -p default"
+    "cucumber": " ../../node_modules/.bin/cucumber-js -p default"
   },
   "eslintConfig": {
     "extends": [
