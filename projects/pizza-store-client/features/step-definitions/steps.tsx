@@ -1,17 +1,21 @@
+import { Given, When, Then, Before, BeforeAll, AfterAll } from '@cucumber/cucumber'
+import assert from 'assert'
 import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import App from './App';
+import React from 'react';
+
+import App from '../../src/ui/App'
 
 const httpMock = new MockAdapter(axios);
 
-afterEach(() => {
-  httpMock.reset();
+AfterAll(() => {
+  httpMock.reset()
 });
 
-test('renders the pizza shop', async () => {
+BeforeAll(() => {
   const sizes = [
     {
       id: 'large',
@@ -45,8 +49,18 @@ test('renders the pizza shop', async () => {
     .reply(200, sauces)
     .onGet('http://localhost:5001/toppings')
     .reply(200, toppings);
+ 
   
-  const App = require('../../src/ui/App.tsx');
-
   render(<App />);
 });
+
+Given('I have chosen the {string} sauce', function (name: string) {
+    // Write code here that turns the phrase above into concrete actions
+    screen.debug()
+    assert.equal(1,1)
+});
+
+When('I choose the {string} size', (size: string) => {
+  console.log(size)
+  // Write code here that turns the phrase above into concrete actions
+})
