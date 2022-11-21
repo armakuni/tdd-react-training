@@ -1,66 +1,51 @@
-import { Given, When, Then, Before, BeforeAll, AfterAll } from '@cucumber/cucumber'
+import { Given, When, Then, Before, BeforeAll, AfterAll, DataTable } from '@cucumber/cucumber'
 import assert from 'assert'
 import {
-  fireEvent, render, screen,
+  fireEvent, render, screen, getByText
 } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import React from 'react';
+import expect from 'expect'
 
 import App from '../../src/ui/App'
 
+
 const httpMock = new MockAdapter(axios);
 
-AfterAll(() => {
-  httpMock.reset()
-});
-
 BeforeAll(() => {
-  const sizes = [
-    {
-      id: 'large',
-      display: 'Large',
-      price: 15,
-      toppingPriceMultiplier: 2,
-    },
-    {
-      id: 'small',
-      display: 'Small',
-      price: 10,
-      toppingPriceMultiplier: 1,
-    },
-  ];
-
-  const sauces = [
-    { id: 'garlic', display: 'Garlic Bread' },
-    { id: 'tomato', display: 'Tomato' },
-  ];
-
-  const toppings =[
-    { id: 'pepperoni', display: 'Pepperoni', price: 1 },
-    { id: 'anchovy', display: 'Anchovies', price: 2.5 },
-    { id: 'mushroom', display: 'Mushrooms', price: 3.0 },
-  ];
-
-  httpMock
-    .onGet('http://localhost:5001/sizes')
-    .reply(200, sizes)
-    .onGet('http://localhost:5001/sauces')
-    .reply(200, sauces)
-    .onGet('http://localhost:5001/toppings')
-    .reply(200, toppings);
- 
-  
+  httpMock.reset()
   render(<App />);
 });
 
+Given('the available toppings are:', function (dataTable: DataTable) {
+  httpMock.onGet('http://localhost:5001/toppings').reply(200, dataTable.hashes());
+})
+
+Given('the available sauces are:', function (dataTable: DataTable) {
+  httpMock.onGet('http://localhost:5001/sauces').reply(200, dataTable.hashes());
+})
+
+Given('the available sizes are:', function (dataTable: DataTable) {
+  httpMock.onGet('http://localhost:5001/sizes').reply(200, dataTable.hashes());
+})
+
 Given('I have chosen the {string} sauce', function (name: string) {
-    // Write code here that turns the phrase above into concrete actions
-    screen.debug()
-    assert.equal(1,1)
-});
+    const selector = screen.getByText('Choose your sauce')
+    const inputElement = selector?.querySelector(`input[value="${name}"]`) as HTMLElement
+  
+    inputElement.click()
+})
 
 When('I choose the {string} size', (size: string) => {
-  console.log(size)
-  // Write code here that turns the phrase above into concrete actions
+  const selector = screen.getByText('Choose your size')
+  const inputElement = selector?.querySelector(`input[value="${size}"]`) as HTMLElement
+
+  inputElement.click()
+})
+
+Then('the pizza order should read: {string}', (orderText: string) => {
+  const element = screen.getByText('Your Order:').parentElement?.querySelector('.order');
+
+  // expect(element?.textContent).toBe(orderText)
 })
