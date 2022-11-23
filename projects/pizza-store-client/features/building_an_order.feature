@@ -15,18 +15,17 @@ Feature: Pizza order builder - allows customers to customize and build their own
         | small | Small   | 10    | 1                      |
 
     Scenario: Building an order for plain pizza with no sauce or toppings
-        # When I choose the "large" size
-        # Then the Pizza order should read: "Large Pizza"
-        # And its price should be: £15
+        When I choose the "large" size
+        Then the pizza order should read: "Large pizza"
+        And its price should be: £15
 
     Scenario: Building an order for pizza with sauce but no toppings
         Given I have chosen the "tomato" sauce
-        
         When I choose the "large" size
         Then the pizza order should read: "Large tomato pizza"
-        # And its price should be: £15
+        And its price should be: £15
 
-    Scenario: Building an order for pizza with sauce extra toppings
+    # Scenario: Building an order for pizza with sauce extra toppings
         # Given I have chosen the "pepperoni" topping and the "tomato" sauce 
         # When I choose the "Large" size
         # Then the Pizza order should read: "Large tomato pizza with extra Pepperoni"
