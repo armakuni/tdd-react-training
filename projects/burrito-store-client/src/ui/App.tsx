@@ -12,13 +12,14 @@ interface ApiData {
 }
 
 function App({ }: AppProps) {
-  // const [fillings, setDillings] = useState<ApiData[]>([]);
+  // const [fillings, setFillings] = useState<ApiData[]>([]);
   // const [extras, setExtras] = useState<ApiData[]>([]);
   // const [sizes, setSizes] = useState<ApiData[]>([]);
 
 
+
   // const fetchSizes = () => axios.get('http://localhost:5001/sizes')
-  // const fetchEextras = () => axios.get('http://localhost:5001/extras')
+  // const fetchExtras = () => axios.get('http://localhost:5001/extras')
   // const fetchFillings = () => axios.get('http://localhost:5001/fillings')
   
   
@@ -26,7 +27,7 @@ function App({ }: AppProps) {
   //   fetchSizes().then(r => setSizes(r.data))
   //   fetchExtras().then(r => setExtras(r.data))
   //   fetchFillings().then(r => setFillings(r.data))
-  // }, [])
+  // }, [fillings, sizes, extras])
 
     return (
     <div className="app">
