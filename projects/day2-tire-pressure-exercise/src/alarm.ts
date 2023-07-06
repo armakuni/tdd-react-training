@@ -6,7 +6,7 @@ const highPressureThreshold = 21
 export class Alarm {
 
   public sensor = new Sensor();
-  alarmOn = false
+  private alarmOn = false
 
   check(): void {
     let psiPressureValue = this.sensor.popNextPressurePsiValue()

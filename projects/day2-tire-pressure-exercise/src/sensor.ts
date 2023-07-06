@@ -7,7 +7,7 @@ export class Sensor {
     return offset + this.samplePressure()
   }
 
-  public samplePressure(): number
+  private samplePressure(): number
   {
     // placeholder implementation that simulates a real sensor in a real tire
     return 6 * Math.random() * Math.random()
