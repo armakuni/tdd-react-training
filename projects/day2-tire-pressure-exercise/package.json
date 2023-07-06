@@ -19,5 +19,8 @@
     "test": "jest",
     "lint": "eslint .",
     "format": "eslint . --fix"
+  },
+  "dependencies": {
+    "sinon": "^15.2.0"
   }
 }
