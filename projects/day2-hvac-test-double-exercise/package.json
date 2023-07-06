@@ -1,5 +1,5 @@
 {
-  "name": "tdd-exercise",
+  "name": "hvac-tdd-exercise",
   "version": "1.0.0",
   "description": "Basic repository to practice TDD with Jest",
   "private": true,
