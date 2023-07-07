@@ -50,7 +50,14 @@ Date       | Amount | Balance
 2023-01-10 | -500   | 500
 ```
 
-### A test for two transactions, on two different dates
+### A test for attempt to withdraw more than I have
+try to withdraw from zero account - expect Exception 
+
+### Stertch Goal: A test for variable overdraft 
+try to withdraw more than in account + overdraft - expect Exception 
+formatter has asterisk next to the overdrawn balance.
+
+### Advanced: A test for two transactions, on two different dates
 ```
 Date       | Amount | Balance
 2023-01-10 | 1000   | 1000
