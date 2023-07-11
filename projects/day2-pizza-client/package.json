@@ -1,0 +1,23 @@
+{
+  "name": "tdd-exercise",
+  "version": "1.0.0",
+  "description": "Basic repository to practice TDD with Jest",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^27.0.3",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "eslint . --fix"
+  }
+}
